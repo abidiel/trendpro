@@ -52,7 +52,7 @@ if ($banner_query->have_posts()) :
                         <a href="https://api.whatsapp.com/send?phone=55<?php echo esc_attr(str_replace(array('(', ')', ' ', '-'), array('', '', '', ''), get_field('whatsapp', 'option'))); ?>&text=Gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os%20da%20Trend%20Pro."
                             target="_blank"
                             class="btn border-1 btn-transparent-base-color border-color-white btn-extra-large btn-rounded with-rounded mt-20px sm-mt-0 text-white">Falar
-                            com Especialista teste 2354 412412<span class="icon-extra-medium"><i
+                            com Especialista testee<span class="icon-extra-medium"><i
                                     class="fa-brands fa-whatsapp"></i></span></a>
                     </div>
                 </div>
