@@ -1,0 +1,365 @@
+<?php
+ob_start();
+/**************************************
+ *  THEME SUPORT
+ **************************************/
+function add_suport_theme()
+{
+  add_theme_support('post-thumbnails');
+}
+add_action('after_setup_theme', 'add_suport_theme');
+
+
+/**************************************
+ *  SCRIPTS / CSS
+ **************************************/
+function wp_responsivo_scripts()
+{
+  // Obtém a versão atual do tema
+  $theme = wp_get_theme();
+  $theme_version = $theme->get('Version');
+
+  /************************************** Carregando CSS header **************************************/
+  // Css do front
+  wp_enqueue_style('vendors', get_template_directory_uri() . '/assets/css/vendors.min.css', array(), $theme_version);
+  wp_enqueue_style('icon', get_template_directory_uri() . '/assets/css/icon.min.css', array(), $theme_version);
+  wp_enqueue_style('style', get_template_directory_uri() . '/assets/css/style.css', array(), $theme_version);
+  wp_enqueue_style('responsive', get_template_directory_uri() . '/assets/css/responsive.css', array(), $theme_version);
+  wp_enqueue_style('trendpro', get_template_directory_uri() . '/assets/css/trendpro.css', array(), $theme_version);
+
+  // Remove o jQuery padrão do WordPress
+  wp_deregister_script('jquery');
+
+  /************************************** Carregando no footer **************************************/
+
+  wp_enqueue_script('jquery', get_template_directory_uri() . '/assets/js/jquery.js', array(), $theme_version, true);
+  wp_enqueue_script('vendors', get_template_directory_uri() . '/assets/js/vendors.min.js', array('jquery'), $theme_version, true);
+  wp_enqueue_script('main', get_template_directory_uri() . '/assets/js/main.js', array('vendors'), $theme_version, true);
+  wp_enqueue_script('trendpro-js', get_template_directory_uri() . '/assets/js/trendpro.js', array('main'), $theme_version, true);
+
+  wp_localize_script('trendpro-js', 'trendproData', array(
+    'themeUrl' => get_template_directory_uri(),
+  ));
+
+  wp_enqueue_script('jquerymask', get_template_directory_uri() . '/assets/js/jquery.mask.js', array('jquery'), $theme_version, true);
+  wp_enqueue_script('custom-mask', get_template_directory_uri() . '/assets/js/custom-mask.js', array('jquerymask'), $theme_version, true);
+}
+add_action('wp_enqueue_scripts', 'wp_responsivo_scripts');
+
+
+/**************************************
+ *  Remover carregamento do css e js do contact form 7
+Para carregar na página quae vai ser usado o form colocar esse código
+abaixo do get_header();
+if (function_exists('wpcf7_enqueue_scripts')) {
+  wpcf7_enqueue_scripts();
+}
+if (function_exists('wpcf7_enqueue_styles')) {
+  wpcf7_enqueue_styles();
+} 
+ **************************************/
+add_filter('wpcf7_load_js', '__return_false');
+add_filter('wpcf7_load_css', '__return_false');
+
+
+/**************************************
+ * Ativa formatos de posts
+ **************************************/
+// add_theme_support( 'post-formats', array( 'audio', 'aside', 'chat', 'gallery', 'image', 'link', 'quote', 'status', 'video' ) );
+
+
+/**************************************
+ * Registro Menu Personalizado
+ **************************************/
+add_theme_support('menus');
+register_nav_menus(array(
+  // 'primary' => __('Menu topo', 'menu-topo'),
+  // 'secondary' => __('Menu rodapé', 'menu-rodape'),
+  // 'third' => __('Menu responsivo', 'menu-responsivo')
+));
+
+
+/************************************** 
+Admin
+ **************************************/
+require_once get_template_directory() . '/core/painel/admin.php';
+
+
+/************************************** 
+Svg
+ **************************************/
+// require_once get_template_directory().'/inc/svg.php';
+
+/************************************** 
+Allow Svg
+ **************************************/
+/**
+ * Allow SVG uploads for administrator users.
+ *
+ * @param array $upload_mimes Allowed mime types.
+ *
+ * @return mixed
+ */
+add_filter(
+  'upload_mimes',
+  function ($upload_mimes) {
+    // By default, only administrator users are allowed to add SVGs.
+    // To enable more user types edit or comment the lines below but beware of
+    // the security risks if you allow any user to upload SVG files.
+    if (! current_user_can('administrator')) {
+      return $upload_mimes;
+    }
+
+    $upload_mimes['svg']  = 'image/svg+xml';
+    $upload_mimes['svgz'] = 'image/svg+xml';
+
+    return $upload_mimes;
+  }
+);
+
+/**
+ * Add SVG files mime check.
+ *
+ * @param array        $wp_check_filetype_and_ext Values for the extension, mime type, and corrected filename.
+ * @param string       $file Full path to the file.
+ * @param string       $filename The name of the file (may differ from $file due to $file being in a tmp directory).
+ * @param string[]     $mimes Array of mime types keyed by their file extension regex.
+ * @param string|false $real_mime The actual mime type or false if the type cannot be determined.
+ */
+add_filter(
+  'wp_check_filetype_and_ext',
+  function ($wp_check_filetype_and_ext, $file, $filename, $mimes, $real_mime) {
+
+    if (! $wp_check_filetype_and_ext['type']) {
+
+      $check_filetype  = wp_check_filetype($filename, $mimes);
+      $ext             = $check_filetype['ext'];
+      $type            = $check_filetype['type'];
+      $proper_filename = $filename;
+
+      if ($type && 0 === strpos($type, 'image/') && 'svg' !== $ext) {
+        $ext  = false;
+        $type = false;
+      }
+
+      $wp_check_filetype_and_ext = compact('ext', 'type', 'proper_filename');
+    }
+
+    return $wp_check_filetype_and_ext;
+  },
+  10,
+  5
+);
+
+/**************************************
+// cortes de imagens
+add_imagem_size('nome_do_corte0','width',height, array('center','center'));
+ **************************************/
+function configura_tamanho_imagens()
+{
+  add_image_size('logo_topo', 9999, 58, false);
+  add_image_size('logo_rodape', 230, 9999, false);
+  add_image_size('banner_imagem', 1920, 1280, array('center', 'center'));
+  add_image_size('img_breadcrumb', 1920, 600, array('center', 'center'));
+  add_image_size('principal_blog', 815, 9999, false, array('center', 'center'));
+  add_image_size('blog_lista', 800, 1145, array('center', 'center'));
+  add_image_size('img_destacada_projeto_square', 400, 300, array('center', 'center'));
+  add_image_size('img_destacada_projeto_full', 1190, 700, array('center', 'center'));
+  add_image_size('equipe', 480, 605, true);
+  add_image_size('sobre-heading', 1149, 800, true);
+  add_image_size('sobre-imagem', 500, 614, true);
+  add_image_size('cliente-imagem', 200, 200, false);
+  add_image_size('cliente-logo-depoimento', 150, 0, false);
+  add_image_size('video-principal-bg', 1920, 865, true);
+}
+add_action('after_setup_theme', 'configura_tamanho_imagens');
+
+
+
+/************************************** 
+Limita caracteres
+<?php echo LimitarCaracteres(passar o texto, passar o limita que deseja);?>
+ **************************************/
+function LimitarCaracteres($frase, $quantidade)
+{
+  $frase = strip_tags($frase);
+  // $frase = ereg_replace('[[:space:]]+', ' ', $frase);
+  if (strlen($frase) >= $quantidade) {
+    $frase = substr($frase, 0, strrpos(substr($frase, 0, $quantidade), ' ')) . '...';
+  }
+  return $frase;
+}
+
+/************************************** 
+Limita pela quantidade de palavras do texto excerpt
+<?php echo excerpt(passar o limite);?>
+ **************************************/
+function excerpt($limit)
+{
+  $excerpt = explode(' ', get_the_excerpt(), $limit);
+  if (count($excerpt) >= $limit) {
+    array_pop($excerpt);
+    $excerpt = implode(" ", $excerpt) . '...';
+  } else {
+    $excerpt = implode(" ", $excerpt);
+  }
+  $excerpt = preg_replace('`[[^]]*]`', '', $excerpt);
+  return $excerpt;
+}
+
+/************************************** 
+Limita pela quantidade de palavras do texto content
+<?php echo content(passar o limite);?>
+ **************************************/
+function content($limit)
+{
+  $content = explode(' ', get_the_content(), $limit);
+  if (count($content) >= $limit) {
+    array_pop($content);
+    $content = implode(" ", $content) . '...';
+  } else {
+    $content = implode(" ", $content);
+  }
+  $content = preg_replace('/[.+]/', '', $content);
+  $content = apply_filters('the_content', $content);
+  $content = str_replace(']]>', ']]>', $content);
+  return $content;
+}
+
+
+/************************************** 
+Paginção bootstrap
+ **************************************/
+require_once get_template_directory() . '/inc/wp_bootstrap_pagination.php';
+
+
+/**************************************
+ * Remove All Yoast HTML Comments
+ * https://gist.github.com/paulcollett/4c81c4f6eb85334ba076
+ **************************************/
+add_action('wp_head', function () {
+  ob_start(function ($o) {
+    return preg_replace('/^\n?<!--.*?[Y]oast.*?-->\n?$/mi', '', $o);
+  });
+}, ~PHP_INT_MAX);
+
+
+
+
+
+
+/**************************************
+ * Adiciona meta tags na header
+ * Pop-up conscentimento de cookies
+ **************************************/
+// function add_meta_tags() {
+//   echo '<script>
+//   window.addEventListener("load", function(){
+//   window.cookieconsent.initialise({
+//     "palette": {
+//       "popup": {
+//         "background": "#edeff5",
+//         "text": "#393939"
+//       },
+//       "button": {
+//         "background": "#000"
+//       }
+//     },
+//     "theme": "classic",
+//     "position": "bottom-right",
+//     "content": {
+//       "message": "Usamos cookies para garantir que você obtenha a melhor experiência no nosso site.",
+//       "dismiss": "Entendi!",
+//       "link": "Leia mais…",
+//       "href": "http://localhost/wordpress_base/www/politica-de-privacidade/"
+//     }
+//   })});
+//   </script>';
+//   }
+//   add_action('wp_head', 'add_meta_tags');
+
+
+
+/**************************************
+ * Registro de sidebar
+ **************************************/
+
+if (function_exists('register_sidebar'))
+  register_sidebar(array(
+    'name'          => 'Sidebar Blog',
+    'id'            => 'sidebar-blog',
+    'description'   => 'Sidebar mostrada no blog',
+    'class'         => '',
+    // 'before_widget' => '<li id="%1$s" class="widget %2$s">',
+    // 'after_widget'  => '</li>',
+    'before_title'  => '<h4 class="widget-title">',
+    'after_title'   => '</h4>'
+  ));
+
+
+ob_end_clean();
+
+
+/**************************************
+ * Oculta barra adm
+
+
+function hide_admin_bar() {
+  // Oculta a barra de admin para usuários específicos ou em condições específicas
+  return false;
+}
+add_filter('show_admin_bar', 'hide_admin_bar');
+ **************************************/
+
+
+
+
+ /**************************************
+  Usar wp_localize_script no functions.php para passar os dados para o JS
+ **************************************/
+function trendpro_enqueue_banner_script() {
+  if (is_front_page()) {
+      wp_enqueue_script('trendpro-banner', get_template_directory_uri() . '/assets/js/banner.js', array('jquery'), '1.0', true);
+      
+      // Buscar o banner mais recente
+      $args = array(
+          'post_type'      => 'banners',
+          'posts_per_page' => 1,
+          'orderby'        => 'date',
+          'order'          => 'DESC'
+      );
+      
+      $banner_query = new WP_Query($args);
+      
+      $banner_data = array(
+          'video_desktop' => '',
+          'poster_desktop' => '',
+          'video_mobile' => '',
+          'poster_mobile' => '',
+      );
+      
+      if ($banner_query->have_posts()) {
+          while ($banner_query->have_posts()) {
+              $banner_query->the_post();
+              $post_id = get_the_ID();
+              
+              $banner_image = get_field('banner_image', $post_id);
+              $banner_video_mp4 = get_field('banner_video_mp4', $post_id);
+              $banner_image_mobile = get_field('banner_image_mobile', $post_id);
+              $banner_video_mp4_mobile = get_field('banner_video_mp4_mobile', $post_id);
+              
+              $banner_data = array(
+                  'video_desktop' => !empty($banner_video_mp4) ? esc_url($banner_video_mp4) : '',
+                  'poster_desktop' => $banner_image && isset($banner_image['url']) ? esc_url($banner_image['url']) : '',
+                  'video_mobile' => !empty($banner_video_mp4_mobile) ? esc_url($banner_video_mp4_mobile) : '',
+                  'poster_mobile' => $banner_image_mobile && isset($banner_image_mobile['url']) ? esc_url($banner_image_mobile['url']) : '',
+              );
+          }
+          wp_reset_postdata();
+      }
+      
+      wp_localize_script('trendpro-banner', 'bannerData', $banner_data);
+  }
+}
+add_action('wp_enqueue_scripts', 'trendpro_enqueue_banner_script');
+

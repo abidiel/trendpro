@@ -1,0 +1,14 @@
+.campos_fora {width: 100%;overflow:hidden;height: auto;}
+.campo {width:100%;overflow:hidden;float:left;}
+
+.campos_100 {width:98%;margin:0 1% 0 1%;overflow:hidden;float:left;}
+.campos_75 {width:73%;margin:0 1% 0 1%;overflow:hidden;float:left;}
+.campos_50 {width:48%;margin:0 1% 0 1%;overflow:hidden;float:left;}
+.campos_25 {width:23%;margin:0 1% 0 1%;overflow:hidden;float:left;}
+@media screen and (max-width:1200px){
+  .campos_75 {width:98%;}
+  .campos_50 {width:98%;}
+  .campos_25 {width:98%;}
+}
+
+.campos_100, .campos_75, .campos_50, .campos_25 {margin-bottom: 20px !important;}

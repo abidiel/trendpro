@@ -1,0 +1,811 @@
+/* ===================================
+    Crafto - Trend Pro
+====================================== */
+/* font */
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet");
+@import url("https://use.typekit.net/rxc4tzr.css");
+/* variable */
+:root {     
+    --base-color: #ff2a9f;
+    --dark-gray:#0b0c0d;
+    --medium-gray:#737373;
+    --second-color: #a62682;
+    --pink-light: #db88d2;
+    --extra-medium-gray:#707070;
+    --alt-font: "Josefin Sans", sans-serif;
+    --primary-font: "brother-1816", sans-serif;
+} 
+
+
+html {
+    overflow-x: hidden;
+}
+body{
+    line-height: 30px;
+}
+/* reset */
+.word-break-normal {
+    word-break: normal;
+}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 25px;
+}
+h1, .h1 {
+    line-height: 4.6rem;
+}
+h2 {
+    line-height: 3.7rem;
+}
+h3 {
+    line-height: 3.4rem;
+}
+h4 {
+    line-height: 3rem;
+}
+h5 {
+    line-height: 2.5rem;
+}
+h6 {
+    line-height: 2.3rem;
+}
+/* header */ 
+header .widget-text {
+    font-size: 15px;
+}
+header .navbar-brand {
+    padding: 28px 0;
+}
+header.sticky .disable-fixed .navbar-brand {
+    padding: 18px 0;
+}
+header .navbar-brand img {
+    max-height: 42px;
+}
+.hamburger-logo img {
+    max-height: 85px;
+}
+.header-icon .header-social-icon a {
+    font-size: 17px;
+    padding-left: 15px;
+    font-weight: 600;
+}
+header.sticky .navbar {
+    min-height: 70px;
+}
+.hamburger-menu-simple .menu-item-list .nav-link {
+    font-size: 55px;
+    line-height: 50px;
+}
+header .elements-social ul li {
+    margin-right: 25px;
+    margin-left: 0;
+}
+header .elements-social ul li a {
+    width: auto;
+    height: auto;
+}
+/* revolution slider */
+#architecture-slider .tp-splitted {
+    text-align: inherit !important;
+}
+.magic-cursor-base-color #ball-cursor:before, .magic-cursor-base-color #ball-cursor:after {
+    color: var(--dark-gray);  
+}
+/* tag */
+.blog-comment li .btn-reply:hover {
+    color: var(--dark-gray);
+}
+.tag-cloud a:hover, .tag-cloud a.active {
+    border-color: var(--white);
+}
+.blog-comment li .btn-reply {
+    border: 1px solid var(--extra-medium-gray);
+    background-color: transparent;
+}
+.blog-comment li .btn-reply {
+    padding: 6px 20px 7px;
+}
+.categories-btn {
+    padding: 4px 18px;
+    border-radius: 24px;
+}
+/* first letter block  */ 
+.first-letter-block {
+    line-height: 88px;
+}
+/* top right bottom left */
+.top-25 {
+    top: 25%;
+}
+.right-18 {
+    right: 18%;
+}
+/* text color */ 
+.text-nero-grey {
+    color: #1F1F1F;
+}
+.text-charcoal {
+    color: #282828;
+}
+/* bg color */ 
+.bg-nero-grey {
+    background-color: #1F1F1F;
+}
+.bg-dark-gray-transparent {
+    background-color:rgba(25, 25, 25,.7);
+}
+.bg-charcoal-grey {
+    background-color: #3E3E3E;
+}
+.bg-base-color-transparent {
+    background-color: rgba(239, 255, 2,.2);
+}
+.bg-gradient-dark-transparent {
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(-4%, #101010), to(transparent));
+    background: linear-gradient(to top, #101010 -4%, transparent 100%);
+}
+.bg-gradient-dark-gray-transparent {
+    background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(25, 25, 25, 1)), to(transparent));
+    background-image: linear-gradient(to top, rgba(25, 25, 25, .9) 20%, transparent 90%);
+}
+/* border color */
+.border-color-charcoal-grey {
+    border-color: #3E3E3E !important;
+}
+/* slider navigation*/
+.slider-navigation-style-07 {
+    left: 58.4%;
+}
+/* btn */ 
+.btn.btn-base-color, .btn.btn-box-shadow.btn-base-color:hover {
+    color: var(--dark-gray);  
+}
+.btn.btn-link {
+    padding: 0 0 2px;
+    font-weight: 600;
+}
+.btn { 
+    font-family: var(--primary-font);
+}
+/* page title */
+.page-title-extra-small h1 {
+    font-size: 5.375rem;
+    line-height: 5.5rem;
+}
+.page-title-extra-small h2 {
+    font-size: 13px;
+    line-height: 26px;
+}
+/* footer */
+footer .footer-logo img {
+    max-height: 70px;
+}
+footer .elements-social li {
+    margin: 0 15px 0 0;
+}
+.video-icon-extra-large .video-icon {
+    width: 170px;
+    height: 170px;
+    font-size: 16px;
+}
+/* magic cursor */
+.magic-drag-cursor #ball-cursor:before {
+  font-size: 15px;
+}
+/* media query responsive */
+@media (max-width: 1430px) {
+    .architecture-number {
+        display: none !important;
+    }
+}
+@media (orientation: landscape) and (max-width: 1080px) {
+    .architecture-slider-text-row {
+        margin-top: 200px !important;
+    }
+}
+@media (orientation: landscape) and (max-width: 850px) {
+    .architecture-slider-text-row { 
+        margin-bottom: 200px !important;
+    }
+}
+@media (orientation: landscape) and (max-width: 768px) {
+    .architecture-slider-text-row {
+        margin-top: 200px !important;
+        margin-bottom: 200px !important; 
+    }
+}
+@media (max-width: 991px) {
+    .interactive-banner-style-06 .interactive-banners-content {
+        transform: translateY(calc(100% - 100px));
+    }
+    .md-right-0 {
+        right: 0;
+    }
+    header .navbar-brand {
+        padding: 20px 0;
+    }
+}
+@media (max-width: 767px) {
+    .video-icon-extra-large .video-icon {
+        width: 120px;
+        height: 120px;
+    }
+    .slider-navigation-style-07 {
+        left: 0;
+    }
+    .interactive-banner-style-06 .interactive-banners-content {
+        transform: translateY(calc(100% - 110px));
+    }
+    .hamburger-menu-simple .menu-item-list .nav-link {
+        font-size: 38px;
+        line-height: 34px;
+    }
+}
+
+
+
+
+
+  @media (max-width: 991px) {
+
+ 
+    header .hamburger-push-button.icon span {
+        background-color: var(--white);
+    }
+}
+
+
+.page-title-background-video::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    /* Ajuste a opacidade aqui */
+    z-index: 1;
+}
+
+.page-title-background-video .container {
+    position: relative;
+    z-index: 2;
+}
+
+
+
+header .navbar-brand .default-logo {
+    width: auto;
+}
+
+header .navbar-brand .mobile-logo {
+    width: 0px !important;
+}
+
+
+@media (max-width: 991px) {
+    header .navbar-brand .mobile-logo {
+        width: auto !important;
+        max-height: 34px !important;
+    }
+}
+
+@media (max-width: 991px) {
+    .navbar.bg-transparent {
+        background-color: #ffffff00 !important;
+    }
+}
+
+
+header.sticky.sticky-active .navbar-brand .default-logo {
+    visibility: visible;
+    opacity: 1;
+    width: auto;
+}
+
+.portfolio-filter li.active a {
+    color: #ffffff;
+ }
+
+ .portfolio-filter li:hover a, .portfolio-filter li:focus a, .portfolio-filter li.active a {
+    color: var(--white);
+    font-weight: 700;
+    border-bottom: 1px solid white;
+    padding-bottom: 5px; /* Adiciona um pequeno espaço abaixo do texto */
+    transition: border-color 0.3s ease; /* Efeito suave se quiser */
+}
+
+
+
+
+@media (max-width: 991px) {
+    .wp-block-media-text__content {
+        margin-top: 35px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .wp-block-media-text__content {
+        padding: 0 !important;
+    }
+}
+
+.ficha-tecnica .row > .col:last-child {
+    border-right: none !important;
+}
+
+
+
+.section-blog .wp-block-heading{
+    color: white;
+}
+
+/* ----------------------------------------------------------------------
+	Pagination & Pager
+-------------------------------------------------------------------------*/
+
+
+/*Post Nav*/
+.post-navigation {
+    border-top: 1px solid #eee;
+    display: inline-block;
+    list-style: outside none none;
+    min-height: 84px;
+    padding: 20px 0 0;
+    position: relative;
+    width: 100%;
+}
+
+.post-navigation a {
+    color: #e1e1e1;
+}
+
+.nav-next a,
+.nav-previous a {
+    position: absolute;
+    font-size: 16px;
+    max-width: 40%;
+    height: 44px;
+}
+
+.nav-next a span,
+.nav-previous a span {
+    display: block;
+    color: #e1e1e1;
+    font-size: 11px;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: -6px;
+    margin-top: 3px;
+}
+
+.post-navigation a:hover {
+    transition: all 0.3s ease;
+    color: var(--base-color);
+    ;
+}
+
+.nav-next a {
+    right: 25px;
+    text-align: right;
+}
+
+.nav-next a:before {
+    content: "\f061";
+    font-family: "FontAwesome";
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    transform: translate3d(0, -50%, 0);
+    transition: all 0.3s ease;
+    right: 10px;
+    padding-top: 2px;
+}
+
+.nav-next a:hover:before {
+    transform: translate3d(5px, -50%, 0);
+}
+
+.nav-previous a {
+    left: 25px;
+}
+
+.nav-previous a:before {
+    content: "\f060";
+    font-family: "FontAwesome";
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    transform: translate3d(0, -50%, 0);
+    transition: all 0.3s ease;
+    padding-top: 2px;
+    left: 10px;
+}
+
+.nav-previous a:hover:before {
+    transform: translate3d(-5px, -50%, 0);
+}
+
+.nav-previous a-title {
+    padding-left: 40px;
+}
+
+.nav-next a-title {
+    padding-right: 40px;
+}
+
+.post-navigation .post-all {
+    font-size: 24px;
+    left: auto;
+    position: absolute;
+    right: 50%;
+    text-align: center;
+    top: 32px;
+    width: 12px;
+    opacity: 0.7;
+}
+
+.single-post .nav-previous a {
+    left: 0px;
+}
+
+.single-post .nav-next a {
+    right: 0px;
+}
+
+.nav-next a,
+.nav-previous a {
+    font-size: 14px;
+}
+
+@media (max-width: 1024px) {
+
+    .post-prev-title,
+    .post-next-title {
+        display: none;
+    }
+
+    .nav-links span {
+        display: none !important;
+    }
+}
+
+
+/* ----------------------------------------------------------------------
+	wpcf7-acceptance
+-------------------------------------------------------------------------*/
+
+.wpcf7-acceptance {
+
+
+
+    input[type="checkbox"] {
+        position: relative;
+        cursor: pointer;
+        padding: 0;
+        margin-right: 15px;
+        width: 20px;
+    }
+
+    input[type="checkbox"]:before {
+        content: '';
+        margin-right: 10px;
+        display: inline-block;
+        margin-top: -2px;
+        width: 20px;
+        height: 20px;
+        background: #fcfcfc;
+        border: 1px solid #aaa;
+        border-radius: 2px;
+    }
+
+
+    input[type="checkbox"]:checked:before {
+        background: var(--base-color);
+        border-color: var(--base-color);
+    }
+
+    input[type="checkbox"]:disabled {
+        color: #b8b8b8;
+        cursor: auto;
+    }
+
+    input[type="checkbox"]:disabled:before {
+        box-shadow: none;
+        background: #ddd;
+    }
+
+    input[type="checkbox"]:checked:after {
+        content: '';
+        position: absolute;
+        left: 5px;
+        top: 8px;
+        background: white;
+        width: 2px;
+        height: 2px;
+        box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
+        transform: rotate(45deg);
+    }
+
+
+    span.wpcf7-list-item {
+        margin: 20px 0 0 0;
+    }
+
+}
+
+.breadcrumbs a{
+    color: rgb(232, 232, 232) !important;
+}
+
+.wp-block-heading{
+    color: white;
+    font-weight: 300;
+    letter-spacing: -2px;
+}
+
+.wp-block-media-text__content p{
+    color:white;
+}
+
+@media screen and (max-width: 600px) {
+    .wp-block-media-text > .wp-block-media-text__content {
+        padding: 0 !important;
+        margin-top: 20px;
+    }
+}
+
+
+
+/* ----------------------------------------------------------------------
+	CF7
+-------------------------------------------------------------------------*/
+
+/* Estrutura do formulário */
+.position-relative.form-group {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    margin-bottom: 20px !important;
+}
+
+/* Form textarea alinhamento */
+.form-textarea {
+    align-items: flex-start !important;
+}
+
+/* Posicionamento do ícone */
+.form-icon {
+    position: absolute !important;
+    top: 30% !important;
+    transform: translateY(-50%) !important;
+    left: 0 !important;
+    width: 22px !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+}
+
+/* Estilos do ícone */
+.form-icon i {
+    display: block !important;
+    font-size: 18px !important;
+    line-height: 1 !important;
+}
+
+/* Ajuste do ícone na textarea */
+.form-textarea .form-icon {
+    top: 15px !important;
+    transform: none !important;
+}
+
+/* Wrapper do campo */
+.wpcf7-form-control-wrap {
+    flex: 1 !important;
+    width: 100% !important;
+    position: relative !important;
+}
+
+/* Estilos dos campos */
+.wpcf7-form-control {
+    padding-left: 30px !important;
+    width: 100% !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid #ccc !important;
+    color: #fff !important;
+    height: 40px !important;
+}
+
+/* Ajustes para textarea */
+textarea.wpcf7-form-control {
+    height: auto !important;
+    padding-top: 10px !important;
+}
+
+/* Mensagens de erro */
+.wpcf7-not-valid-tip {
+    position: absolute !important;
+    left: 30px !important;
+    top: 100% !important;
+    font-size: 12px !important;
+    color: #ff0000 !important;
+    margin-top: 3px !important;
+}
+
+/* Remover BR tags */
+.position-relative.form-group br {
+    display: none !important;
+}
+
+/* Animação para campos inválidos */
+@keyframes highlight {
+    0% { border-color: #ff0000; box-shadow: 0 0 0 0 rgba(255,0,0,0.2); }
+    70% { box-shadow: 0 0 0 10px rgba(255,0,0,0); }
+    100% { border-color: #ccc; }
+}
+
+.wpcf7-not-valid {
+    animation: highlight 1s ease-in-out;
+}
+
+/* Botão de envio */
+.wpcf7-submit {
+    position: relative !important;
+    background-color: var(--base-color) !important;
+    border: none !important;
+    color: white !important;
+    padding: 14px 26px !important;
+    cursor: pointer !important;
+    transition: background-color 0.3s !important;
+}
+
+/* Spinner do botão */
+.wpcf7 .ajax-loader {
+    margin-left: 15px !important;
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    right: -30px !important;
+}
+
+/* Mensagens de resposta do formulário */
+.wpcf7 form .wpcf7-response-output {
+    margin: 20px 0 !important;
+    padding: 12px !important;
+    border-radius: 5px !important;
+    font-size: 14px !important;
+}
+
+/* Animação para mensagem de sucesso */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.wpcf7-mail-sent-ok {
+    animation: fadeIn 0.5s ease-in-out forwards;
+    background-color: #d4edda !important;
+    color: #155724 !important;
+    border-color: #c3e6cb !important;
+}
+
+/* Estilo para mensagem de erro do formulário */
+.wpcf7-validation-errors {
+    background-color: #f8d7da !important;
+    color: #721c24 !important;
+    border-color: #f5c6cb !important;
+}
+
+/* Estilização específica para o botão de envio */
+input.wpcf7-form-control.wpcf7-submit {
+    position: relative !important;
+    display: inline-block !important;
+    text-align: center !important;
+    background-color: var(--base-color) !important;
+    border: none !important;
+    color: white !important;
+    padding: 14px 26px !important;
+    cursor: pointer !important;
+    transform: none !important;
+    height: auto !important;
+    line-height: normal !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    width: auto !important;
+    min-width: 150px !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    vertical-align: middle !important;
+}
+
+/* Alinhamento do container do botão */
+.col-md-5.text-start.text-md-end {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+}
+
+/* Espaçamento do spinner */
+.wpcf7 .ajax-loader {
+    position: absolute !important;
+    right: -30px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    margin: 0 !important;
+}
+
+
+/* ----------------------------------------------------------------------
+  /* Estilos para o painel de personalização de cookies 
+-------------------------------------------------------------------------*/
+
+
+.cookie-preferences {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cookie-preference-item {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cookie-preference-item:last-child {
+    border-bottom: none;
+}
+
+.cookie-preference-item label {
+    display: block;
+    font-weight: 600;
+    color: white;
+    font-size: 14px;
+    line-height: 22px;
+    margin-bottom: 4px;
+    cursor: pointer;
+}
+
+.cookie-preference-item p {
+    font-size: 12px;
+    line-height: 18px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 5px;
+}
+
+.cookie-preference-item input[type="checkbox"] {
+    margin-right: 8px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.cookie-preference-title {
+    font-size: 14px;
+    color: white;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+/* Botões na personalização */
+.save_preferences_btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 15px;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+}
+
+/* Ajustes para garantir a consistência com o estilo superior */
+#cookie-preferences .cookie-description {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 18px;
+}
+
+/* Melhorias nos checkboxes para destacar melhor */
+.cookie-preference-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #fff;
+}

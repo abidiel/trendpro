@@ -1,0 +1,444 @@
+# Translation of Plugins - CF7 to Webhook - Stable (latest release) in Portuguese (Brazil)
+# This file is distributed under the same license as the Plugins - CF7 to Webhook - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2025-01-27 13:01:21+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: GlotPress/4.0.1\n"
+"Language: pt_BR\n"
+"Project-Id-Version: Plugins - CF7 to Webhook - Stable (latest release)\n"
+
+#: modules/cf7/class-module-cf7.php:440
+msgid ""
+"\n"
+"Hey! How are you?\n"
+"\n"
+"\"CF7 to Webhook\" has a built-in feature that detects when a webhook fails and notifies you with this automated email.\n"
+"\n"
+"- Form: [FORM]\n"
+"- Webhook: [WEBHOOK]\n"
+"- Error: [EXCEPTION]\n"
+"\n"
+"Request Method:\n"
+"[REQUEST_METHOD]\n"
+"\n"
+"Request Headers:\n"
+"[REQUEST_HEADERS]\n"
+"\n"
+"Request Body:\n"
+"[REQUEST_BODY]\n"
+"\n"
+"Response Code:\n"
+"[RESPONSE_CODE]\n"
+"\n"
+"Response Message:\n"
+"[RESPONSE_MESSAGE]\n"
+"\n"
+"Response Headers:\n"
+"[RESPONSE_HEADERS]\n"
+"\n"
+"Response Body:\n"
+"[RESPONSE_BODY]\n"
+"\n"
+"--\n"
+"\n"
+"You'll receive one notification for each webhook with errors.\n"
+"Other webhooks maybe were successful.\n"
+"\n"
+"Please, be careful sharing this data (even in WordPress official support forum).\n"
+"It may contain sensitive data.\n"
+"            "
+msgstr ""
+"\n"
+"Olá! Como você está?\n"
+"\n"
+"O plugin \"CF7 para Webhook\" possui uma funcionalidade que detecta quando um gatilho (webhook) falha e notifica você através desse e-mail automático.\n"
+"\n"
+"- De: [FORM]\n"
+"- Webhook: [WEBHOOK]\n"
+"- Erro: [EXCEPTION]\n"
+"\n"
+"Requisição - Método:\n"
+"[REQUEST_METHOD]\n"
+"\n"
+"Requisição - Cabeçalhos:\n"
+"[REQUEST_HEADERS]\n"
+"\n"
+"Requisição - Corpo:\n"
+"[REQUEST_BODY]\n"
+"\n"
+"Resposta - Código:\n"
+"[RESPONSE_CODE]\n"
+"\n"
+"Resposta - Mensagem:\n"
+"[RESPONSE_MESSAGE]\n"
+"\n"
+"Resposta - Cabeçalhos:\n"
+"[RESPONSE_HEADERS]\n"
+"\n"
+"Resposta - Corpo:\n"
+"[RESPONSE_BODY]\n"
+"\n"
+"--\n"
+"\n"
+"Você receberá uma notificação para cada webhook com erro.\n"
+"Outros webhooks podem ter funcionado sem problemas.\n"
+"\n"
+"Seja cuidado ao compartilhar dados (mesmo no fórum de suporte do WordPress).\n"
+"Esses dados podem ser sensíveis.\n"
+"            "
+
+#: modules/cf7/admin/webhook-panel-html.php:454
+msgid "Check FAQ from plugin page."
+msgstr "Veja as Perguntas Frequentes na página do plugin."
+
+#: modules/cf7/admin/webhook-panel-html.php:453
+msgid "How to make multiple webhooks optionals?"
+msgstr "Como fazer múltiplos webhooks opcionais?"
+
+#: modules/zapier/class-module-zapier.php:166
+msgid "Webhook returned a error code."
+msgstr "Webhook retornou um código de erro."
+
+#: modules/zapier/class-module-zapier.php:104
+msgid "Webhook has method GET but body is not a JSON to be passed as query params."
+msgstr "Webhook foi configurado como GET mas os dados enviados não são um JSON válido para ser passado como parâmetro da URL."
+
+#: modules/cf7/class-module-cf7.php:480
+msgid "[%s] Webhook Error on Form %s"
+msgstr "[%s] Erro do Webhook no Formulário %s"
+
+#: modules/cf7/class-module-cf7.php:141
+msgid "Choose a template"
+msgstr "Escolha um modelo"
+
+#: modules/cf7/class-module-cf7.php:140
+msgid "Continue"
+msgstr "Continuar"
+
+#: modules/cf7/class-module-cf7.php:139
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: modules/cf7/class-module-cf7.php:138
+msgid "Yes"
+msgstr "Sim"
+
+#: modules/cf7/class-module-cf7.php:137
+msgid "No"
+msgstr "Não"
+
+#: modules/cf7/class-module-cf7.php:136
+msgid "Save to load preview."
+msgstr "Salve para carregar a previsão."
+
+#: modules/cf7/class-module-cf7.php:135
+msgid "This action will replace \"Body\" and remove \"Special Mail Tags\" and \"Headers\"."
+msgstr "Essa ação ira substituir o \"Corpo\" e remover as configurações \"Special Mail Tags\" e \"Cabeçalhos\"."
+
+#: modules/cf7/class-module-cf7.php:134
+msgid "This action will replace \"Headers\" and \"Body\" and remove \"Special Mail Tags\"."
+msgstr "Essa ação ira substituir os \"Cabeçalhos\" e o \"Corpo\" e remover a configuração \"Special Mail Tags\"."
+
+#: modules/cf7/class-module-cf7.php:133
+msgid "This template has documentation. Want to open (another tab)?"
+msgstr "Esse modelo possui documentação. Gostaria de lê-la (em outra aba)?"
+
+#: modules/cf7/class-module-cf7.php:130
+msgid "Default"
+msgstr "Padrão"
+
+#: modules/cf7/admin/webhook-panel-html.php:455
+msgid "ask a question!"
+msgstr "faça uma pergunta!"
+
+#: modules/cf7/admin/webhook-panel-html.php:455
+msgid "Or..."
+msgstr "Ou..."
+
+#: modules/cf7/admin/webhook-panel-html.php:447
+msgid "You can check more information or search for help."
+msgstr "Você pode ver mais informações ou procurar por ajuda."
+
+#: modules/cf7/admin/webhook-panel-html.php:446
+msgid "FAQ"
+msgstr "Perguntas frequentes"
+
+#: modules/cf7/admin/webhook-panel-html.php:424
+msgid "Send data in your URL."
+msgstr "Envie dados para sua URL"
+
+#: modules/cf7/admin/webhook-panel-html.php:418
+msgid "Help"
+msgstr "Ajuda"
+
+#: modules/cf7/admin/webhook-panel-html.php:408
+msgctxt "The URL should point to HTTP response status code documentation in your language."
+msgid "<a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Status\" target=\"_blank\">HTTP codes</a> (separated by comma) to be considered success. Other codes will trigger a error notification."
+msgstr "<a href=\"https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status\" target=\"_blank\">Códigos HTTP</a> (separados por vírgula) que são considerados sucesso. Outros códigos irão disparar um e-mail de notificação de erro."
+
+#: modules/cf7/admin/webhook-panel-html.php:398
+msgid "Success Codes"
+msgstr "Códigos de Sucesso"
+
+#: modules/cf7/admin/webhook-panel-html.php:391
+msgid "One or more emails (separated by comma) to be notified on webhook error."
+msgstr "Um ou mais e-mails (separados por vírgula) para serem notificados em caso de falha."
+
+#: modules/cf7/admin/webhook-panel-html.php:381
+msgid "Notification"
+msgstr "Notificação"
+
+#: modules/cf7/admin/webhook-panel-html.php:370
+msgid "How we handle errors."
+msgstr "Como lidamos com erros."
+
+#: modules/cf7/admin/webhook-panel-html.php:369
+msgid "Errors"
+msgstr "Erros"
+
+#: modules/cf7/admin/webhook-panel-html.php:358
+msgid "We will send your form data as plain/text:"
+msgstr "Enviaremos os dados do seu formulário como plain/text:"
+
+#: modules/cf7/admin/webhook-panel-html.php:346
+msgid "Example: %s"
+msgstr "Exemplo: %s"
+
+#: modules/cf7/admin/webhook-panel-html.php:343
+msgid "To create your own body, you can replace values like in mail body (case sensitive)."
+msgstr "Para criar o corpo da sua requisição, você pode substituir tags de e-mail pelos valores (diferencia maiúsculas)"
+
+#: modules/cf7/admin/webhook-panel-html.php:337
+msgid "REMEMBER:"
+msgstr "LEMBRE:"
+
+#: modules/cf7/admin/webhook-panel-html.php:336
+msgid "This can break your integration (check your quotes)."
+msgstr "Isso pode quebrar sua integração (verifique suas aspas duplas)."
+
+#: modules/cf7/admin/webhook-panel-html.php:331
+msgid "When you need customize your request."
+msgstr "Quando você precisa personalizar sua requisição."
+
+#: modules/cf7/admin/webhook-panel-html.php:330
+msgid "Body"
+msgstr "Corpo"
+
+#: modules/cf7/admin/webhook-panel-html.php:304
+msgid "When you need authentication/authorization."
+msgstr "Quando você precisa de autenticação."
+
+#: modules/cf7/admin/webhook-panel-html.php:303
+msgid "Headers"
+msgstr "Cabeçalhos"
+
+#: modules/cf7/admin/webhook-panel-html.php:288
+msgid "Choose a HTTP method. In general, you should not change this."
+msgstr "Escolha um método HTTP. Em geral, você não deve alterar isso."
+
+#: modules/cf7/admin/webhook-panel-html.php:273
+msgid "If you select GET, we will send your data as \"query params\" (if your body is not a valid JSON we will trigger a error)."
+msgstr "Se você escolher GET, iremos enviar os dados como \"parâmetros de URL\" (se o seu corpo não for um JSON válido iremos disparar um erro)."
+
+#: modules/cf7/admin/webhook-panel-html.php:273
+#: modules/cf7/admin/webhook-panel-html.php:336
+msgid "BE CAREFUL!"
+msgstr "TENHA CUIDADO!"
+
+#: modules/cf7/admin/webhook-panel-html.php:268
+msgid "When you are not making a POST."
+msgstr "Quando você não está fazendo um POST."
+
+#: modules/cf7/admin/webhook-panel-html.php:267
+#: modules/cf7/admin/webhook-panel-html.php:281
+msgid "Method"
+msgstr "Método"
+
+#: modules/cf7/admin/webhook-panel-html.php:262
+msgid "Advanced settings"
+msgstr "Configurações avançadas"
+
+#: modules/cf7/admin/webhook-panel-html.php:232
+msgid "When you need more information."
+msgstr "Quando você precisa de mais informação."
+
+#: modules/cf7/admin/webhook-panel-html.php:217
+msgid "Check to send file content insted of a link"
+msgstr "Marque para enviar o conteúdo dos arquivos no lugar da URL"
+
+#: modules/cf7/admin/webhook-panel-html.php:210
+msgid "Send content"
+msgstr "Enviar conteúdo"
+
+#: modules/cf7/admin/webhook-panel-html.php:199
+msgid "Define how you want to send files."
+msgstr "Defina como iremos enviar arquivos."
+
+#: modules/cf7/admin/webhook-panel-html.php:198
+msgid "Files"
+msgstr "Arquivos"
+
+#: modules/cf7/admin/webhook-panel-html.php:186
+msgid "You can choose a template from community to update your header/body settings."
+msgstr "Você pode escolher um modelo da comunidade para atualizar as configurações dos cabeçalhos e do corpo."
+
+#: modules/cf7/admin/webhook-panel-html.php:179
+msgid "Template"
+msgstr "Modelo"
+
+#: modules/cf7/admin/webhook-panel-html.php:156
+msgid "Settings"
+msgstr "Configurações"
+
+#. Description of the plugin
+#: cf7-to-zapier.php
+msgid "Use Contact Form 7 as a trigger to any Webhook."
+msgstr "Use Contact Form 7 como um gatilho (trigger) para qualquer webhook."
+
+#: modules/cf7/admin/webhook-panel-html.php:337
+msgid "You can change field name with webhook config: %s"
+msgstr "Você pode alterar o nome do campo com a configuração \"webhook\": %s"
+
+#: modules/cf7/admin/webhook-panel-html.php:361
+msgid "This is just a example of field names and will not reflect data or customizations."
+msgstr "Esse é apenas um exemplo que não leva em consideração os dados ou personalizações."
+
+#: modules/cf7/admin/webhook-panel-html.php:437
+msgid "Use this shortcode: [hidden utm_source default:get]"
+msgstr "Utilize esse shortcode: [hidden utm_source default:get]"
+
+#: modules/cf7/admin/webhook-panel-html.php:435
+msgid "To get utm_source: https://example.com/?utm_source=example"
+msgstr "Para conseguir o valor de \"utm_source\": https://example.com/?utm_source=example"
+
+#: modules/cf7/admin/webhook-panel-html.php:431
+msgctxt "The URL should point to CF7 documentation."
+msgid "You can add URL parameters using <a href=\"https://contactform7.com/hidden-field/\" target=\"_blank\">Hidden Fields</a> with <a href=\"https://contactform7.com/getting-default-values-from-the-context/\" target=\"_blank\">default values</a> in your form."
+msgstr "Você pode adicionar parâmetros da URL usando <a href=\"https://contactform7.com/hidden-field/\" target=\"_blank\">campos escondidos</a> com um <a href=\"https://contactform7.com/getting-default-values-from-the-context/\" target=\"_blank\">valor padrão</a> no seu formulário."
+
+#: modules/cf7/admin/webhook-panel-html.php:423
+msgid "URL Params"
+msgstr "Parâmetros da URL"
+
+#: modules/cf7/admin/webhook-panel-html.php:319
+msgid "One header by line, separated by colon. Example: %s"
+msgstr "Um cabeçalho por linha, separados por vírgula. Por exemplo: %s"
+
+#: modules/cf7/admin/webhook-panel-html.php:311
+msgctxt "The URL should point to HTTP Headers documentation in your language."
+msgid "You can add <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers\" target=\"_blank\">HTTP Headers</a> to your webhook request."
+msgstr "Você pode adicionar <a href=\"https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Headers\" target=\"_blank\">Cabeçalhos HTTP</a> à requisição enviada para o webhook."
+
+#: modules/cf7/admin/webhook-panel-html.php:239
+msgctxt "The URL should point to CF7 documentation (someday it can be translated)."
+msgid "You can add <a href=\"https://contactform7.com/special-mail-tags/\" target=\"_blank\">Special Mail Tags</a> or <a href=\"https://contactform7.com/selectable-recipient-with-pipes/\" target=\"_blank\">labels from selectable with pipes</a> to the data sent to webhook."
+msgstr "Você pode adicionar <a href=\"https://contactform7.com/special-mail-tags/\" target=\"_blank\">Special Mail Tags</a> ou <a href=\"https://contactform7.com/selectable-recipient-with-pipes/\" target=\"_blank\">rótulos de seletores com \"pipes\"</a> aos dados enviados para o webhook."
+
+#: modules/cf7/admin/webhook-panel-html.php:144
+msgid "And use placeholders to be replaced by form data: %s"
+msgstr "E use \"placeholder\" para serem trocados por dados do formulário: %s"
+
+#: modules/cf7/admin/webhook-panel-html.php:139
+msgid "You can add multiple webhook: one per line"
+msgstr "Você pode adicionar múltiplos webhooks: um por linha"
+
+#: modules/cf7/admin/webhook-panel-html.php:88
+msgid "leave a review"
+msgstr "deixar uma avaliação"
+
+#: modules/cf7/admin/webhook-panel-html.php:87
+msgid "make a donation"
+msgstr "fazer uma doação"
+
+#: modules/cf7/admin/webhook-panel-html.php:86
+msgid "You can %s or %s."
+msgstr "Você pode %s ou %s."
+
+#: modules/cf7/admin/webhook-panel-html.php:83
+msgid "Give your support!"
+msgstr "Dê seu apoio!"
+
+#. Author URI of the plugin
+#: cf7-to-zapier.php
+msgid "http://mariovalney.com/me"
+msgstr "https://mariovalney.com/sobre"
+
+#. Author of the plugin
+#: cf7-to-zapier.php
+msgid "Mário Valney"
+msgstr "Mário Valney"
+
+#. Plugin URI of the plugin
+#: cf7-to-zapier.php
+msgid "https://github.com/mariovalney/cf7-to-zapier"
+msgstr "https://github.com/mariovalney/cf7-to-zapier"
+
+#: modules/cf7/admin/webhook-panel-html.php:115
+msgid "Send to Webhook"
+msgstr "Enviar para o Webhook"
+
+#: modules/cf7/admin/webhook-panel-html.php:100
+msgid "To integrate you should insert your webhook URL below. For example, into Zapier you can create a trigger using \"Webhooks\" app and choose \"Catch Hook\" option."
+msgstr "Para integrar, você deve adicionar a URL do webhoook abaixo. Por exemplo, no Zapier, você pode criar um gatilho (trigger) escolhendo o app \"Webhooks\" e a opção \"Catch Hook\"."
+
+#: modules/cf7/admin/webhook-panel-html.php:95
+#: modules/cf7/class-module-cf7.php:154
+msgid "Webhook"
+msgstr "Webhook"
+
+#. Plugin Name of the plugin
+#: cf7-to-zapier.php
+msgid "CF7 to Webhook"
+msgstr "CF7 to Webhook"
+
+#: modules/cf7/admin/webhook-panel-html.php:254
+msgid "Or add a second word to pass as key to Webhook: %s"
+msgstr "Ou adicione uma segunda palavra para enviá-la como nome do campo para o Webhook: %s"
+
+#: modules/cf7/admin/webhook-panel-html.php:247
+msgid "Insert Special Tags like in mail body: %s"
+msgstr "Insira as Special Tags como no corpo do e-mail: %s"
+
+#: modules/cf7/admin/webhook-panel-html.php:231
+msgid "Special Mail Tags"
+msgstr "Special Mail Tags"
+
+#: modules/cf7/class-module-cf7.php:100
+msgid "Do it now?"
+msgstr "Fazer isso agora?"
+
+#: modules/cf7/class-module-cf7.php:86
+msgid "You need to install/activate %s Contact Form 7%s plugin to use %s CF7 to Webhook %s"
+msgstr "Você precisa instalar/ativar o plugin %s Contact Form 7%s para usar o %s CF7 to Webhook %s"
+
+#: modules/cf7/admin/webhook-panel-html.php:358
+msgid "We will send your form data as JSON:"
+msgstr "Enviaremos os dados do seu formulário como JSON:"
+
+#: modules/cf7/admin/webhook-panel-html.php:171
+msgid "Send CF7 mail as usually"
+msgstr "Enviar o e-mail do CF7 normalmente"
+
+#: modules/cf7/admin/webhook-panel-html.php:164
+msgid "Send Mail"
+msgstr "Enviar E-mail"
+
+#: modules/cf7/admin/webhook-panel-html.php:134
+msgid "You should insert webhook URL here to finish configuration."
+msgstr "Você precisa inserir a URL do webhook aqui, para finalizar a configuração."
+
+#: modules/cf7/admin/webhook-panel-html.php:123
+msgid "Webhook URL"
+msgstr "URL do Webhook"
+
+#: modules/cf7/admin/webhook-panel-html.php:108
+msgid "Integrate"
+msgstr "Integrar"
+
+#: modules/cf7/admin/webhook-panel-html.php:99
+msgid "In these options you can activate or deactivate Webhook integration."
+msgstr "Nessas opções você pode ativer ou desativar a integração com o Webhook."
