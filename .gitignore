@@ -1,0 +1,29 @@
+# Uploads de mídia
+/uploads/
+
+# Cache e otimização  
+/cache/
+/w3tc-config/
+/backup*/
+/ai1wm-backups/
+/updraft/
+
+# Logs
+*.log
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Plugins padrão que não precisamos versionar
+/plugins/advanced-custom-fields-pro/
+/plugins/contact-form-7/
+/plugins/wp-mail-smtp/
+/plugins/wordpress-seo/
+/plugins/show-current-template/
+/plugins/regenerate-thumbnails/
+/plugins/post-types-order/
+plugins/litespeed-cache/
+
+.DS_Store
+themes/.DS_Store
