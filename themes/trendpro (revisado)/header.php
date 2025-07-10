@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
-    <title>Teste - <?php wp_title(); ?></title>
+    <title><?php wp_title(); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#ff2a9f">
     <meta name="msapplication-navbutton-color" content="#ff2a9f">
