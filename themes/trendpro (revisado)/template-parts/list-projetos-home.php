@@ -34,7 +34,7 @@ if ($term_list) { ?>
             <div class="col-lg-5 col-md-7 p-0">
                 <div class="bg-white p-16 lg-p-12">
                     <span class="text-base-color fs-15 text-uppercase ls-1px fw-700"><?php echo $nomeCategoria; ?></span>
-                    <h2 class="alt-font text-dark-gray fw-600 mb-20px ls-minus-2px"><?php the_title(); ?></h2>
+                    <h4 class="alt-font text-dark-gray fw-600 mb-20px ls-minus-2px"><?php the_title(); ?></h4>
                     <a href="<?php the_permalink(); ?>" class="btn btn-link btn-hover-animation-switch btn-large text-dark-gray fw-800">
                         <span>
                             <span class="btn-text">Ver conteúdo</span>

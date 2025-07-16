@@ -2,7 +2,6 @@
  Dynamic Video Loader
  ====================================== */
 
-
  document.addEventListener("DOMContentLoaded", function () {
   function loadVideo() {
       const isMobile = window.innerWidth <= 768;
@@ -22,7 +21,6 @@
           }
       }
   }
-
   loadVideo();
   window.addEventListener("resize", loadVideo);
 });

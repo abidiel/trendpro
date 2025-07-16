@@ -1,0 +1,106 @@
+{
+    "key": "group_projetos_cabecalho",
+    "title": "(Home) Seção 5 - Seção projetos",
+    "fields": [
+        {
+            "key": "field_687665f700ac5",
+            "label": "Ativar seção?",
+            "name": "ativo_home_secao_5",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui_on_text": "Ativado",
+            "ui_off_text": "Desativado",
+            "ui": 1
+        },
+        {
+            "key": "field_projetos_titulo",
+            "label": "Título",
+            "name": "projetos_titulo",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Insira o título principal da seção de projetos",
+            "required": 1,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Confira Nossos Últimos Trabalhos",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_projetos_subtitulo",
+            "label": "Subtítulo",
+            "name": "projetos_subtitulo",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Insira o subtítulo ou descrição acima do título principal",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "EXPERIÊNCIA E CREDIBILIDADE",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_projetos_descricao",
+            "label": "Descrição",
+            "name": "projetos_descricao",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Breve descrição sobre os projetos (opcional)",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 3,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page",
+                "operator": "==",
+                "value": "7"
+            }
+        ]
+    ],
+    "menu_order": 3,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1752589850
+}

@@ -4,6 +4,7 @@
 get_template_part('template-parts/breadcrumbs'); ?>
 
 <!-- start banner -->
+<?php if (get_field('ativo_sobre_secao_1')): ?> 
 <section class="p-0 position-relative overflow-hidden bg-dark-gray pt-5">
     <div class="container-fluid p-0 h-100 position-relative">
         <div class="row g-0">
@@ -27,9 +28,11 @@ get_template_part('template-parts/breadcrumbs'); ?>
         </div>
     </div>
 </section>
+<?php endif; ?>
 <!-- end banner -->
 
 <!-- start section  -->
+<?php if (get_field('ativo_sobre_secao_2')): ?> 
 <section class="bg-dark-gray">
     <div class="container">
         <div class="row mb-6 sm-mb-50px">
@@ -50,9 +53,11 @@ get_template_part('template-parts/breadcrumbs'); ?>
 
     </div>
 </section>
+<?php endif; ?>
 <!-- end section -->
 
 <!-- start section -->
+<?php if (get_field('ativo_sobre_secao_3')): ?> 
 <section class="pt-0 bg-dark-gray">
     <div class="container">
         <div class="row mb-17 sm-mb-30px">
@@ -100,9 +105,11 @@ get_template_part('template-parts/breadcrumbs'); ?>
         </div>
     </div>
 </section>
+<?php endif; ?>
 <!-- end section -->
 
 <!-- start section -->
+<?php if (get_field('ativo_sobre_secao_4')): ?> 
 <section class="pb-0 bg-dark-gray">
     <div class="container">
         <div class="row">
@@ -135,9 +142,11 @@ get_template_part('template-parts/breadcrumbs'); ?>
         </div>
     </div>
 </section>
+<?php endif; ?>
 <!-- end section -->
 
 <!-- start section -->
+<?php if (get_field('ativo_sobre_secao_5')): ?> 
 <section class="bg-nero-grey">
     <div class="container">
         <div class="row align-items-center justify-content-center text-center mb-3 sm-mb-6">
@@ -199,6 +208,7 @@ get_template_part('template-parts/breadcrumbs'); ?>
 
     </div>
 </section>
+<?php endif; ?>
 <!-- end section -->
 
 

@@ -160,7 +160,7 @@ function configura_tamanho_imagens()
   add_image_size('logo_topo', 9999, 58, false);
   add_image_size('logo_rodape', 230, 9999, false);
   add_image_size('banner_imagem', 1920, 1280, array('center', 'center'));
-  add_image_size('img_breadcrumb', 1920, 600, array('center', 'center'));
+  add_image_size('img_breadcrumb', 1920, 400, array('center', 'center'));
   add_image_size('principal_blog', 815, 9999, false, array('center', 'center'));
   add_image_size('blog_lista', 800, 1145, array('center', 'center'));
   add_image_size('img_destacada_projeto_square', 400, 300, array('center', 'center'));
@@ -171,6 +171,7 @@ function configura_tamanho_imagens()
   add_image_size('cliente-imagem', 200, 200, false);
   add_image_size('cliente-logo-depoimento', 150, 0, false);
   add_image_size('video-principal-bg', 1920, 865, true);
+  add_image_size('servico-imagem', 610, 610, true);
 }
 add_action('after_setup_theme', 'configura_tamanho_imagens');
 
@@ -363,3 +364,17 @@ function trendpro_enqueue_banner_script() {
 }
 add_action('wp_enqueue_scripts', 'trendpro_enqueue_banner_script');
 
+
+
+// Este código define onde os arquivos JSON do ACF (Advanced Custom Fields) serão salvos e carregados no tema.
+// Ele faz com que os campos personalizados exportados pelo ACF sejam armazenados na pasta 'acf-json' do tema,
+// facilitando o versionamento e a portabilidade das configurações de campos personalizados.
+// Filtro para definir o diretório de salvamento dos arquivos JSON do ACF
+add_filter('acf/settings/save_json', function() {
+  return get_stylesheet_directory() . '/acf-json/';
+});
+
+add_filter('acf/settings/load_json', function($paths) {
+  $paths[] = get_stylesheet_directory() . '/acf-json/';
+  return $paths;
+});

@@ -1,0 +1,195 @@
+{
+    "key": "group_equipe",
+    "title": "(Sobre) Seção 5 - Equipe",
+    "fields": [
+        {
+            "key": "field_6876684b9d6d1",
+            "label": "Ativar seção?",
+            "name": "ativo_sobre_secao_5",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui_on_text": "Ativado",
+            "ui_off_text": "Desativado",
+            "ui": 1
+        },
+        {
+            "key": "field_equipe_titulo",
+            "label": "Título da Seção",
+            "name": "equipe_titulo",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Título principal da seção de equipe",
+            "required": 1,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Nossa Equipe",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_equipe_subtitulo",
+            "label": "Subtítulo da Seção",
+            "name": "equipe_subtitulo",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Subtítulo da seção de equipe",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "CONHEÇA NOSSOS ESPECIALISTAS",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_equipe_membros",
+            "label": "Membros da Equipe",
+            "name": "equipe_membros",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Adicione os membros da equipe",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "min": 0,
+            "max": 0,
+            "button_label": "Adicionar Membro",
+            "rows_per_page": 20,
+            "collapsed": "",
+            "sub_fields": [
+                {
+                    "key": "field_membro_nome",
+                    "label": "Nome",
+                    "name": "nome",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Nome do membro da equipe",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_equipe_membros"
+                },
+                {
+                    "key": "field_membro_cargo",
+                    "label": "Cargo",
+                    "name": "cargo",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "Cargo ou função do membro da equipe",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 2,
+                    "default_value": "",
+                    "new_lines": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "parent_repeater": "field_equipe_membros"
+                },
+                {
+                    "key": "field_membro_instagram",
+                    "label": "Instagram",
+                    "name": "instagram",
+                    "aria-label": "",
+                    "type": "url",
+                    "instructions": "Link do perfil no Instagram (sem o @)",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "parent_repeater": "field_equipe_membros"
+                },
+                {
+                    "key": "field_membro_foto",
+                    "label": "Foto",
+                    "name": "foto",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Foto do membro da equipe",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "jpg, png",
+                    "parent_repeater": "field_equipe_membros"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page",
+                "operator": "==",
+                "value": "37"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Campos para a seção de equipe",
+    "show_in_rest": 0,
+    "modified": 1752590425
+}

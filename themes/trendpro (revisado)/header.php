@@ -62,22 +62,45 @@
                     <?php endif; ?>
 
                 </div>
-                <div class="col-auto col-lg-2 text-end">
-                    <div class="header-icon header-push-button hamburger-push-button icon">
-                        <div class="push-button">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
+                <div class="col-auto col-lg-2 text-end md-pe-0">
+
+                    <div class="header-icon">
+                        <div class="header-search-icon icon">
+                            <a href="#" class="search-form-icon header-search-form" aria-label="search"><i class="feather icon-feather-search"></i></a>
+                            <!-- start search input -->
+                            <div class="search-form-wrapper">
+                                <button title="Close" type="button" class="search-close alt-font">×</button>
+                                <form id="search-form searchform" action="<?php echo esc_url(home_url('/')); ?>" role="search" method="get" class="search-form text-left">
+                                    <div class="search-form-box">
+                                        <h2 class="text-dark-gray fw-700 ls-minus-1px text-center mb-4 alt-font">Digite sua busca</h2>
+                                        <input class="search-input alt-font" id="search-form-input5e219ef164995" placeholder="Digite sua busca..." name="s" value="<?php echo get_search_query(); ?>" type="text" autocomplete="off">
+                                        <button type="submit" class="search-button">
+                                            <i class="feather icon-feather-search" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- end search input -->
+                        </div>
+                        <div class="header-push-button icon">
+                            <div class="push-button">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
                         </div>
                     </div>
+
+
+
+
                 </div>
             </div>
         </nav>
         <!-- end navigation -->
         <!-- start hamburger menu -->
-        <div class="push-menu hamburger-nav hamburger-menu-simple header-dark bg-dark-gray background-position-center-top"
-            >
+        <div class="push-menu hamburger-nav hamburger-menu-simple header-dark bg-dark-gray background-position-center-top">
             <span class="close-menu text-dark-gray text-dark-gray-hover bg-white"><i
                     class="fa-solid fa-xmark"></i></span>
             <div class="container h-100">

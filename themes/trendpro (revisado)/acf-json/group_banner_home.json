@@ -1,0 +1,161 @@
+{
+    "key": "group_banner_home",
+    "title": "(Banner) Home",
+    "fields": [
+        {
+            "key": "field_banner_image",
+            "label": "Imagem de Fundo (desktop)",
+            "name": "banner_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Selecione uma imagem para usar como poster do vídeo ou caso o vídeo não carregue.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "jpg, jpeg, png",
+            "allow_in_bindings": 1,
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_6818f8381c245",
+            "label": "Imagem de Fundo (mobile)",
+            "name": "banner_image_mobile",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Selecione uma imagem para usar como poster do vídeo ou caso o vídeo não carregue.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "jpg, jpeg, png",
+            "allow_in_bindings": 1,
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_banner_video_mp4",
+            "label": "Vídeo MP4 (desktop)",
+            "name": "banner_video_mp4",
+            "aria-label": "",
+            "type": "file",
+            "instructions": "Faça upload do vídeo em formato MP4.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "url",
+            "library": "all",
+            "min_size": "",
+            "max_size": "",
+            "mime_types": "mp4",
+            "allow_in_bindings": 1
+        },
+        {
+            "key": "field_6818f84414b03",
+            "label": "Vídeo MP4 (mobile)",
+            "name": "banner_video_mp4_mobile",
+            "aria-label": "",
+            "type": "file",
+            "instructions": "Faça upload do vídeo em formato MP4.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "url",
+            "library": "all",
+            "min_size": "",
+            "max_size": "",
+            "mime_types": "mp4",
+            "allow_in_bindings": 1
+        },
+        {
+            "key": "field_6818f614a4f13",
+            "label": "Subtítulo Texto do Banner",
+            "name": "banner_text_subtitle",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Texto principal que aparecerá sobre o vídeo\/imagem.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 1,
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_banner_text",
+            "label": "Texto do Banner",
+            "name": "banner_text",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Texto principal que aparecerá sobre o vídeo\/imagem.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 1,
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "banners"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Campos para o banner de vídeo na página inicial",
+    "show_in_rest": 0,
+    "modified": 1752591859
+}

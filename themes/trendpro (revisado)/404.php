@@ -1,6 +1,4 @@
-<?php get_header();
-
-get_template_part('template-parts/breadcrumbs'); ?>
+<?php get_header();?>
 
 <!-- start section -->
 <section class="cover-background full-screen ipad-top-space-margin md-h-550px bg-dark-gray">

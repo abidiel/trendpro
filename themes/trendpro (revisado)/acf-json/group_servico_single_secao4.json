@@ -1,0 +1,147 @@
+{
+    "key": "group_servico_single_secao4",
+    "title": "(Serviço Single) Seção 4",
+    "fields": [
+        {
+            "key": "field_68764ba3c6151",
+            "label": "Ativar seção?",
+            "name": "ativo_servico_single_secao_4",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui_on_text": "Ativado",
+            "ui_off_text": "Desativado",
+            "ui": 1
+        },
+        {
+            "key": "field_servico_s4_imagem",
+            "label": "Imagem",
+            "name": "servico_s4_imagem",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Imagem principal da seção 4",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "jpg,jpeg,png,webp",
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_servico_s4_mini_titulo",
+            "label": "Mini Título",
+            "name": "servico_s4_mini_titulo",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Texto pequeno acima do título principal",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "Ex: Nossos Diferenciais",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_servico_s4_titulo",
+            "label": "Título",
+            "name": "servico_s4_titulo",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Título principal da seção com formatação",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_servico_s4_texto",
+            "label": "Texto",
+            "name": "servico_s4_texto",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Texto descritivo da seção",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_servico_s4_link",
+            "label": "Link",
+            "name": "servico_s4_link",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "Link de ação da seção",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "servicos"
+            }
+        ]
+    ],
+    "menu_order": 4,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Campos para a seção 4 do single de serviços",
+    "show_in_rest": 0,
+    "modified": 1752584827
+}

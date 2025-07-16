@@ -1,0 +1,66 @@
+{
+    "key": "group_service_details",
+    "title": "(Serviços Single) Seção 00 - Card Listagem",
+    "fields": [
+        {
+            "key": "field_service_icon",
+            "label": "Ícone",
+            "name": "service_icon",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Use a chamada do icone\r\nDocs: https:\/\/craftohtml.themezaa.com\/icon-packs-icons-mind-line.html",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 1,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_service_short_description",
+            "label": "Descrição Curta",
+            "name": "service_short_description",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Escreva uma breve descrição do serviço (para exibição em listas)",
+            "required": 1,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 3,
+            "maxlength": 200,
+            "default_value": "",
+            "new_lines": "",
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "servicos"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Campos adicionais para o cadastro de serviços",
+    "show_in_rest": 0,
+    "modified": 1752582982
+}

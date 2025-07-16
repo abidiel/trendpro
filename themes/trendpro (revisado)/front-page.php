@@ -75,9 +75,8 @@ endif;
 ?>
 
 
-
-
 <!-- start section - Clientes -->
+<?php if (get_field('ativo_home_secao_1', 7)): ?> 
 <section class="bg-dark-gray background-position-center-top pb-0"
     style="background-image: url('<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/dotted-pattern.svg')">
     <div class="container-fluid">
@@ -100,9 +99,11 @@ endif;
         </div>
     </div>
 </section>
+<?php endif; ?>
 <!-- end section -->
 
 <!-- start section - Quem somos-->
+<?php if (get_field('ativo_home_secao_2', 7)): ?> 
 <section class="bg-dark-gray background-position-center-top overlap-height"
     style="background-image: url('<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/dotted-pattern.svg')" id="sobre">
     <div class="container overlap-gap-section">
@@ -156,9 +157,11 @@ endif;
         </div>
     </div>
 </section>
+<?php endif; ?>
 <!-- end section -->
 
 <!-- start section - Video manifesto -->
+<?php if (get_field('ativo_home_secao_3', 7)): ?> 
 <section class="p-0 bg-dark-gray background-position-center-top overflow-hidden"
     style="background-image: url('<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/dotted-pattern.svg')">
     <div class="container-fluid p-0">
@@ -189,20 +192,22 @@ endif;
         </div>
     </div>
 </section>
+<?php endif; ?>
 <!-- end section -->
 
 <!-- start section - Serviços -->
+<?php if (get_field('ativo_home_secao_1', 4)): ?> 
 <section class="bg-dark-gray background-position-center-top overflow-hidden" id="servicos">
     <div class="container">
         <div class="row align-items-end mb-6">
             <div class="col-md-6 sm-mb-20px"
                 data-anime='{ "el": "childs", "translateX": [50, 0], "opacity": [0,1], "duration": 1200, "delay": 100, "staggervalue": 150, "easing": "easeOutQuad" }'>
-                <span class="text-base-color fs-12 fw-600 ls-3px text-uppercase mb-5px d-block"><?php echo esc_html(get_field('services_subtitle', 41)); ?></span>
-                <h3 class="text-white fw-600 mb-0"><?php echo esc_html(get_field('services_title', 41)); ?></h3>
+                <span class="text-base-color fs-12 fw-600 ls-3px text-uppercase mb-5px d-block"><?php echo esc_html(get_field('servicos_mini_titulo')); ?></span>
+                <h3 class="text-white fw-600 mb-0"><?php echo esc_html(get_field('servicos_titulo')); ?></h3>
             </div>
             <div class="col-md-5 offset-md-1 last-paragraph-no-margin"
                 data-anime='{ "translateX": [-50, 0], "opacity": [0,1], "duration": 1200, "delay": 100, "staggervalue": 150, "easing": "easeOutQuad" }'>
-                <p class="w-80 xl-w-85 lg-w-100 text-white fw-300"><?php echo esc_html(get_field('services_description', 41)); ?></p>
+                <p class="w-80 xl-w-85 lg-w-100 text-white fw-300"><?php echo esc_html(get_field('servicos_descricao')); ?></p>
             </div>
         </div>
         <div class="row align-items-center mb-9">
@@ -251,8 +256,12 @@ endif;
                                         <a href="<?php the_permalink(); ?>" class="banner-link-wrap">
                                             <div class="interactive-banner-style-06">
                                                 <div class="interactive-banners-image">
-                                                    <?php if (get_field('service_featured_image')) : ?>
-                                                        <img src="<?php echo esc_url(get_field('service_featured_image')); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" />
+                                                    <?php if (has_post_thumbnail()) : ?>
+                                                        <?php
+                                                        $servico_image = wp_get_attachment_image_src(get_post_thumbnail_id(), 'servico-imagem');
+                                                        if ($servico_image) : ?>
+                                                            <img src="<?php echo esc_url($servico_image[0]); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" loading="lazy" />
+                                                        <?php endif; ?>
                                                     <?php else : ?>
                                                         <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/placeholder.jpg" alt="<?php echo esc_attr(get_the_title()); ?>" />
                                                     <?php endif; ?>
@@ -295,8 +304,12 @@ endif;
                                         <a href="<?php the_permalink(); ?>" class="banner-link-wrap">
                                             <div class="interactive-banner-style-06">
                                                 <div class="interactive-banners-image">
-                                                    <?php if (get_field('service_featured_image')) : ?>
-                                                        <img src="<?php echo esc_url(get_field('service_featured_image')); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" />
+                                                    <?php if (has_post_thumbnail()) : ?>
+                                                        <?php
+                                                        $servico_image = wp_get_attachment_image_src(get_post_thumbnail_id(), 'servico-imagem');
+                                                        if ($servico_image) : ?>
+                                                            <img src="<?php echo esc_url($servico_image[0]); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" loading="lazy" />
+                                                        <?php endif; ?>
                                                     <?php else : ?>
                                                         <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/placeholder.jpg" alt="<?php echo esc_attr(get_the_title()); ?>" />
                                                     <?php endif; ?>
@@ -337,10 +350,12 @@ endif;
 
     </div>
 </section>
+<?php endif; ?>
 <!-- end section -->
 
 
 <!-- start section - Cases Titulo -->
+<?php if (get_field('ativo_home_secao_5', 7)): ?> 
 <section class="bg-nero-grey overlap-height background-position-center-top"
     style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/dotted-pattern.svg')" id="cases">
     <div class="container overlap-gap-section">
@@ -402,10 +417,10 @@ endif;
         </div>
 
         <div class="row justify-content-center">
-            <div class="col-xl-9 col-lg-10 testimonials-style-10 position-relative ps-4 pe-4 swiper-number-pagination-progress"
+            <div class="col-10 testimonials-style-10 position-relative ps-4 pe-4 swiper-number-pagination-progress"
                 data-anime='{ "translateY": [0, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
                 <div class="swiper magic-cursor pt-9 pb-6"
-                    data-slider-options='{"slidesPerView": 1, "loop": true, "keyboard": { "enabled": true, "onlyInViewport": true }, "autoplay": { "delay": 4000, "disableOnInteraction": false }, "pagination": { "el": ".swiper-number-line-pagination", "clickable": true }, "navigation": { "nextEl": ".swiper-button-next-nav", "prevEl": ".swiper-button-previous-nav", "effect": "fade" } }'
+                    data-slider-options='{"slidesPerView": 1, "loop": true, "keyboard": { "enabled": true, "onlyInViewport": true }, "autoplay": { "delay": 59999000, "disableOnInteraction": false }, "pagination": { "el": ".swiper-number-line-pagination", "clickable": true }, "navigation": { "nextEl": ".swiper-button-next-nav", "prevEl": ".swiper-button-previous-nav", "effect": "fade" } }'
                     data-swiper-number-pagination-progress="true">
                     <div class="swiper-wrapper">
 
@@ -414,7 +429,7 @@ endif;
 
                         $args = array(
                             'post_type' => 'depoimentos',
-                            'showposts' => -1,
+                            'showposts' => 3,
                             'post_status' => 'publish'
                         );
 
@@ -424,7 +439,7 @@ endif;
 
                         if ($the_query->have_posts()) :
                             while ($the_query->have_posts()) : $the_query->the_post();
-                                get_template_part('template-parts/list-depoimentos-home');
+                                get_template_part('template-parts/list-depoimentos');
                             endwhile;
                         else :
 
@@ -452,6 +467,7 @@ endif;
         </div>
     </div>
 </section>
+<?php endif; ?>
 <!-- end section -->
 
 <!-- start section - Frase -->
@@ -465,14 +481,12 @@ endif;
         resultado
     </div>
     <!-- end marquees -->
-    <!-- <div class="position-absolute right-18 md-right-0 top-minus-50px sm-top-minus-20px sm-w-220px xs-w-190px z-index-9" data-anime='{ "translateY": [0, 0], "scale": [0.8, 1], "opacity": [0,1], "duration": 800, "delay": 200, "staggervalue": 300, "easing": "easeOutQuad" }'>
-                <img src="images/demo-architecture-home-11.png" class="animation-rotation" alt="">
-                <div class="absolute-middle-center w-100 z-index-minus-1"><img src="images/demo-architecture-home-12.png" alt=""></div> 
-            </div> -->
+
 </section>
 <!-- end section -->
 
 <!-- start section - Equipe -->
+<?php if (get_field('ativo_home_secao_6', 7)): ?> 
 <section class="bg-dark-gray background-position-center-top position-relative pt-0 align-items-center"
     style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/dotted-pattern.svg')" id="equipe">
     <div class="container">
@@ -537,9 +551,11 @@ endif;
         class="position-absolute bottom-minus-50px md-bottom-minus-30px sm-bottom-minus-25px xs-bottom-minus-15px left-0px right-0px text-center w-100 fs-200 lg-fs-160 md-fs-140 sm-fs-120 xs-fs-90 fw-600 text-nero-grey ls-minus-4px">
         trend pro</div>
 </section>
+<?php endif; ?>
 <!-- end section -->
 
 <!-- start section -->
+<?php if (get_field('ativo_home_secao_7', 7)): ?> 
 <section class="bg-nero-grey background-position-center-top position-relative" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/dotted-pattern.svg')">
     <div class="container">
         <div class="row align-items-center justify-content-center text-center mb-2 sm-mb-5">
@@ -584,6 +600,7 @@ endif;
     </div>
 
 </section>
+<?php endif; ?>
 <!-- end section -->
 
 

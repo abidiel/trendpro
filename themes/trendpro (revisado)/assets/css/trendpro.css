@@ -122,14 +122,14 @@ header .elements-social ul li a {
 }
 /* text color */ 
 .text-nero-grey {
-    color: #1F1F1F;
+    color: #151515;
 }
 .text-charcoal {
     color: #282828;
 }
 /* bg color */ 
 .bg-nero-grey {
-    background-color: #1F1F1F;
+    background-color: #151515;
 }
 .bg-dark-gray-transparent {
     background-color:rgba(25, 25, 25,.7);
@@ -182,11 +182,6 @@ footer .footer-logo img {
 }
 footer .elements-social li {
     margin: 0 15px 0 0;
-}
-.video-icon-extra-large .video-icon {
-    width: 170px;
-    height: 170px;
-    font-size: 16px;
 }
 /* magic cursor */
 .magic-drag-cursor #ball-cursor:before {
@@ -869,4 +864,101 @@ input.wpcf7-form-control.wpcf7-submit {
     display: block !important;
     margin: 0 auto !important;
     text-align: center;
+}
+
+@media (max-width: 991px) {
+    header .header-push-button.icon{
+        display: flex !important;
+        padding: 0 15px !important;
+    }
+}
+
+
+.text-outline {
+    -webkit-text-stroke-color: var(--base-color) !important;
+}
+
+
+
+
+/* Estilos para ajustar iframe para vertical */
+/* Proporção padrão 16:9 */
+
+.mfp-iframe-scaler {
+    padding-bottom: 56.25% !important; /* 16:9 */
+}
+
+/* Proporção para vídeo vertical 9:16 */
+.mfp-iframe-scaler.vertical {
+    padding-bottom: 177.78% !important; /* 9:16 */
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* Ajustes mobile para vídeo vertical */
+@media (max-width: 768px) {
+    .mfp-ready .mfp-iframe-scaler.vertical {
+        max-width: 100%;
+        padding-bottom: 177.78% !important;
+    }
+}
+
+
+/* Modal maior mas não fullscreen */
+.mfp-iframe-holder .mfp-content {
+    max-width: 85vw;  
+    max-height: 80vh; 
+ }
+ 
+
+
+
+/* Links em rosa para destaque em conteúdo do Gutenberg */
+.entry-content a,
+.post-content a,
+.content a,
+.wp-block-paragraph a,
+p a {
+    color: var(--base-color) !important;
+}
+
+.entry-content a:hover,
+.post-content a:hover,
+.content a:hover,
+.wp-block-paragraph a:hover,
+p a:hover {
+    color: var(--light-gray) !important; /* tom mais claro do rosa */
+    transition: color 0.3s ease;
+}
+
+
+.box-layout {
+    padding: 0 175px;
+}
+
+/* media query responsive */
+@media (max-width: 1799px) {
+    .box-layout {
+        padding: 0 100px;
+    }
+}
+@media (max-width: 1600px) {
+    .box-layout {
+        padding: 0 80px;
+    }
+}
+@media (max-width: 1199px) {
+    .box-layout {
+        padding: 0 30px;
+    }
+}
+@media (max-width: 767px) {
+    .box-layout {
+        padding: 0 15px;
+    }
+}
+
+
+.opacity-case-destaque{
+    opacity: 0.2 !important;
 }

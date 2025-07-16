@@ -809,3 +809,8 @@ input.wpcf7-form-control.wpcf7-submit {
     height: 16px;
     accent-color: #fff;
 }
+
+
+.box-layout {
+    padding: 0 175px;
+}
