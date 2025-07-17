@@ -45,7 +45,7 @@ if ($banner_query->have_posts()) :
                     <div class="col-xl-7 col-lg-8 col-md-10 position-relative text-white text-center text-md-start"
                         data-anime='{ "el": "childs", "translateX": [100, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
                         <div>
-                            <span class="fs-20 opacity-6 mb-25px sm-mb-15px d-inline-block fw-300"><?php echo $banner_text_subtitle; ?></span>
+                            <span class="fs-18 opacity-8 mb-25px sm-mb-15px d-inline-block fw-400"><?php echo $banner_text_subtitle; ?></span>
                         </div>
                         <h1 class="alt-font xl-w-100 text-shadow-double-large ls-minus-2px fs-60"><?php echo $banner_text; ?></h1>
 
@@ -380,10 +380,13 @@ endif;
         <div class="container">
             <div class="row mb-8 xs-mb-10 overlap-section">
                 <div class="col-12 position-relative">
-                    <div
-                        class="vertical-title-center align-items-center position-absolute top-0px left-15px bg-base-color p-10px xs-p-5px h-270px sm-h-190px z-index-9 w-50px xs-w-40px">
-                        <div class="title fs-14 ls-2px text-dark-gray fw-700 text-uppercase">Projetos Recentes</div>
+                    <div class="d-none d-md-block">
+                        <div class="vertical-title-center align-items-center position-absolute top-0px left-15px bg-base-color p-10px xs-p-5px h-270px sm-h-190px z-index-9 w-50px xs-w-40px">
+                            <div class="title fs-12 ls-2px text-dark-gray fw-700 text-uppercase">Projetos Recentes</div>
+                        </div>
+
                     </div>
+
                     <div class="swiper position-relative text-slider-style-04" data-slider-options='{ "autoHeight": true, "loop": true, "allowTouchMove": true, "autoplay": { "delay": 4000, "disableOnInteraction": false }, "navigation": { "nextEl": ".slider-one-slide-next-1", "prevEl": ".slider-one-slide-prev-1" }, "effect": "fade" }'>
                         <div class="swiper-wrapper">
 
@@ -458,9 +461,9 @@ endif;
                     </div>
                     <!-- end slider pagination -->
                     <!-- start slider navigation -->
-                    <div class="swiper-button-previous-nav swiper-button-prev icon-extra-medium left-0px"><i
+                    <div class="d-none d-md-block swiper-button-previous-nav swiper-button-prev icon-extra-medium left-0px"><i
                             class="bi bi-arrow-left icon-extra-medium text-white"></i></div>
-                    <div class="swiper-button-next-nav swiper-button-next icon-extra-medium right-0px"><i
+                    <div class="d-none d-md-block swiper-button-next-nav swiper-button-next icon-extra-medium right-0px"><i
                             class="bi bi-arrow-right icon-extra-medium text-white"></i></div>
                     <!-- end slider pagination -->
                 </div>

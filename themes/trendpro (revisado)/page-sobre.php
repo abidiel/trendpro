@@ -16,7 +16,7 @@ get_template_part('template-parts/breadcrumbs'); ?>
                     <h2 class="text-white fw-600 alt-font outside-box-right-10 xl-outside-box-right-15 lg-outside-box-right-20 md-me-0 sm-mb-0 ls-minus-3px"><?php echo esc_html(get_field('sobre_secao1_titulo', 37)); ?></h2>
                 </div>
             </div>
-            <div class="col-xl-8 col-lg-7 position-relative one-half-screen order-1 order-lg-2 md-mb-50px">
+            <div class="col-xl-8 col-lg-7 position-relative h-auto h-md-50 order-1 order-lg-2 md-mb-50px">
                 <div class="overflow-hidden position-relative">
                     <div class="w-100" data-anime='{ "effect": "slide", "direction": "lr", "color": "#000", "duration": 1000, "delay": 0 }'>
                         <img src="<?php echo esc_url(wp_get_attachment_image_url(get_field('sobre_secao1_imagem', 37)['ID'], 'sobre-heading')); ?>" alt="" class="w-100 liquid-parallax" data-parallax-liquid="true" data-parallax-position="top" data-parallax-scale="1.05">

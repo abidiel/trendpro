@@ -1,13 +1,13 @@
 <?php
 /* Template Name: Blog */
-get_header(); 
+get_header();
 
 get_template_part('template-parts/breadcrumbs');
 ?>
 
 
 <!-- start section -->
-<section class="bg-dark-gray background-position-center-top big-section overlap-height pb-0" >
+<section class="bg-dark-gray background-position-center-top big-section overlap-height pb-0">
 
 	<div class="container">
 		<div class="row align-items-end mb-6">
@@ -58,21 +58,19 @@ get_template_part('template-parts/breadcrumbs');
 			<?php wp_bootstrap_pagination(); ?>
 			<!-- end: Paginação  -->
 
-			<div class="row row-cols-1 justify-content-center pt-3">
-				<div class="col btn-dual text-center">
-					<span class="text-white d-table d-lg-inline-block xl-mt-15px md-mx-auto fs-20">Categorias</span>
+			<div class="col-12 btn-dual justify-content-center text-center pt-2">
+				<span class="text-white d-table d-lg-inline-block xl-mt-15px md-mx-auto fs-20">Categorias</span>
 
-					<a href="<?php the_permalink('19'); ?>" class="btn btn-link underline-on-hover btn-medium text-white d-table d-lg-inline-block xl-mb-15px md-mx-auto">Ver tudo</a>
+				<a href="<?php the_permalink('19'); ?>" class="btn btn-link  btn-medium text-white d-table d-lg-inline-block xl-mb-15px md-mx-auto">Ver tudo</a>
 
-					<?php
-					$terms = get_terms(array('taxonomy' => 'category', 'hide_empty' => true, 'order' => 'ASC', 'parent' => 0, 'showposts' => 30));
-					foreach ($terms as $term) {
+				<?php
+				$terms = get_terms(array('taxonomy' => 'category', 'hide_empty' => true, 'order' => 'ASC', 'parent' => 0, 'showposts' => 30));
+				foreach ($terms as $term) {
 
-						echo '<a href="' . get_term_link($term) . '" class="btn btn-link underline-on-hover btn-medium text-white d-table d-lg-inline-block xl-mb-15px md-mx-auto">' . $term->name . '</a>';
-					}
-					?>
+					echo '<a href="' . get_term_link($term) . '" class="btn btn-link btn-medium text-white d-table d-lg-inline-block xl-mb-15px md-mx-auto">' . $term->name . '</a>';
+				}
+				?>
 
-				</div>
 			</div>
 
 		</div>

@@ -5,7 +5,7 @@ $imagem_breadcrumb_url = '';
 // Se estiver em single post/CPT ou página e tiver imagem destacada
 if ((is_single() || is_page()) && has_post_thumbnail()) {
     $imagem_breadcrumb_url = get_the_post_thumbnail_url(get_the_ID(), 'img_breadcrumb');
-} 
+}
 // Fallback para imagem padrão das opções do tema
 else {
     $attachment_breadcrumb_id = get_field('imagem_breadcrumb', 'option');
@@ -52,16 +52,21 @@ if (is_front_page()) {
 
 <section class="page-title-big-typography bg-dark-gray cover-background p-4" style="background-image: url(<?php echo esc_url($imagem_breadcrumb_url); ?>)">
     <div class="opacity-extra-medium bg-black"></div>
+    <div class="row d-flex justify-content-center breadcrumb-custom position-relative text-center text-white" data-anime='{ "el": "childs", "translateY": [20, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 200, "easing": "easeOutQuad" }'>
+        <div class="col-12">
+            <?php if (function_exists('yoast_breadcrumb')) : ?>
+                <div class="breadcrumb-wrapper">
+                    <?php yoast_breadcrumb('<nav class="breadcrumb-nav" aria-label="Navegação">', '</nav>'); ?>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
     <div class="container ">
-        <div class="row align-items-end justify-content-center h-150px">
+        <div class="row align-items-center justify-content-center h-150px">
             <div class="col-lg-6 col-md-8 position-relative page-title-extra-small text-center" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
                 <h4 class="mb-20px primary-font text-white fw-700"><?php echo esc_html($titulo_breadcrumb); ?></h4>
             </div>
         </div>
-        <div class="row d-flex justify-content-center breadcrumb  position-relative text-center text-white" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
-            <?php if (function_exists('yoast_breadcrumb')) {
-                yoast_breadcrumb('<ul class="breadcrumbs text-center">', '</ul>');
-            } ?>
-        </div>
+
     </div>
 </section>

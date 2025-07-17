@@ -221,10 +221,6 @@ footer .elements-social li {
     }
 }
 @media (max-width: 767px) {
-    .video-icon-extra-large .video-icon {
-        width: 120px;
-        height: 120px;
-    }
     .slider-navigation-style-07 {
         left: 0;
     }
@@ -531,6 +527,10 @@ header.sticky.sticky-active .navbar-brand .default-logo {
 
 .breadcrumbs a{
     color: rgb(232, 232, 232) !important;
+}
+
+.breadcrumbs{
+    font-size: 14px
 }
 
 .wp-block-heading{
@@ -869,7 +869,7 @@ input.wpcf7-form-control.wpcf7-submit {
 @media (max-width: 991px) {
     header .header-push-button.icon{
         display: flex !important;
-        padding: 0 15px !important;
+        padding: 0 25px !important;
     }
 }
 
@@ -961,4 +961,585 @@ p a:hover {
 
 .opacity-case-destaque{
     opacity: 0.2 !important;
+}
+
+
+/* ==============================================
+   GUTENBERG - FORMATAÇÃO DE LISTAS
+   ============================================== */
+
+/* IMPORTANTE: Sobrescrever o list-style: none global */
+/* Listas não ordenadas (UL) - com especificidade maior */
+.wp-block-list ul,
+ul.wp-block-list,
+.entry-content .wp-block-list ul,
+.wp-block-post-content .wp-block-list ul {
+    list-style: disc !important;
+    list-style-type: disc !important;
+    margin-left: 20px;
+    padding-left: 0;
+    margin-bottom: 1rem;
+}
+
+.wp-block-list ul li,
+ul.wp-block-list li,
+.entry-content .wp-block-list ul li,
+.wp-block-post-content .wp-block-list ul li {
+    list-style: disc !important;
+    list-style-type: disc !important;
+}
+
+/* Listas ordenadas (OL) - com especificidade maior */
+.wp-block-list ol,
+ol.wp-block-list,
+.entry-content .wp-block-list ol,
+.wp-block-post-content .wp-block-list ol {
+    list-style: decimal !important;
+    list-style-type: decimal !important;
+    margin-left: 20px;
+    padding-left: 0;
+    margin-bottom: 1rem;
+}
+
+.wp-block-list ol li,
+ol.wp-block-list li,
+.entry-content .wp-block-list ol li,
+.wp-block-post-content .wp-block-list ol li {
+    list-style: decimal !important;
+    list-style-type: decimal !important;
+}
+
+/* Itens de lista */
+.wp-block-list li {
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+/* Listas aninhadas - segundo nível */
+.wp-block-list ul ul,
+.wp-block-list ol ul {
+    list-style-type: circle;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Listas aninhadas - terceiro nível */
+.wp-block-list ul ul ul,
+.wp-block-list ol ul ul {
+    list-style-type: square;
+}
+
+/* Listas ordenadas aninhadas */
+.wp-block-list ol ol {
+    list-style-type: lower-alpha;
+}
+
+.wp-block-list ol ol ol {
+    list-style-type: lower-roman;
+}
+
+/* Estilos customizados para ícones personalizados */
+.wp-block-list.custom-bullets ul {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.wp-block-list.custom-bullets ul li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 0.8rem;
+}
+
+.wp-block-list.custom-bullets ul li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--base-color, #007cba);
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+/* Variações de ícones personalizados */
+.wp-block-list.arrow-bullets ul li::before {
+    content: "→";
+    color: var(--base-color, #007cba);
+}
+
+.wp-block-list.star-bullets ul li::before {
+    content: "★";
+    color: var(--base-color, #007cba);
+}
+
+.wp-block-list.circle-bullets ul li::before {
+    content: "●";
+    color: var(--base-color, #007cba);
+}
+
+/* Espaçamento para listas dentro de outros blocos */
+.wp-block-group .wp-block-list,
+.wp-block-column .wp-block-list,
+.wp-block-cover .wp-block-list {
+    margin-bottom: 1rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .wp-block-list ul,
+    .wp-block-list ol {
+        margin-left: 15px;
+    }
+    
+    .wp-block-list.custom-bullets ul li {
+        padding-left: 20px;
+    }
+}
+
+/* Cores customizadas baseadas no tema */
+.wp-block-list.text-base-color li {
+    color: var(--base-color, #007cba);
+}
+
+.wp-block-list.text-dark-gray li {
+    color: var(--dark-gray, #333);
+}
+
+/* Listas dentro de contêineres específicos */
+.container .wp-block-list,
+.row .wp-block-list {
+    max-width: 100%;
+}
+
+/* Fix para listas que perderam a formatação devido ao reset global */
+.entry-content ul:not([class]):not(.no-bullets),
+.wp-block-post-content ul:not([class]):not(.no-bullets),
+.wp-block-group ul:not([class]):not(.no-bullets),
+.wp-block-column ul:not([class]):not(.no-bullets) {
+    list-style: disc !important;
+    list-style-type: disc !important;
+    margin-left: 20px;
+    padding-left: 0;
+}
+
+.entry-content ul:not([class]):not(.no-bullets) li,
+.wp-block-post-content ul:not([class]):not(.no-bullets) li,
+.wp-block-group ul:not([class]):not(.no-bullets) li,
+.wp-block-column ul:not([class]):not(.no-bullets) li {
+    list-style: disc !important;
+    list-style-type: disc !important;
+}
+
+.entry-content ol:not([class]),
+.wp-block-post-content ol:not([class]),
+.wp-block-group ol:not([class]),
+.wp-block-column ol:not([class]) {
+    list-style: decimal !important;
+    list-style-type: decimal !important;
+    margin-left: 20px;
+    padding-left: 0;
+}
+
+.entry-content ol:not([class]) li,
+.wp-block-post-content ol:not([class]) li,
+.wp-block-group ol:not([class]) li,
+.wp-block-column ol:not([class]) li {
+    list-style: decimal !important;
+    list-style-type: decimal !important;
+}
+
+/* Garantir que os marcadores sejam visíveis */
+.wp-block-list li::marker {
+    color: var(--base-color, #007cba);
+}
+
+
+/* ==============================================
+   BREADCRUMB CUSTOMIZADO - TRENDPRO
+   ============================================== */
+
+/* Container do breadcrumb */
+.breadcrumb-custom {
+    margin-bottom: 0;
+    padding: 15px 0;
+    position: absolute;
+    top: 40px; /* Subir o breadcrumb */
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.breadcrumb-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Estilização do breadcrumb do Yoast */
+.breadcrumb-nav,
+.breadcrumbs {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+/* Links do breadcrumb */
+.breadcrumb-nav a,
+.breadcrumbs a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 5px 8px;
+    border-radius: 3px;
+    position: relative;
+}
+
+.breadcrumb-nav a:hover,
+.breadcrumbs a:hover {
+    color:  #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+}
+
+/* Separadores */
+.breadcrumb-nav span:not(:last-child)::after,
+.breadcrumbs span:not(:last-child)::after {
+    content: "›";
+    margin: 0 8px;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 300;
+}
+
+/* Remover último item (página atual) usando classe específica do Yoast */
+.breadcrumb_last {
+    display: none !important;
+}
+
+/* Remover separador antes do último item */
+.breadcrumb_last::before {
+    display: none !important;
+}
+
+/* Se quiser manter o último item visível mas sem link (opcional) */
+.breadcrumb_last.keep-visible {
+    display: inline !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    font-weight: 300;
+    font-style: italic;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .breadcrumb-custom {
+        top: 20px;
+        padding: 10px 0;
+    }
+    
+    .breadcrumb-nav,
+    .breadcrumbs {
+        font-size: 12px;
+        justify-content: center;
+    }
+    
+    .breadcrumb-nav span:not(:last-child)::after,
+    .breadcrumbs span:not(:last-child)::after {
+        margin: 0 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    .breadcrumb-custom {
+        top: 15px;
+    }
+    
+    .breadcrumb-nav,
+    .breadcrumbs {
+        font-size: 11px;
+    }
+    
+    /* Quebrar em múltiplas linhas se necessário */
+    .breadcrumb-nav a,
+    .breadcrumbs a {
+        padding: 3px 5px;
+    }
+}
+
+/* Efeito adicional para destaque */
+.breadcrumb-nav a::before,
+.breadcrumbs a::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background-color: var(--base-color, #fff);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.breadcrumb-nav a:hover::before,
+.breadcrumbs a:hover::before {
+    width: 80%;
+}
+
+
+
+/* ==============================================
+   FILTROS PORTFOLIO - MOBILE HORIZONTAL SCROLL
+   ============================================== */
+
+/* Container dos filtros */
+.portfolio-filter {
+    display: flex;
+    flex-wrap: nowrap; /* Não quebra linha */
+    overflow-x: auto; /* Scroll horizontal */
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch; /* Smooth scroll iOS */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    padding-bottom: 20px !important;
+    margin-bottom: 0;
+    gap: 15px; /* Volta ao gap original para desktop */
+}
+
+/* Esconder scrollbar */
+.portfolio-filter::-webkit-scrollbar {
+    display: none;
+}
+
+/* Itens da lista */
+.portfolio-filter li.nav {
+    flex: 0 0 auto; /* Não encolhe, não cresce, tamanho automático */
+    white-space: nowrap; /* Não quebra texto */
+    margin-right: 0; /* Remove margin padrão */
+    margin-bottom: 0; /* Remove margin padrão */
+    padding: 0 !important;
+}
+
+/* Ajustes específicos para mobile */
+@media (max-width: 767px) {
+    .portfolio-filter {
+        gap: 8px; /* Gap menor apenas no mobile */
+        justify-content: flex-start;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .portfolio-filter li.nav {
+        flex: none; /* Remove flex para controle total */
+        display: inline-block; /* Comportamento inline */
+        margin: 0; /* Remove todas as margens */
+        width: auto !important; /* Override do responsive.css que tem width: 100% */
+        margin-bottom: 0 !important; /* Override do margin-bottom: 5px */
+    }
+    
+    .portfolio-filter li.nav:last-child {
+        margin-right: 10px; /* Espaço mínimo no final */
+    }
+}
+
+/* Links dos filtros */
+.portfolio-filter li.nav a {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    min-width: max-content;
+}
+
+/* Estado ativo */
+.portfolio-filter li.nav.active a,
+.portfolio-filter li.nav a:hover {
+    background-color: var(--base-color, #007cba);
+    border-color: var(--base-color, #007cba);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* Indicador visual de scroll */
+.portfolio-filter-wrapper {
+    position: relative;
+}
+
+.portfolio-filter-wrapper::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 20px;
+    width: 20px;
+    background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.3));
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Mostrar indicador quando há scroll */
+.portfolio-filter-wrapper.has-scroll::after {
+    opacity: 1;
+}
+
+/* Responsividade */
+@media (min-width: 768px) {
+    /* Desktop: layout normal em linha */
+    .portfolio-filter {
+        flex-wrap: wrap;
+        justify-content: left; /* Mantém alinhamento à esquerda */
+        overflow-x: visible;
+        gap: 15px;
+    }
+    
+    .portfolio-filter li.nav a {
+        padding: 10px 20px;
+        font-size: 15px;
+    }
+    
+    .portfolio-filter-wrapper::after {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) {
+    /* Mobile: garantir scroll horizontal */
+    .portfolio-filter {
+        justify-content: flex-start;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    
+    .portfolio-filter li.nav:first-child {
+        margin-left: 0;
+    }
+    
+    .portfolio-filter li.nav:last-child {
+        margin-right: 15px; /* Espaço no final para melhor UX */
+    }
+}
+
+/* Animação suave para o scroll */
+.portfolio-filter {
+    scroll-behavior: smooth;
+}
+
+/* Estilo adicional para melhor UX mobile */
+@media (max-width: 480px) {
+    .portfolio-filter li.nav a {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+}
+
+
+/* ==============================================
+   CATEGORIAS BLOG - ESTILO FILTROS PORTFOLIO
+   ============================================== */
+
+/* Container das categorias do blog */
+.btn-dual {
+    display: flex !important;
+    flex-wrap: wrap; /* Permite quebrar linha */
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 0 15px;
+}
+
+/* Título "Categorias" */
+.btn-dual span {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    margin-right: 10px !important;
+    font-weight: 600 !important;
+    margin-bottom: 0 !important;
+}
+
+/* Links das categorias - estilo igual aos filtros */
+.btn-dual .btn {
+    flex: 0 0 auto !important;
+    display: inline-block !important;
+    white-space: nowrap;
+    margin: 0 !important;
+    padding: 8px 16px !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 25px !important;
+    color: #fff !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+    min-width: max-content;
+    margin-bottom: 8px !important; /* Espaçamento vertical quando empilha */
+}
+
+/* Estados hover e ativo */
+.btn-dual .btn:hover {
+    background-color: var(--base-color, #007cba) !important;
+    border-color: var(--base-color, #007cba) !important;
+    color: #fff !important;
+    transform: translateY(-2px) !important;
+    text-decoration: none !important;
+}
+
+/* Remover estilos conflitantes */
+.btn-dual .btn.underline-on-hover {
+    text-decoration: none !important;
+}
+
+.btn-dual .btn.underline-on-hover:hover {
+    text-decoration: none !important;
+}
+
+/* Responsividade para desktop */
+@media (min-width: 768px) {
+    .btn-dual {
+        justify-content: left; /* Alinhado à esquerda no desktop */
+        gap: 15px;
+    }
+    
+    .btn-dual .btn {
+        padding: 10px 20px !important;
+        font-size: 15px !important;
+        margin-bottom: 0 !important; /* Remove margin-bottom no desktop */
+    }
+    
+    .btn-dual span {
+        margin-right: 20px !important;
+    }
+}
+
+/* Mobile específico */
+@media (max-width: 767px) {
+    .btn-dual {
+        gap: 8px;
+        justify-content: center; /* Centralizado no mobile */
+    }
+    
+    .btn-dual span {
+        flex: 1 0 100%; /* Título ocupa linha inteira */
+        text-align: center;
+        margin-right: 0 !important;
+        margin-bottom: 15px !important;
+        font-size: 18px !important;
+    }
+    
+    .btn-dual .btn {
+        padding: 8px 14px !important;
+        font-size: 14px !important;
+        margin-bottom: 10px !important;
+    }
 }
