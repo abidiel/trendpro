@@ -42,7 +42,7 @@ if (is_front_page()) {
 } elseif (is_author()) {
     $titulo_breadcrumb = wp_title('', false);
 } elseif (is_search()) {
-    $titulo_breadcrumb = wp_title('', false);
+    $titulo_breadcrumb = 'Você buscou "' . get_search_query() . '"';
 } elseif (is_404()) {
     $titulo_breadcrumb = 'Página não encontrada';
 } else {

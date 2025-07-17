@@ -22,9 +22,8 @@
 		</div>
 		<figcaption class="d-flex flex-column h-100">
 			<div class="my-auto w-100 text-center blog-hover-icon"><a href="<?php the_permalink(); ?>" class="d-inline-block"><i class="line-icon-Arrow-OutRight icon-extra-large text-white"></i></a></div>
-			<div class="position-relative post-content p-14 text-center last-paragraph-no-margin">
+			<div class="position-relative p-14 text-center last-paragraph-no-margin">
 				<div class="position-relative z-index-2 overflow-hidden">
-					<a href="<?php the_permalink(); ?>" class="d-inline-block fs-12 text-base-color mb-5px text-uppercase fw-600"><?php echo get_the_date(get_option('date_format')); ?></a>
 					<a href="<?php the_permalink(); ?>" class="card-title fs-20 alt-font fw-500 text-white mb-0 d-block"><?php the_title(); ?></a>
 					<div class="hover-text"><a href="<?php the_permalink(); ?>" class="btn btn-link-gradient btn-medium text-white thin mt-20px mb-5px opacity-6 fw-300">Ler artigo<span class="bg-white"></span></a></div>
 				</div>
