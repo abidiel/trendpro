@@ -53,8 +53,8 @@ if (is_front_page()) {
 <section class="page-title-big-typography bg-dark-gray cover-background p-4" style="background-image: url(<?php echo esc_url($imagem_breadcrumb_url); ?>)">
     <div class="opacity-extra-medium bg-black"></div>
 
-    <div class="container h-150px">
-        <div class="row d-flex justify-content-center breadcrumb-normal position-relative text-center text-white pt-20px" data-anime='{ "el": "childs", "translateY": [20, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 200, "easing": "easeOutQuad" }'>
+    <div class="container h-200px">
+        <div class="row d-flex justify-content-center breadcrumb-normal position-relative text-center text-white pt-60px" data-anime='{ "el": "childs", "translateY": [20, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 200, "easing": "easeOutQuad" }'>
             <div class="col-12">
                 <?php if (function_exists('yoast_breadcrumb')) : ?>
                     <div class="breadcrumb-wrapper">
