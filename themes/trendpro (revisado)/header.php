@@ -29,13 +29,13 @@
                 <div class="col-auto col-lg-2 me-lg-0 me-auto d-none d-lg-flex">
                     <div class="header-icon">
                         <div class="header-social-icon icon social-text-style-01">
-                            <?php if (get_field('youtube', 'option')): ?>
-                                <a class="instagram" href="<?php echo esc_url(get_field('youtube', 'option')); ?>" target="_blank"><i
+                            <?php if (get_field('instagram', 'option')): ?>
+                                <a class="instagram" href="<?php echo esc_url(get_field('instagram', 'option')); ?>" target="_blank"><i
                                         class="fa-brands fa-instagram icon-extra-medium text-white"></i></a>
                             <?php endif; ?>
 
-                            <?php if (get_field('instagram', 'option')): ?>
-                                <a class="youtube" href="<?php echo esc_url(get_field('instagram', 'option')); ?>" target="_blank"><i
+                            <?php if (get_field('youtube', 'option')): ?>
+                                <a class="youtube" href="<?php echo esc_url(get_field('youtube', 'option')); ?>" target="_blank"><i
                                         class="fa-brands fa-youtube icon-extra-medium text-white"></i></a>
 
                             <?php endif; ?>
