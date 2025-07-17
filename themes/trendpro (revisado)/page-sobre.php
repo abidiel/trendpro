@@ -10,7 +10,7 @@ get_template_part('template-parts/breadcrumbs'); ?>
         <div class="row g-0">
             <div class="col-xl-4 col-lg-5 d-flex justify-content-center align-items-center ps-10 xxl-ps-6 xl-ps-4 md-ps-4 sm-ps-0 position-relative order-2 order-lg-1" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay":0, "staggervalue": 300, "easing": "easeOutQuad" }'>
                 <div class="vertical-title-center align-items-center justify-content-center flex-shrink-0 w-75px sm-w-50px">
-                    <h1 class="title fs-15 alt-font text-white fw-700 text-uppercase ls-1px text-uppercase d-flex w-auto align-items-center m-0" data-fancy-text='{ "opacity": [0, 1], "translateY": [50, 0], "filter": ["blur(20px)", "blur(0px)"], "string": ["<?php echo esc_html(get_field('sobre_secao1_mini_titulo', 37)); ?>"], "duration": 400, "delay": 0, "speed": 50, "easing": "easeOutQuad" }'></h1>
+                    <h1 class="title fs-12 alt-font text-white fw-700 text-uppercase ls-1px text-uppercase d-flex w-auto align-items-center m-0" data-fancy-text='{ "opacity": [0, 1], "translateY": [50, 0], "filter": ["blur(20px)", "blur(0px)"], "string": ["<?php echo esc_html(get_field('sobre_secao1_mini_titulo', 37)); ?>"], "duration": 400, "delay": 0, "speed": 50, "easing": "easeOutQuad" }'></h1>
                 </div>
                 <div class="border-start border-color-extra-medium-gray ps-40px sm-ps-20px position-relative z-index-9">
                     <h2 class="text-white fw-600 alt-font outside-box-right-10 xl-outside-box-right-15 lg-outside-box-right-20 md-me-0 sm-mb-0 ls-minus-3px"><?php echo esc_html(get_field('sobre_secao1_titulo', 37)); ?></h2>
