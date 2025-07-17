@@ -196,7 +196,7 @@ endif;
 <!-- end section -->
 
 <!-- start section - Serviços -->
-<?php if (get_field('ativo_home_secao_1', 4)): ?> 
+<?php if (get_field('ativo_home_secao_4', 7)): ?> 
 <section class="bg-dark-gray background-position-center-top overflow-hidden" id="servicos">
     <div class="container">
         <div class="row align-items-end mb-6">
