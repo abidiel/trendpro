@@ -926,8 +926,7 @@ input.wpcf7-form-control.wpcf7-submit {
 .wp-block-media-text__content a,
 .wp-block-list a,
 .wp-block-list li a,
-p a,
-li a {
+p a {
     color: var(--base-color) !important;
     text-decoration: underline;
     transition: all 0.3s ease;
@@ -968,10 +967,6 @@ b a,
     color: var(--base-color) !important;
 }
 
-/* Debug - remover conflitos potenciais */
-a[href] {
-    color: var(--base-color) !important;
-}
 
 /* Se houver tema ou plugin sobrescrevendo */
 .wp-block-media-text__content .wp-block-list li a[href] {
