@@ -913,22 +913,69 @@ input.wpcf7-form-control.wpcf7-submit {
 
 
 
-/* Links em rosa para destaque em conteúdo do Gutenberg */
+/* ==============================================
+   LINKS GUTENBERG - FIX ESPECIFICIDADE
+   ============================================== */
+
+/* Seletores mais específicos para alcançar todos os contextos */
 .entry-content a,
 .post-content a,
 .content a,
 .wp-block-paragraph a,
-p a {
+.wp-block-media-text a,
+.wp-block-media-text__content a,
+.wp-block-list a,
+.wp-block-list li a,
+p a,
+li a {
     color: var(--base-color) !important;
+    text-decoration: underline;
+    transition: all 0.3s ease;
 }
 
+/* Estados hover */
 .entry-content a:hover,
 .post-content a:hover,
 .content a:hover,
 .wp-block-paragraph a:hover,
-p a:hover {
-    color: var(--light-gray) !important; /* tom mais claro do rosa */
-    transition: color 0.3s ease;
+.wp-block-media-text a:hover,
+.wp-block-media-text__content a:hover,
+.wp-block-list a:hover,
+.wp-block-list li a:hover,
+p a:hover,
+li a:hover {
+    color: var(--base-color) !important;
+    text-decoration: none;
+    opacity: 0.8;
+}
+
+/* Especificidade máxima para casos específicos */
+.wp-block-media-text .wp-block-media-text__content .wp-block-list li a {
+    color: var(--base-color) !important;
+}
+
+/* Para garantir que funcione em qualquer contexto do Gutenberg */
+.wp-block-group a,
+.wp-block-column a,
+.wp-block-columns a {
+    color: var(--base-color) !important;
+}
+
+/* Links dentro de strong/bold */
+strong a,
+b a,
+.wp-block-list li strong a {
+    color: var(--base-color) !important;
+}
+
+/* Debug - remover conflitos potenciais */
+a[href] {
+    color: var(--base-color) !important;
+}
+
+/* Se houver tema ou plugin sobrescrevendo */
+.wp-block-media-text__content .wp-block-list li a[href] {
+    color: var(--base-color) !important;
 }
 
 
