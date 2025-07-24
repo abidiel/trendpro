@@ -171,7 +171,7 @@ function configura_tamanho_imagens()
   add_image_size('cliente-imagem', 200, 200, false);
   add_image_size('cliente-logo-depoimento', 150, 0, false);
   add_image_size('video-principal-bg', 1920, 865, true);
-  add_image_size('servico-imagem', 610, 610, true);
+  add_image_size('servico-imagem', 620, 720, true);
 }
 add_action('after_setup_theme', 'configura_tamanho_imagens');
 

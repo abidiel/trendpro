@@ -1,0 +1,64 @@
+{
+    "key": "group_68828b561240f",
+    "title": "(Serviço Single) Seção 5",
+    "fields": [
+        {
+            "key": "field_68828b56afddf",
+            "label": "Ativar seção?",
+            "name": "ativo_servico_single_secao_5",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui_on_text": "Ativado",
+            "ui_off_text": "Desativado",
+            "ui": 1
+        },
+        {
+            "key": "field_68828c1da9b7e",
+            "label": "Projetos relacionados",
+            "name": "",
+            "aria-label": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "IMPORTANTE: Para que os projetos apareçam na página do serviço, o SLUG da categoria de projetos deve ser IDÊNTICO ao SLUG do serviço.\r\n\r\nExemplo:\r\n- Serviço: \"Cobertura de Eventos\" (slug: cobertura-de-eventos)  \r\n- Categoria de Projetos: \"Cobertura de Eventos\" (slug: cobertura-de-eventos)\r\n\r\nVerifique sempre se os slugs estão padronizados antes de publicar.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "servicos"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1753386033
+}

@@ -82,7 +82,7 @@ $imagem_breadcrumb = wp_get_attachment_image_src($attachment_breadcrumb_id, $siz
 				<div class="col btn-dual text-center">
 					<span class="text-white d-table d-lg-inline-block xl-mt-15px md-mx-auto fs-20">Categorias</span>
 
-					<a href="<?php the_permalink('19'); ?>" class="btn btn-link underline-on-hover btn-medium text-white d-table d-lg-inline-block xl-mb-15px md-mx-auto">Ver tudo</a>
+					<a href="<?php the_permalink('43'); ?>" class="btn btn-link underline-on-hover btn-medium text-white d-table d-lg-inline-block xl-mb-15px md-mx-auto">Ver tudo</a>
 
 					<?php
 					$terms = get_terms(array('taxonomy' => 'category', 'hide_empty' => true, 'order' => 'ASC', 'parent' => 0, 'showposts' => 30));

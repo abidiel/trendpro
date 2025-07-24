@@ -75,8 +75,7 @@ if ($link_youtube || $link_youtube_vertical) :
                     <a href="<?php echo esc_url($link_youtube); ?>"
                         class="video-link text-center bg-white rounded-circle video-icon-box video-icon-extra-large popup-youtube slide-up-animation"
                         data-desktop="<?php echo esc_url($link_youtube); ?>"
-                        data-mobile="<?php echo esc_url($link_youtube_vertical); ?>"
-                        >
+                        data-mobile="<?php echo esc_url($link_youtube_vertical); ?>">
                         <span>
                             <span class="video-icon bg-base-color">
                                 <i class="feather icon-feather-play text-white"></i>
@@ -121,20 +120,24 @@ if ($featured_posts) : ?>
     <section class="bg-dark-gray background-position-center-top overlap-height overflow-visible pt-0">
         <div class="container">
 
-            <div class="row overlap-gap-section">
+            <div class="row overlap-gap-section justify-content-center">
 
-                <ul>
-                    <?php foreach ($featured_posts as $post) :
+                <div class="col-10">
 
-                        // Setup this post for WP functions (variable must be named $post).
-                        setup_postdata($post);
+                    <ul>
+                        <?php foreach ($featured_posts as $post) :
 
-                        get_template_part('template-parts/list-depoimentos');
+                            // Setup this post for WP functions (variable must be named $post).
+                            setup_postdata($post);
 
-                    ?>
+                            get_template_part('template-parts/list-depoimentos');
 
-                    <?php endforeach; ?>
-                </ul>
+                        ?>
+
+                        <?php endforeach; ?>
+                    </ul>
+
+                </div>
 
             </div>
         </div>
@@ -146,24 +149,69 @@ if ($featured_posts) : ?>
 <?php endif; ?>
 <!-- end section -->
 
-<section class="bg-dark-gray pt-0">
-    <div class="container">
-        <div class="row align-items-center justify-content-center">
-            <div class="col-xxl-3 col-md-4 text-white text-center text-md-end fw-500 fs-20">Compartilhe este projeto</div>
-            <div class="col-xxl-3 col-md-3">
-                <div class="w-100 h-1px bg-base-color sm-mt-15px sm-mb-15px"></div>
+<?php
+// Pegar a categoria do projeto atual
+$current_categories = wp_get_post_terms(get_the_ID(), 'projetos-categoria', array("fields" => "slugs"));
+
+if (!empty($current_categories)) {
+    // Query para buscar projetos relacionados
+    $args = array(
+        'post_type' => 'projetos',
+        'posts_per_page' => 3,
+        'post__not_in' => array(get_the_ID()),
+        'orderby' => 'menu_order',
+        'order' => 'ASC',
+        'tax_query' => array(
+            array(
+                'taxonomy' => 'projetos-categoria',
+                'field' => 'slug',
+                'terms' => $current_categories[0] // Pega a primeira categoria
+            )
+        )
+    );
+
+    $related_projects = new WP_Query($args);
+
+    if ($related_projects->have_posts()) :
+        $project_count = $related_projects->found_posts;
+
+        // Define offset para centralizar quando há menos de 3 projetos
+        if ($project_count == 1) {
+            $offset_class = 'offset-lg-4'; // Centraliza 1 card (4 colunas de cada lado em grid de 12)
+        } elseif ($project_count == 2) {
+            $offset_class = 'offset-lg-2'; // Centraliza 2 cards (2 colunas de cada lado)
+        } else {
+            $offset_class = '';
+        }
+?>
+        <section class="bg-nero-grey overlap-height background-position-center-top">
+            <div class="container">
+                <div class="row justify-content-center mb-1 sm-mb-7">
+                    <div class="col-lg-7 text-center" data-anime='{ "el": "childs", "translateY": [50, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
+                        <span class="text-base-color fs-12 fw-600 ls-3px text-uppercase d-inline-block">Você pode gostar também</span>
+                        <h4 class="text-white fw-600">Projetos relacionados</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 <?php echo $offset_class; ?>">
+                        <ul class="portfolio-boxed portfolio-wrapper grid-loading grid grid-3col xl-grid-3col lg-grid-3col md-grid-2col sm-grid-2col xs-grid-1col gutter-large text-center" data-anime='{ "el": "childs", "translateY": [50, 0], "opacity": [0,1], "duration": 1200, "delay": 0, "staggervalue": 150, "easing": "easeOutQuad" }'>
+                            <li class="grid-sizer"></li>
+
+                            <?php
+                            while ($related_projects->have_posts()) : $related_projects->the_post();
+                                get_template_part('template-parts/list-projetos');
+                            endwhile;
+                            ?>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="col-xxl-3 col-md-5 text-center text-md-start elements-social social-icon-style-02">
-                <ul class="medium-icon light mb-0">
-                    <li class="mb-0"><a class="facebook" href="https://www.facebook.com/share.php?u=<?php echo get_permalink(); ?>" target="_blank"><i class="fa-brands fa-facebook-f"></i></a></li>
-                    <li class="mb-0"><a class="twitter" href="https://www.twitter.com/share?url=<?php echo get_permalink(); ?>" target="_blank"><i class="fa-brands fa-twitter"></i></a></li>
-                    <li class="mb-0"><a class="linkedin" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=<?php echo get_permalink(); ?>" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a></li>
-                    <li class="mb-0"><a class="pinterest" href="https://www.pinterest.com/pin/create/button/?url=<?php echo get_permalink(); ?>" target="_blank"><i class="fa-brands fa-pinterest-p"></i></a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
+        </section>
+<?php
+        wp_reset_postdata();
+    endif;
+}
+?>
 
 
 <?php

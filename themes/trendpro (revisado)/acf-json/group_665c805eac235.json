@@ -3,6 +3,27 @@
     "title": "(Depoimentos) Seção 1 - Conteúdo",
     "fields": [
         {
+            "key": "field_68814cbbcd215",
+            "label": "Cargo",
+            "name": "cargo_depoimento",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_685cb01199ff4",
             "label": "Logo empresa",
             "name": "logo_depoimento",
@@ -130,5 +151,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1752593003
+    "modified": 1753304274
 }

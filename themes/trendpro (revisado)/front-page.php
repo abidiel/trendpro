@@ -214,8 +214,8 @@ endif;
                 <div class="col-md-12 position-relative"
                     data-anime='{ "translateX": [150, 0], "opacity": [0,1], "duration": 1200, "delay": 100, "staggervalue": 150, "easing": "easeOutQuad" }'>
                     <div class="outside-box-right-30 sm-outside-box-right-0">
-                        <div class="swiper slider-three-slide" data-slider-options='{ "slidesPerView": 1, "spaceBetween": 35, "loop": true, "autoplay": { "delay": 4000, "disableOnInteraction": false }, "pagination": { "el": ".slider-four-slide-pagination-1", "clickable": true, "dynamicBullets": false }, "keyboard": { "enabled": true, "onlyInViewport": true }, "breakpoints": { "1200": { "slidesPerView": 4 }, "992": { "slidesPerView": 3 }, "768": { "slidesPerView": 3 }, "320": { "slidesPerView": 1 } }, "effect": "slide" }'>
 
+                        <div class="swiper slider-three-slide" data-slider-options='{ "slidesPerView": 1, "spaceBetween": 35, "loop": true, "autoplay": { "delay": 4000, "disableOnInteraction": false }, "pagination": { "el": ".slider-four-slide-pagination-1", "clickable": true, "dynamicBullets": false }, "keyboard": { "enabled": true, "onlyInViewport": true }, "breakpoints": { "1200": { "slidesPerView": 4 }, "992": { "slidesPerView": 3 }, "768": { "slidesPerView": 3 }, "320": { "slidesPerView": 1 } }, "effect": "slide" }'>
 
                             <?php
                             $args = array(
@@ -250,32 +250,57 @@ endif;
                                 if ($services_query->have_posts()) :
                                     while ($services_query->have_posts()) : $services_query->the_post();
                                 ?>
-
                                         <!-- start content carousal item -->
                                         <div class="swiper-slide">
                                             <a href="<?php the_permalink(); ?>" class="banner-link-wrap">
                                                 <div class="interactive-banner-style-06">
                                                     <div class="interactive-banners-image">
-                                                        <?php if (has_post_thumbnail()) : ?>
-                                                            <?php
-                                                            $servico_image = wp_get_attachment_image_src(get_post_thumbnail_id(), 'servico-imagem');
-                                                            if ($servico_image) : ?>
-                                                                <img src="<?php echo esc_url($servico_image[0]); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" loading="lazy" />
-                                                            <?php endif; ?>
+                                                        <?php
+                                                        $imagem_card = get_field('imagem_card');
+                                                        if ($imagem_card && !empty($imagem_card['ID'])) : ?>
+                                                            <?php echo wp_get_attachment_image(
+                                                                $imagem_card['ID'],
+                                                                'servico-imagem',
+                                                                false,
+                                                                array(
+                                                                    'alt' => esc_attr($imagem_card['alt'] ?: get_the_title()),
+                                                                    'loading' => 'lazy'
+                                                                )
+                                                            ); ?>
                                                         <?php else : ?>
-                                                            <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/placeholder.jpg" alt="<?php echo esc_attr(get_the_title()); ?>" />
+                                                            <img src="https://placehold.co/520x620/e2e8f0/64748b?text=<?php echo urlencode(get_the_title()); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" loading="lazy" />
                                                         <?php endif; ?>
 
                                                         <div class="overlay-bg bg-gradient-dark-transparent opacity-light"></div>
-                                                        <span class="banners-icon text-white icon-hover-base-color position-absolute top-60px left-60px lg-top-30px lg-left-30px">
-                                                            <?php echo wp_kses_post(get_field('service_icon')); ?>
-                                                        </span>
+
+                                                        <?php
+                                                        $service_icon = get_field('service_icon');
+                                                        if ($service_icon && !empty($service_icon['ID'])) : ?>
+                                                            <span class="banners-icon text-white icon-hover-base-color position-absolute left-30px lg-left-30px">
+                                                                <?php echo wp_get_attachment_image(
+                                                                    $service_icon['ID'],
+                                                                    'full',
+                                                                    false,
+                                                                    array(
+                                                                        'class' => 'w-42px h-42px',
+                                                                        'alt' => esc_attr($service_icon['alt'] ?: get_the_title() . ' - Ícone'),
+                                                                        'loading' => 'lazy'
+                                                                    )
+                                                                ); ?>
+                                                            </span>
+                                                        <?php else : ?>
+                                                            <span class="banners-icon text-white icon-hover-base-color position-absolute left-30px  lg-left-30px">
+                                                                <img src="https://placehold.co/42x42/ffffff/64748b?text=?"
+                                                                    alt="<?php echo esc_attr(get_the_title() . ' - Ícone'); ?>"
+                                                                    class="w-42px h-42px" loading="lazy" />
+                                                            </span>
+                                                        <?php endif; ?>
                                                     </div>
                                                     <div class="interactive-banners-content p-60px lg-p-30px">
                                                         <div class="h-100 w-100 last-paragraph-no-margin">
-                                                            <span class="fs-22 d-block text-white mb-10px fw-500"><?php echo esc_html(get_the_title()); ?></span>
+                                                            <span class="fs-22 fw-700 d-block text-white mb-10px fw-500"><?php echo esc_html(get_the_title()); ?></span>
                                                             <p class="interactive-banners-content-text w-95 lg-w-100 text-white fw-300">
-                                                                <?php echo esc_html(get_field('service_short_description')); ?>
+                                                                <?php echo esc_html(get_field('service_short_description') ?: 'Descrição não disponível'); ?>
                                                             </p>
                                                         </div>
                                                     </div>
@@ -285,8 +310,6 @@ endif;
                                             </a>
                                         </div>
                                         <!-- end content carousal item -->
-
-
 
                                     <?php
                                     endwhile;
@@ -304,26 +327,52 @@ endif;
                                             <a href="<?php the_permalink(); ?>" class="banner-link-wrap">
                                                 <div class="interactive-banner-style-06">
                                                     <div class="interactive-banners-image">
-                                                        <?php if (has_post_thumbnail()) : ?>
-                                                            <?php
-                                                            $servico_image = wp_get_attachment_image_src(get_post_thumbnail_id(), 'servico-imagem');
-                                                            if ($servico_image) : ?>
-                                                                <img src="<?php echo esc_url($servico_image[0]); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" loading="lazy" />
-                                                            <?php endif; ?>
+                                                        <?php
+                                                        $imagem_card = get_field('imagem_card');
+                                                        if ($imagem_card && !empty($imagem_card['ID'])) : ?>
+                                                            <?php echo wp_get_attachment_image(
+                                                                $imagem_card['ID'],
+                                                                'servico-imagem',
+                                                                false,
+                                                                array(
+                                                                    'alt' => esc_attr($imagem_card['alt'] ?: get_the_title()),
+                                                                    'loading' => 'lazy'
+                                                                )
+                                                            ); ?>
                                                         <?php else : ?>
-                                                            <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/placeholder.jpg" alt="<?php echo esc_attr(get_the_title()); ?>" />
+                                                            <img src="https://placehold.co/520x620/e2e8f0/64748b?text=<?php echo urlencode(get_the_title()); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" loading="lazy" />
                                                         <?php endif; ?>
 
                                                         <div class="overlay-bg bg-gradient-dark-transparent opacity-light"></div>
-                                                        <span class="banners-icon text-white icon-hover-base-color position-absolute top-60px left-60px lg-top-30px lg-left-30px">
-                                                            <?php echo wp_kses_post(get_field('service_icon')); ?>
-                                                        </span>
+
+                                                        <?php
+                                                        $service_icon = get_field('service_icon');
+                                                        if ($service_icon && !empty($service_icon['ID'])) : ?>
+                                                            <span class="banners-icon text-white icon-hover-base-color position-absolute left-30px lg-left-30px">
+                                                                <?php echo wp_get_attachment_image(
+                                                                    $service_icon['ID'],
+                                                                    'full',
+                                                                    false,
+                                                                    array(
+                                                                        'class' => 'w-42px h-42px',
+                                                                        'alt' => esc_attr($service_icon['alt'] ?: get_the_title() . ' - Ícone'),
+                                                                        'loading' => 'lazy'
+                                                                    )
+                                                                ); ?>
+                                                            </span>
+                                                        <?php else : ?>
+                                                            <span class="banners-icon text-white icon-hover-base-color position-absolute left-30px lg-left-30px">
+                                                                <img src="https://placehold.co/42x42/ffffff/64748b?text=?"
+                                                                    alt="<?php echo esc_attr(get_the_title() . ' - Ícone'); ?>"
+                                                                    class="w-42px h-42px" loading="lazy" />
+                                                            </span>
+                                                        <?php endif; ?>
                                                     </div>
                                                     <div class="interactive-banners-content p-60px lg-p-30px">
                                                         <div class="h-100 w-100 last-paragraph-no-margin">
-                                                            <span class="fs-22 d-block text-white mb-10px fw-500"><?php echo esc_html(get_the_title()); ?></span>
+                                                            <span class="fs-22 fw-700 d-block text-white mb-10px fw-500"><?php echo esc_html(get_the_title()); ?></span>
                                                             <p class="interactive-banners-content-text w-95 lg-w-100 text-white fw-300">
-                                                                <?php echo esc_html(get_field('service_short_description')); ?>
+                                                                <?php echo esc_html(get_field('service_short_description') ?: 'Descrição não disponível'); ?>
                                                             </p>
                                                         </div>
                                                     </div>
@@ -340,10 +389,8 @@ endif;
                                 ?>
                             </div>
 
-
-
-
                         </div>
+
                     </div>
                 </div>
             </div>

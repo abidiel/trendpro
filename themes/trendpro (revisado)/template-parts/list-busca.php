@@ -3,8 +3,8 @@
 /**
  * The template part for displaying posts
  * @package WordPress
- * @subpackage Agencia Tatica
- * @since Agencia Tatica 1.0
+ * @subpackage Trend Pro
+ * @sinceTrend Pro 1.0
  */ ?>
 
 

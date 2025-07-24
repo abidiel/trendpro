@@ -3,8 +3,8 @@
 /**
  * The template part for displaying Lista de Depoimentos Home
  * @package WordPress
- * @subpackage Micheli Waldow
- * @since Micheli Waldow 1.0
+ * @subpackage Trend Pro
+ * @since Trend Pro1.0
  */
 
 ?>
@@ -25,40 +25,57 @@
             </div>
         <?php endif; ?>
 
-        <div class="col-lg-8 col-md-7 last-paragraph-no-margin text-center text-md-start">
-            <?php if (get_field('logo_depoimento')) : ?>
-                <a href="#" class="mb-15px d-block"><img src="<?php echo esc_url(get_field('logo_depoimento')['sizes']['cliente-logo-depoimento']); ?>" alt="<?php echo esc_attr(get_field('logo_depoimento')['alt']); ?>"></a>
-            <?php endif; ?>
 
-            <span class="mb-10px fw-500 d-table fs-18 lh-28"><?php the_content(); ?></span>
-            <span class="fs-15 text-uppercase fw-700 ls-1px"><?php the_title(); ?></span>
+        <div class="col-lg-8 col-md-7 last-paragraph-no-margin">
 
-            <?php
-            $post_id = get_the_ID(); // pega o ID do post atual (projeto)
+            <div class="text-center text-md-start">
+                <?php if (get_field('logo_depoimento')) : ?>
+                    <a href="#" class="mb-15px d-block"><img src="<?php echo esc_url(get_field('logo_depoimento')['sizes']['cliente-logo-depoimento']); ?>" alt="<?php echo esc_attr(get_field('logo_depoimento')['alt']); ?>"></a>
+                <?php endif; ?>
 
-            $link_depoimento_youtube = get_field('link_depoimento_youtube');
-            $link_depoimento_youtube_vertical = get_field('link_depoimento_youtube_vertical');
+                <span class="fw-500 d-table fs-18 lh-28 depoimento-section"><?php the_content(); ?></span>
+            </div>
 
-            if ($link_depoimento_youtube || $link_depoimento_youtube_vertical) :
+            <!-- Nova estrutura: Nome/Cargo e Botão na mesma linha -->
+            <div class="d-flex justify-content-center justify-content-md-between align-items-center flex-wrap text-center text-md-start">
+                <!-- Nome e Cargo - Alinhado à esquerda no desktop, centro no mobile -->
+                <div class="text-center text-md-start mt-15px">
+                    <span class="fs-15 text-uppercase text-white fw-700 ls-1px me-5px"><?php the_title(); ?></span>
 
-            ?>
-                <div>
-                    <a href="<?php echo esc_url($link_depoimento_youtube); ?>" class="video-link btn btn-small btn-transparent-base-color border-color-white text-transform-none btn-rounded btn-hover-animation-switch popup-youtube mt-15px"
-                        data-desktop="<?php echo esc_url($link_depoimento_youtube); ?>"
-                        data-mobile="<?php echo esc_url($link_depoimento_youtube_vertical); ?>"
-                        id="video-link">
-                        <span>
-                            <span class="btn-text text-white">Assistir depoimento</span>
-                            <span class="btn-icon"><i class="fa-brands fa-youtube"></i></span>
-                            <span class="btn-icon"><i class="fa-brands fa-youtube"></i></span>
+                    <?php if (get_field('cargo_depoimento')) : ?>
+                        |
+                        <span class="fs-13 text-uppercase text-base-color fw-400 ls-1px ms-5px">
+                            <?php echo esc_html(get_field('cargo_depoimento')); ?>
                         </span>
-                    </a>
+                    <?php endif; ?>
                 </div>
 
-            <?php endif; ?>
+                <!-- Botão YouTube - Alinhado à direita no desktop, centro no mobile -->
+                <?php
+                $post_id = get_the_ID();
+                $link_depoimento_youtube = get_field('link_depoimento_youtube');
+                $link_depoimento_youtube_vertical = get_field('link_depoimento_youtube_vertical');
 
+                if ($link_depoimento_youtube || $link_depoimento_youtube_vertical) :
+                ?>
+                    <div class="text-center text-md-end mt-15px">
+                        <a href="<?php echo esc_url($link_depoimento_youtube); ?>" class="video-link btn btn-small btn-transparent-base-color border-color-white text-transform-none btn-rounded btn-hover-animation-switch popup-youtube"
+                            data-desktop="<?php echo esc_url($link_depoimento_youtube); ?>"
+                            data-mobile="<?php echo esc_url($link_depoimento_youtube_vertical); ?>"
+                            id="video-link">
+                            <span>
+                                <span class="btn-text text-white">Assistir depoimento</span>
+                                <span class="btn-icon"><i class="fa-brands fa-youtube"></i></span>
+                                <span class="btn-icon"><i class="fa-brands fa-youtube"></i></span>
+                            </span>
+                        </a>
+                    </div>
+                <?php endif; ?>
+            </div>
 
         </div>
+
+
     </div>
 </div>
 <!-- end testimonial item -->

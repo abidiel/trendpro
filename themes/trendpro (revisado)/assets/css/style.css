@@ -9887,7 +9887,7 @@ blockquote footer {
 }
 .btn {
   display: inline-block;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
   border-radius: 0;
   text-transform: uppercase;
   letter-spacing: 0.5px;
