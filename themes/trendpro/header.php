@@ -135,7 +135,7 @@
                                 <li class="menu-item"><a href="<?php the_permalink('37'); ?>" class="nav-link">Sobre</a></li>
                                 <li class="menu-item"><a href="<?php the_permalink('41'); ?>" class="nav-link">Serviços</a></li>
                                 <li class="menu-item"><a href="<?php the_permalink('39'); ?>" class="nav-link">Cases</a></li>
-                                <li class="menu-item"><a href="<?php the_permalink('43'); ?>" class="nav-link">Blog</a></li>
+                                <!-- <li class="menu-item"><a href="<?php the_permalink('43'); ?>" class="nav-link">Blog</a></li> -->
                                 <li class="menu-item"><a href="<?php the_permalink('46'); ?>" class="nav-link">Contato</a></li>
                             </ul>
                         </div>

@@ -29,14 +29,14 @@
     						<li class="nav-item"><a href="<?php echo esc_url(get_permalink(37)); ?>" class="nav-link">Sobre</a></li>
     						<li class="nav-item"><a href="<?php echo esc_url(get_permalink(41)); ?>" class="nav-link">Serviços</a></li>
     						<li class="nav-item"><a href="<?php echo esc_url(get_permalink(39)); ?>" class="nav-link">Cases</a></li>
-    						<li class="nav-item"><a href="<?php echo esc_url(get_permalink(43)); ?>" class="nav-link">Blog</a></li>
+    						<!-- <li class="nav-item"><a href="<?php echo esc_url(get_permalink(43)); ?>" class="nav-link">Blog</a></li> -->
     						<li class="nav-item"><a href="<?php echo esc_url(get_permalink(46)); ?>" class="nav-link">Contato</a></li>
 
 
     					</ul>
     				</div>
     				<div class="col-lg-5 text-center text-lg-end">
-						<span class="fs-15">© <?php echo esc_html(date('Y')); ?> <?php echo esc_html(get_bloginfo('name')); ?></span>
+    					<span class="fs-15">© <?php echo esc_html(date('Y')); ?> <?php echo esc_html(get_bloginfo('name')); ?></span>
     				</div>
     			</div>
     		</div>
