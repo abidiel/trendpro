@@ -169,7 +169,7 @@ function configura_tamanho_imagens()
   add_image_size('sobre-heading', 1149, 800, true);
   add_image_size('sobre-imagem', 500, 614, true);
   add_image_size('cliente-imagem', 200, 200, false);
-  add_image_size('cliente-logo-depoimento', 150, 0, false);
+  add_image_size('cliente-logo-depoimento', 211, 42, false);
   add_image_size('video-principal-bg', 1920, 865, true);
   add_image_size('servico-imagem', 620, 720, true);
 }

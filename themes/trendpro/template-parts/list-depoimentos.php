@@ -30,7 +30,7 @@
 
             <div class="text-center text-md-start">
                 <?php if (get_field('logo_depoimento')) : ?>
-                    <a href="#" class="mb-15px d-block"><img src="<?php echo esc_url(get_field('logo_depoimento')); ?>" alt="<?php echo esc_attr(get_field('logo_depoimento')['alt']); ?>"></a>
+                    <a href="#" class="mb-15px d-block"><img src="<?php echo esc_url(get_field('logo_depoimento')['sizes']['cliente-logo-depoimento']); ?>" alt="<?php echo esc_attr(get_field('logo_depoimento')['alt']); ?>"></a>
                 <?php endif; ?>
 
                 <span class="fw-500 d-table fs-18 lh-28 depoimento-section"><?php the_content(); ?></span>

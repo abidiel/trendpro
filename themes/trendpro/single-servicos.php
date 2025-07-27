@@ -275,20 +275,19 @@ $content = get_the_content();
 $content = trim($content);
 if (!empty($content)) :
 ?>
-    <!-- start section -->
-    <section class="bg-dark-gray background-position-center-top overflow-hidden d-none"
-        style="background-image: url('<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/demo-architecture-dotted-pattern.svg')">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="servico-content text-white">
-                        <?php echo wp_kses_post($content); ?>
-                    </div>
+<!-- start section -->
+<section class="bg-dark-gray background-position-center-top overflow-hidden">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="servico-content text-white">
+                    <?php echo wp_kses_post($content); ?>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- end section -->
+    </div>
+</section>
+<!-- end section -->
 <?php endif; ?>
 
 
