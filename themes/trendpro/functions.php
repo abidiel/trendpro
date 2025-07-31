@@ -378,3 +378,25 @@ add_filter('acf/settings/load_json', function($paths) {
   $paths[] = get_stylesheet_directory() . '/acf-json/';
   return $paths;
 });
+
+
+/**
+ * Corrige URL da home nos breadcrumbs do Yoast SEO
+ * 
+ * Fix para problema onde o breadcrumb da home estava apontando para /backend/
+ * ao invés da URL correta da home.
+ */
+function fix_breadcrumb_home_url($links) {
+  if (!is_array($links)) {
+      return $links;
+  }
+  
+  foreach ($links as $key => $link) {
+      if (isset($link['url']) && strpos($link['url'], '/backend/') !== false) {
+          $links[$key]['url'] = str_replace('/backend/', '/', $link['url']);
+      }
+  }
+  
+  return $links;
+}
+add_filter('wpseo_breadcrumb_links', 'fix_breadcrumb_home_url');
