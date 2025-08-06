@@ -953,12 +953,6 @@ p a:hover{
     color: var(--base-color) !important;
 }
 
-/* Para garantir que funcione em qualquer contexto do Gutenberg */
-.wp-block-group a,
-.wp-block-column a,
-.wp-block-columns a {
-    color: var(--base-color) !important;
-}
 
 /* Links dentro de strong/bold */
 strong a,

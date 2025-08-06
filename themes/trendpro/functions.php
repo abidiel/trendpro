@@ -315,51 +315,52 @@ add_filter('show_admin_bar', 'hide_admin_bar');
 
 
 
- /**************************************
+/**************************************
   Usar wp_localize_script no functions.php para passar os dados para o JS
  **************************************/
-function trendpro_enqueue_banner_script() {
+function trendpro_enqueue_banner_script()
+{
   if (is_front_page()) {
-      wp_enqueue_script('trendpro-banner', get_template_directory_uri() . '/assets/js/banner.js', array('jquery'), '1.0', true);
-      
-      // Buscar o banner mais recente
-      $args = array(
-          'post_type'      => 'banners',
-          'posts_per_page' => 1,
-          'orderby'        => 'date',
-          'order'          => 'DESC'
-      );
-      
-      $banner_query = new WP_Query($args);
-      
-      $banner_data = array(
-          'video_desktop' => '',
-          'poster_desktop' => '',
-          'video_mobile' => '',
-          'poster_mobile' => '',
-      );
-      
-      if ($banner_query->have_posts()) {
-          while ($banner_query->have_posts()) {
-              $banner_query->the_post();
-              $post_id = get_the_ID();
-              
-              $banner_image = get_field('banner_image', $post_id);
-              $banner_video_mp4 = get_field('banner_video_mp4', $post_id);
-              $banner_image_mobile = get_field('banner_image_mobile', $post_id);
-              $banner_video_mp4_mobile = get_field('banner_video_mp4_mobile', $post_id);
-              
-              $banner_data = array(
-                  'video_desktop' => !empty($banner_video_mp4) ? esc_url($banner_video_mp4) : '',
-                  'poster_desktop' => $banner_image && isset($banner_image['url']) ? esc_url($banner_image['url']) : '',
-                  'video_mobile' => !empty($banner_video_mp4_mobile) ? esc_url($banner_video_mp4_mobile) : '',
-                  'poster_mobile' => $banner_image_mobile && isset($banner_image_mobile['url']) ? esc_url($banner_image_mobile['url']) : '',
-              );
-          }
-          wp_reset_postdata();
+    wp_enqueue_script('trendpro-banner', get_template_directory_uri() . '/assets/js/banner.js', array('jquery'), '1.0', true);
+
+    // Buscar o banner mais recente
+    $args = array(
+      'post_type'      => 'banners',
+      'posts_per_page' => 1,
+      'orderby'        => 'date',
+      'order'          => 'DESC'
+    );
+
+    $banner_query = new WP_Query($args);
+
+    $banner_data = array(
+      'video_desktop' => '',
+      'poster_desktop' => '',
+      'video_mobile' => '',
+      'poster_mobile' => '',
+    );
+
+    if ($banner_query->have_posts()) {
+      while ($banner_query->have_posts()) {
+        $banner_query->the_post();
+        $post_id = get_the_ID();
+
+        $banner_image = get_field('banner_image', $post_id);
+        $banner_video_mp4 = get_field('banner_video_mp4', $post_id);
+        $banner_image_mobile = get_field('banner_image_mobile', $post_id);
+        $banner_video_mp4_mobile = get_field('banner_video_mp4_mobile', $post_id);
+
+        $banner_data = array(
+          'video_desktop' => !empty($banner_video_mp4) ? esc_url($banner_video_mp4) : '',
+          'poster_desktop' => $banner_image && isset($banner_image['url']) ? esc_url($banner_image['url']) : '',
+          'video_mobile' => !empty($banner_video_mp4_mobile) ? esc_url($banner_video_mp4_mobile) : '',
+          'poster_mobile' => $banner_image_mobile && isset($banner_image_mobile['url']) ? esc_url($banner_image_mobile['url']) : '',
+        );
       }
-      
-      wp_localize_script('trendpro-banner', 'bannerData', $banner_data);
+      wp_reset_postdata();
+    }
+
+    wp_localize_script('trendpro-banner', 'bannerData', $banner_data);
   }
 }
 add_action('wp_enqueue_scripts', 'trendpro_enqueue_banner_script');
@@ -370,11 +371,11 @@ add_action('wp_enqueue_scripts', 'trendpro_enqueue_banner_script');
 // Ele faz com que os campos personalizados exportados pelo ACF sejam armazenados na pasta 'acf-json' do tema,
 // facilitando o versionamento e a portabilidade das configurações de campos personalizados.
 // Filtro para definir o diretório de salvamento dos arquivos JSON do ACF
-add_filter('acf/settings/save_json', function() {
+add_filter('acf/settings/save_json', function () {
   return get_stylesheet_directory() . '/acf-json/';
 });
 
-add_filter('acf/settings/load_json', function($paths) {
+add_filter('acf/settings/load_json', function ($paths) {
   $paths[] = get_stylesheet_directory() . '/acf-json/';
   return $paths;
 });
@@ -386,17 +387,56 @@ add_filter('acf/settings/load_json', function($paths) {
  * Fix para problema onde o breadcrumb da home estava apontando para /backend/
  * ao invés da URL correta da home.
  */
-function fix_breadcrumb_home_url($links) {
+function fix_breadcrumb_home_url($links)
+{
   if (!is_array($links)) {
-      return $links;
+    return $links;
   }
-  
+
   foreach ($links as $key => $link) {
-      if (isset($link['url']) && strpos($link['url'], '/backend/') !== false) {
-          $links[$key]['url'] = str_replace('/backend/', '/', $link['url']);
-      }
+    if (isset($link['url']) && strpos($link['url'], '/backend/') !== false) {
+      $links[$key]['url'] = str_replace('/backend/', '/', $link['url']);
+    }
   }
-  
+
   return $links;
 }
 add_filter('wpseo_breadcrumb_links', 'fix_breadcrumb_home_url');
+
+
+/**
+ * Detectar senha incorreta e redirecionar com parâmetro
+ * 
+ * Na página de senha protegida, se a senha estiver incorreta, redireciona para a página com o parâmetro pwd_error=1
+ */
+function crafto_password_error_redirect()
+{
+  if (isset($_POST['post_password'])) {
+    $post_id = isset($_POST['post_id']) ? $_POST['post_id'] : 0;
+
+    // Se não tem post_id, pega do referer
+    if (!$post_id) {
+      $referer = wp_get_referer();
+      if (preg_match('/[?&]p=(\d+)/', $referer, $matches)) {
+        $post_id = $matches[1];
+      } else {
+        // Pega ID da URL do referer
+        $post_id = url_to_postid($referer);
+      }
+    }
+
+    if ($post_id) {
+      $post = get_post($post_id);
+      $entered_password = $_POST['post_password'];
+
+      // Verifica se a senha está correta
+      if (!hash_equals($post->post_password, $entered_password)) {
+        // Senha incorreta - redireciona com erro
+        $redirect_url = add_query_arg('pwd_error', '1', get_permalink($post_id));
+        wp_redirect($redirect_url);
+        exit;
+      }
+    }
+  }
+}
+add_action('login_form_postpass', 'crafto_password_error_redirect', 1);
