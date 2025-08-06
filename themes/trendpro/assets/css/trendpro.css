@@ -310,17 +310,6 @@ header.sticky.sticky-active .navbar-brand .default-logo {
 
 
 
-@media (max-width: 991px) {
-    .wp-block-media-text__content {
-        margin-top: 35px !important;
-    }
-}
-
-@media (max-width: 768px) {
-    .wp-block-media-text__content {
-        padding: 0 !important;
-    }
-}
 
 .ficha-tecnica .row > .col:last-child {
     border-right: none !important;
@@ -328,9 +317,7 @@ header.sticky.sticky-active .navbar-brand .default-logo {
 
 
 
-.section-blog .wp-block-heading{
-    color: white;
-}
+
 
 /* ----------------------------------------------------------------------
 	Pagination & Pager
@@ -534,22 +521,8 @@ header.sticky.sticky-active .navbar-brand .default-logo {
     font-size: 14px
 }
 
-.wp-block-heading{
-    color: white;
-    font-weight: 300;
-    letter-spacing: -2px;
-}
 
-.wp-block-media-text__content p{
-    color:white;
-}
 
-@media screen and (max-width: 600px) {
-    .wp-block-media-text > .wp-block-media-text__content {
-        padding: 0 !important;
-        margin-top: 20px;
-    }
-}
 
 
 
@@ -806,66 +779,9 @@ input.wpcf7-form-control.wpcf7-submit {
     accent-color: #fff;
 }
 
-/* Responsivo para iframes do Google Drive */
-.servico-content iframe,
-.post-content iframe,
-.entry-content iframe {
-    width: 100% !important;
-    height: auto !important;
-    min-height: 400px;
-    aspect-ratio: 16/9; /* Mantém proporção de vídeo */
-}
 
-/* Para dispositivos móveis */
-@media (max-width: 768px) {
-    .servico-content iframe,
-    .post-content iframe,
-    .entry-content iframe {
-        min-height: 250px;
-    }
-}
 
-/* Corrigir alinhamento das imagens Gutenberg */
-.wp-block-image.aligncenter {
-    display: block !important;
-    margin: 0 auto !important;
-    text-align: center;
-}
 
-.wp-block-image.alignleft {
-    display: block !important;
-    float: left !important;
-    margin: 0 20px 20px 0 !important;
-}
-
-.wp-block-image.alignright {
-    display: block !important;
-    float: right !important;
-    margin: 0 0 20px 20px !important;
-}
-
-/* Para casos onde a classe está no elemento filho */
-.wp-block-image .aligncenter {
-    display: block !important;
-    margin: 0 auto !important;
-    text-align: center;
-}
-
-/* Garantir que a imagem dentro também seja centralizada */
-.wp-block-image.aligncenter img,
-.wp-block-image .aligncenter img {
-    display: block;
-    margin: 0 auto;
-}
-
-/* Para o conteúdo geral do post */
-.post-content .aligncenter,
-.entry-content .aligncenter,
-.servico-content .aligncenter {
-    display: block !important;
-    margin: 0 auto !important;
-    text-align: center;
-}
 
 @media (max-width: 991px) {
     header .header-push-button.icon{
@@ -914,58 +830,7 @@ input.wpcf7-form-control.wpcf7-submit {
 
 
 
-/* ==============================================
-   LINKS GUTENBERG - FIX ESPECIFICIDADE
-   ============================================== */
 
-/* Seletores mais específicos para alcançar todos os contextos */
-.entry-content a,
-.post-content a,
-.content a,
-.wp-block-paragraph a,
-.wp-block-media-text a,
-.wp-block-media-text__content a,
-.wp-block-list a,
-.wp-block-list li a,
-p a {
-    color: var(--base-color) !important;
-    text-decoration: underline;
-    transition: all 0.3s ease;
-}
-
-/* Estados hover */
-.entry-content a:hover,
-.post-content a:hover,
-.content a:hover,
-.wp-block-paragraph a:hover,
-.wp-block-media-text a:hover,
-.wp-block-media-text__content a:hover,
-.wp-block-list a:hover,
-.wp-block-list li a:hover,
-p a:hover{
-    color: var(--base-color) !important;
-    text-decoration: none;
-    opacity: 0.8;
-}
-
-/* Especificidade máxima para casos específicos */
-.wp-block-media-text .wp-block-media-text__content .wp-block-list li a {
-    color: var(--base-color) !important;
-}
-
-
-/* Links dentro de strong/bold */
-strong a,
-b a,
-.wp-block-list li strong a {
-    color: var(--base-color) !important;
-}
-
-
-/* Se houver tema ou plugin sobrescrevendo */
-.wp-block-media-text__content .wp-block-list li a[href] {
-    color: var(--base-color) !important;
-}
 
 
 .box-layout {
@@ -1000,194 +865,6 @@ b a,
 }
 
 
-/* ==============================================
-   GUTENBERG - FORMATAÇÃO DE LISTAS
-   ============================================== */
-
-/* IMPORTANTE: Sobrescrever o list-style: none global */
-/* Listas não ordenadas (UL) - com especificidade maior */
-.wp-block-list ul,
-ul.wp-block-list,
-.entry-content .wp-block-list ul,
-.wp-block-post-content .wp-block-list ul {
-    list-style: disc !important;
-    list-style-type: disc !important;
-    margin-left: 20px;
-    padding-left: 0;
-    margin-bottom: 1rem;
-}
-
-.wp-block-list ul li,
-ul.wp-block-list li,
-.entry-content .wp-block-list ul li,
-.wp-block-post-content .wp-block-list ul li {
-    list-style: disc !important;
-    list-style-type: disc !important;
-}
-
-/* Listas ordenadas (OL) - com especificidade maior */
-.wp-block-list ol,
-ol.wp-block-list,
-.entry-content .wp-block-list ol,
-.wp-block-post-content .wp-block-list ol {
-    list-style: decimal !important;
-    list-style-type: decimal !important;
-    margin-left: 20px;
-    padding-left: 0;
-    margin-bottom: 1rem;
-}
-
-.wp-block-list ol li,
-ol.wp-block-list li,
-.entry-content .wp-block-list ol li,
-.wp-block-post-content .wp-block-list ol li {
-    list-style: decimal !important;
-    list-style-type: decimal !important;
-}
-
-/* Itens de lista */
-.wp-block-list li {
-    margin-bottom: 0.5rem;
-    position: relative;
-}
-
-/* Listas aninhadas - segundo nível */
-.wp-block-list ul ul,
-.wp-block-list ol ul {
-    list-style-type: circle;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-}
-
-/* Listas aninhadas - terceiro nível */
-.wp-block-list ul ul ul,
-.wp-block-list ol ul ul {
-    list-style-type: square;
-}
-
-/* Listas ordenadas aninhadas */
-.wp-block-list ol ol {
-    list-style-type: lower-alpha;
-}
-
-.wp-block-list ol ol ol {
-    list-style-type: lower-roman;
-}
-
-/* Estilos customizados para ícones personalizados */
-.wp-block-list.custom-bullets ul {
-    list-style: none;
-    margin-left: 0;
-    padding-left: 0;
-}
-
-.wp-block-list.custom-bullets ul li {
-    position: relative;
-    padding-left: 25px;
-    margin-bottom: 0.8rem;
-}
-
-.wp-block-list.custom-bullets ul li::before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: var(--base-color, #007cba);
-    font-weight: bold;
-    font-size: 1.1em;
-}
-
-/* Variações de ícones personalizados */
-.wp-block-list.arrow-bullets ul li::before {
-    content: "→";
-    color: var(--base-color, #007cba);
-}
-
-.wp-block-list.star-bullets ul li::before {
-    content: "★";
-    color: var(--base-color, #007cba);
-}
-
-.wp-block-list.circle-bullets ul li::before {
-    content: "●";
-    color: var(--base-color, #007cba);
-}
-
-/* Espaçamento para listas dentro de outros blocos */
-.wp-block-group .wp-block-list,
-.wp-block-column .wp-block-list,
-.wp-block-cover .wp-block-list {
-    margin-bottom: 1rem;
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-    .wp-block-list ul,
-    .wp-block-list ol {
-        margin-left: 15px;
-    }
-    
-    .wp-block-list.custom-bullets ul li {
-        padding-left: 20px;
-    }
-}
-
-/* Cores customizadas baseadas no tema */
-.wp-block-list.text-base-color li {
-    color: var(--base-color, #007cba);
-}
-
-.wp-block-list.text-dark-gray li {
-    color: var(--dark-gray, #333);
-}
-
-/* Listas dentro de contêineres específicos */
-.container .wp-block-list,
-.row .wp-block-list {
-    max-width: 100%;
-}
-
-/* Fix para listas que perderam a formatação devido ao reset global */
-.entry-content ul:not([class]):not(.no-bullets),
-.wp-block-post-content ul:not([class]):not(.no-bullets),
-.wp-block-group ul:not([class]):not(.no-bullets),
-.wp-block-column ul:not([class]):not(.no-bullets) {
-    list-style: disc !important;
-    list-style-type: disc !important;
-    margin-left: 20px;
-    padding-left: 0;
-}
-
-.entry-content ul:not([class]):not(.no-bullets) li,
-.wp-block-post-content ul:not([class]):not(.no-bullets) li,
-.wp-block-group ul:not([class]):not(.no-bullets) li,
-.wp-block-column ul:not([class]):not(.no-bullets) li {
-    list-style: disc !important;
-    list-style-type: disc !important;
-}
-
-.entry-content ol:not([class]),
-.wp-block-post-content ol:not([class]),
-.wp-block-group ol:not([class]),
-.wp-block-column ol:not([class]) {
-    list-style: decimal !important;
-    list-style-type: decimal !important;
-    margin-left: 20px;
-    padding-left: 0;
-}
-
-.entry-content ol:not([class]) li,
-.wp-block-post-content ol:not([class]) li,
-.wp-block-group ol:not([class]) li,
-.wp-block-column ol:not([class]) li {
-    list-style: decimal !important;
-    list-style-type: decimal !important;
-}
-
-/* Garantir que os marcadores sejam visíveis */
-.wp-block-list li::marker {
-    color: var(--base-color, #007cba);
-}
 
 
 /* ==============================================
@@ -1598,3 +1275,527 @@ ol.wp-block-list li,
     background-color: var(--base-color);
     padding: 50px 10px 10px 10px;
   }
+
+  /* ==============================================
+   GUTENBERG - CSS COMPLETO - inicio
+   ============================================== */
+
+/* --- RESET E BASE FUNDAMENTAL --- */
+.wp-block-group,
+.wp-block-columns,
+.wp-block-column,
+.wp-block-media-text,
+.wp-block-cover {
+    margin-bottom: 2rem;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+/* --- CORES E TIPOGRAFIA --- */
+/* Forçar texto branco em todos os contextos */
+.wp-block-heading,
+.wp-block-paragraph,
+.wp-block-list,
+.wp-block-quote,
+.wp-block-media-text__content,
+.wp-block-media-text__content p,
+.wp-block-media-text__content h1,
+.wp-block-media-text__content h2,
+.wp-block-media-text__content h3,
+.wp-block-media-text__content h4,
+.wp-block-media-text__content h5,
+.wp-block-media-text__content h6,
+.section-blog .wp-block-heading {
+    color: white !important;
+}
+
+.wp-block-heading {
+    font-weight: 300;
+    letter-spacing: -2px;
+    margin-bottom: 25px;
+}
+
+/* --- SISTEMA DE ESPAÇAMENTOS INTELIGENTES --- */
+/* Colunas - espaçamento entre elementos */
+.wp-block-columns {
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.wp-block-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Grupos - espaçamento interno */
+.wp-block-group {
+    padding: 1.5rem 0;
+}
+
+.wp-block-group .wp-block-group__inner-container > * {
+    margin-bottom: 1.5rem;
+}
+
+.wp-block-group .wp-block-group__inner-container > *:last-child {
+    margin-bottom: 0;
+}
+
+/* Containers com background */
+.wp-block-group.has-background {
+    padding: 3rem 2rem;
+    margin-bottom: 3rem;
+}
+
+/* --- IMAGENS COMPLETAS --- */
+/* Imagens em colunas - sempre com margem */
+.wp-block-column .wp-block-image,
+.wp-block-columns .wp-block-image {
+    margin-bottom: 1.5rem !important;
+}
+
+.wp-block-column .wp-block-image:last-child,
+.wp-block-columns .wp-block-image:last-child {
+    margin-bottom: 0 !important;
+}
+
+/* Imagens responsivas */
+.wp-block-image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Alinhamentos de imagens */
+.wp-block-image.aligncenter {
+    display: block !important;
+    margin: 1.5rem auto !important;
+    text-align: center;
+}
+
+.wp-block-image.alignleft {
+    display: block !important;
+    float: left !important;
+    margin: 0 2rem 1.5rem 0 !important;
+    max-width: 50%;
+}
+
+.wp-block-image.alignright {
+    display: block !important;
+    float: right !important;
+    margin: 0 0 1.5rem 2rem !important;
+    max-width: 50%;
+}
+
+/* Para casos onde a classe está no elemento filho */
+.wp-block-image .aligncenter {
+    display: block !important;
+    margin: 0 auto !important;
+    text-align: center;
+}
+
+/* Garantir que a imagem dentro também seja centralizada */
+.wp-block-image.aligncenter img,
+.wp-block-image .aligncenter img {
+    display: block;
+    margin: 0 auto;
+}
+
+/* Para o conteúdo geral do post */
+.post-content .aligncenter,
+.entry-content .aligncenter,
+.servico-content .aligncenter {
+    display: block !important;
+    margin: 0 auto !important;
+    text-align: center;
+}
+
+/* --- BOTÕES GUTENBERG COMPLETOS --- */
+/* Container de botões */
+.wp-block-buttons {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.wp-block-buttons.is-content-justification-left,
+.wp-block-buttons.has-text-align-left {
+    justify-content: flex-start !important;
+}
+
+.wp-block-buttons.is-content-justification-center,
+.wp-block-buttons.has-text-align-center {
+    justify-content: center !important;
+}
+
+.wp-block-buttons.is-content-justification-right,
+.wp-block-buttons.has-text-align-right {
+    justify-content: flex-end !important;
+}
+
+/* Botões individuais */
+.wp-block-button {
+    margin: 0 !important;
+}
+
+.wp-block-button .wp-block-button__link {
+    font-family: var(--primary-font);
+    transition: all 0.3s ease;
+    border-radius: 25px;
+    padding: 12px 24px;
+    text-decoration: none !important;
+    display: inline-block;
+}
+
+/* --- LINKS ROBUSTOS COM ESPECIFICIDADE MÁXIMA --- */
+.entry-content a,
+.post-content a,
+.content a,
+.wp-block-paragraph a,
+.wp-block-media-text a,
+.wp-block-media-text__content a,
+.wp-block-list a,
+.wp-block-list li a,
+p a,
+.wp-block-media-text .wp-block-media-text__content .wp-block-list li a,
+.wp-block-media-text__content .wp-block-list li a[href] {
+    color: var(--base-color) !important;
+    text-decoration: underline;
+    transition: all 0.3s ease;
+}
+
+/* Estados hover dos links */
+.entry-content a:hover,
+.post-content a:hover,
+.content a:hover,
+.wp-block-paragraph a:hover,
+.wp-block-media-text a:hover,
+.wp-block-media-text__content a:hover,
+.wp-block-list a:hover,
+.wp-block-list li a:hover,
+p a:hover {
+    color: var(--base-color) !important;
+    text-decoration: none;
+    opacity: 0.8;
+}
+
+/* Links dentro de strong/bold */
+strong a,
+b a,
+.wp-block-list li strong a {
+    color: var(--base-color) !important;
+}
+
+/* --- LISTAS COMPLETAS E ROBUSTAS --- */
+/* Listas não ordenadas (UL) - com especificidade máxima */
+.wp-block-list ul,
+ul.wp-block-list,
+.entry-content .wp-block-list ul,
+.wp-block-post-content .wp-block-list ul,
+.entry-content ul:not([class]):not(.no-bullets),
+.wp-block-post-content ul:not([class]):not(.no-bullets),
+.wp-block-group ul:not([class]):not(.no-bullets),
+.wp-block-column ul:not([class]):not(.no-bullets) {
+    list-style: disc !important;
+    list-style-type: disc !important;
+    margin-left: 20px;
+    padding-left: 0;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.wp-block-list ul li,
+ul.wp-block-list li,
+.entry-content .wp-block-list ul li,
+.wp-block-post-content .wp-block-list ul li,
+.entry-content ul:not([class]):not(.no-bullets) li,
+.wp-block-post-content ul:not([class]):not(.no-bullets) li,
+.wp-block-group ul:not([class]):not(.no-bullets) li,
+.wp-block-column ul:not([class]):not(.no-bullets) li {
+    list-style: disc !important;
+    list-style-type: disc !important;
+    color: white !important;
+    margin-bottom: 0.75rem;
+}
+
+/* Listas ordenadas (OL) - com especificidade máxima */
+.wp-block-list ol,
+ol.wp-block-list,
+.entry-content .wp-block-list ol,
+.wp-block-post-content .wp-block-list ol,
+.entry-content ol:not([class]),
+.wp-block-post-content ol:not([class]),
+.wp-block-group ol:not([class]),
+.wp-block-column ol:not([class]) {
+    list-style: decimal !important;
+    list-style-type: decimal !important;
+    margin-left: 20px;
+    padding-left: 0;
+    margin-bottom: 1.5rem;
+}
+
+.wp-block-list ol li,
+ol.wp-block-list li,
+.entry-content .wp-block-list ol li,
+.wp-block-post-content .wp-block-list ol li,
+.entry-content ol:not([class]) li,
+.wp-block-post-content ol:not([class]) li,
+.wp-block-group ol:not([class]) li,
+.wp-block-column ol:not([class]) li {
+    list-style: decimal !important;
+    list-style-type: decimal !important;
+    color: white !important;
+    margin-bottom: 0.75rem;
+}
+
+/* Marcadores coloridos */
+.wp-block-list li::marker {
+    color: var(--base-color);
+}
+
+/* Listas aninhadas - níveis diferentes */
+.wp-block-list ul ul,
+.wp-block-list ol ul {
+    list-style-type: circle;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.wp-block-list ul ul ul,
+.wp-block-list ol ul ul {
+    list-style-type: square;
+}
+
+.wp-block-list ol ol {
+    list-style-type: lower-alpha;
+}
+
+.wp-block-list ol ol ol {
+    list-style-type: lower-roman;
+}
+
+/* Espaçamento para listas dentro de outros blocos */
+.wp-block-group .wp-block-list,
+.wp-block-column .wp-block-list,
+.wp-block-cover .wp-block-list,
+.container .wp-block-list,
+.row .wp-block-list {
+    margin-bottom: 1.5rem;
+    max-width: 100%;
+}
+
+/* --- CUSTOM BULLETS AVANÇADOS --- */
+.wp-block-list.custom-bullets ul {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.wp-block-list.custom-bullets ul li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 0.8rem;
+}
+
+.wp-block-list.custom-bullets ul li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--base-color, #007cba);
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+/* Variações de ícones personalizados */
+.wp-block-list.arrow-bullets ul li::before {
+    content: "→";
+    color: var(--base-color, #007cba);
+}
+
+.wp-block-list.star-bullets ul li::before {
+    content: "★";
+    color: var(--base-color, #007cba);
+}
+
+.wp-block-list.circle-bullets ul li::before {
+    content: "●";
+    color: var(--base-color, #007cba);
+}
+
+/* Cores customizadas baseadas no tema */
+.wp-block-list.text-base-color li {
+    color: var(--base-color, #007cba);
+}
+
+.wp-block-list.text-dark-gray li {
+    color: var(--dark-gray, #333);
+}
+
+/* --- MEDIA TEXT BLOCK COMPLETO --- */
+.wp-block-media-text {
+    margin-bottom: 3rem;
+}
+
+.wp-block-media-text__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem !important;
+}
+
+/* --- IFRAMES RESPONSIVOS (GOOGLE DRIVE/VÍDEOS) --- */
+.servico-content iframe,
+.post-content iframe,
+.entry-content iframe {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 400px;
+    aspect-ratio: 16/9;
+}
+
+/* --- QUOTE BLOCKS --- */
+.wp-block-quote {
+    border-left: 4px solid var(--base-color);
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+}
+
+.wp-block-quote p {
+    color: white !important;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.wp-block-quote cite {
+    color: var(--base-color) !important;
+    font-size: 0.9em;
+    font-style: normal;
+    opacity: 0.8;
+}
+
+/* --- SEPARATORS --- */
+.wp-block-separator {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 3rem auto;
+    max-width: 100px;
+}
+
+.wp-block-separator.is-style-wide {
+    max-width: 100%;
+}
+
+/* --- SPACER BLOCKS --- */
+.wp-block-spacer {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+/* --- RESPONSIVIDADE COMPLETA --- */
+
+/* Tablets */
+@media (max-width: 991px) {
+    .wp-block-media-text__content {
+        margin-top: 35px !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    /* Colunas */
+    .wp-block-columns {
+        gap: 1.5rem;
+    }
+    
+    .wp-block-column {
+        gap: 1rem;
+    }
+    
+    /* Media text */
+    .wp-block-media-text__content {
+        padding: 0 !important;
+        margin-top: 1.5rem !important;
+    }
+    
+    /* Botões - empilhamento vertical */
+    .wp-block-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .wp-block-button {
+        width: 100%;
+        max-width: 280px;
+    }
+    
+    .wp-block-button .wp-block-button__link {
+        display: block;
+        text-align: center;
+        width: 100%;
+    }
+    
+    /* Imagens - remove float em mobile */
+    .wp-block-image.alignleft,
+    .wp-block-image.alignright {
+        float: none !important;
+        margin: 1rem 0 !important;
+        max-width: 100% !important;
+        text-align: center;
+    }
+    
+    /* Listas */
+    .wp-block-list ul,
+    .wp-block-list ol {
+        margin-left: 15px;
+    }
+    
+    .wp-block-list.custom-bullets ul li {
+        padding-left: 20px;
+    }
+    
+    /* Grupos com background */
+    .wp-block-group.has-background {
+        padding: 2rem 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    /* iframes */
+    .servico-content iframe,
+    .post-content iframe,
+    .entry-content iframe {
+        min-height: 250px;
+    }
+}
+
+/* Mobile muito pequeno */
+@media screen and (max-width: 600px) {
+    .wp-block-media-text > .wp-block-media-text__content {
+        padding: 0 !important;
+        margin-top: 20px;
+    }
+}
+
+/* --- UTILITIES FINAIS --- */
+.word-break-normal {
+    word-break: normal;
+}
+
+/* Fix para elementos que podem quebrar o layout */
+.wp-block-group,
+.wp-block-columns,
+.wp-block-column {
+    max-width: 100%;
+    overflow-wrap: break-word;
+}
+
+  /* ==============================================
+   GUTENBERG - CSS COMPLETO - fim
+   ============================================== */
