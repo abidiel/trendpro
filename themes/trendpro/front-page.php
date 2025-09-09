@@ -140,7 +140,7 @@ endif;
                                         <div
                                             class="feature-box-content last-paragraph-no-margin pt-30 md-pt-24 sm-pt-30 xs-pt-55px">
                                             <span
-                                                class="text-white d-inline-block fs-19 fw-700 mb-5px position-relative">A<?php echo esc_html(get_sub_field('etapa_titulo')); ?></span>
+                                                class="text-white d-inline-block fs-19 fw-700 mb-5px position-relative"><?php echo esc_html(get_sub_field('etapa_titulo')); ?></span>
                                             <p class="text-white fw-100"><?php echo esc_html(get_sub_field('etapa_descricao')); ?></p>
                                         </div>
                                     </div>
