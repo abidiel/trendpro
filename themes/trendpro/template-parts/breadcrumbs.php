@@ -1,18 +1,6 @@
 <?php
-// Lógica para definir a imagem do breadcrumb
-$imagem_breadcrumb_url = '';
-
-// Se estiver em single post/CPT ou página e tiver imagem destacada
-if ((is_single() || is_page()) && has_post_thumbnail()) {
-    $imagem_breadcrumb_url = get_the_post_thumbnail_url(get_the_ID(), 'img_breadcrumb');
-}
-// Fallback para imagem padrão das opções do tema
-else {
-    $attachment_breadcrumb_id = get_field('imagem_breadcrumb', 'option');
-    $size_breadcrumb = "img_breadcrumb";
-    $imagem_breadcrumb = wp_get_attachment_image_src($attachment_breadcrumb_id, $size_breadcrumb);
-    $imagem_breadcrumb_url = $imagem_breadcrumb[0] ?? '';
-}
+// Usar a função helper para obter a imagem do breadcrumb
+$imagem_breadcrumb_url = get_breadcrumb_image_url();
 
 // Lógica para definir o título do breadcrumb
 $titulo_breadcrumb = '';

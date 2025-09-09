@@ -440,3 +440,67 @@ function crafto_password_error_redirect()
   }
 }
 add_action('login_form_postpass', 'crafto_password_error_redirect', 1);
+
+/**
+ * Sistema de Breadcrumbs Específicos por Página
+ * 
+ * Esta função verifica se existe uma imagem específica para a página atual
+ * Se não existir, usa a imagem padrão das opções do tema
+ */
+function get_breadcrumb_image_url() {
+    // Verificar se o ACF está ativo
+    if (!function_exists('get_field')) {
+        return '';
+    }
+    
+    $breadcrumb_url = '';
+    
+    // 1. Verificar se existe imagem específica para a página atual
+    if (is_singular()) {
+        // Para posts, páginas e custom post types
+        $page_specific_image = get_field('imagem_breadcrumb_pagina');
+        if (!empty($page_specific_image)) {
+            $size_breadcrumb = "img_breadcrumb";
+            $imagem_breadcrumb = wp_get_attachment_image_src($page_specific_image, $size_breadcrumb);
+            if (!empty($imagem_breadcrumb) && is_array($imagem_breadcrumb)) {
+                $breadcrumb_url = esc_url($imagem_breadcrumb[0]);
+            }
+        }
+    } elseif (is_tax() || is_category() || is_tag()) {
+        // Para taxonomias, categorias e tags
+        $term_id = get_queried_object_id();
+        $page_specific_image = get_field('imagem_breadcrumb_pagina', 'term_' . $term_id);
+        if (!empty($page_specific_image)) {
+            $size_breadcrumb = "img_breadcrumb";
+            $imagem_breadcrumb = wp_get_attachment_image_src($page_specific_image, $size_breadcrumb);
+            if (!empty($imagem_breadcrumb) && is_array($imagem_breadcrumb)) {
+                $breadcrumb_url = esc_url($imagem_breadcrumb[0]);
+            }
+        }
+    } elseif (is_author()) {
+        // Para páginas de autor
+        $author_id = get_queried_object_id();
+        $page_specific_image = get_field('imagem_breadcrumb_pagina', 'user_' . $author_id);
+        if (!empty($page_specific_image)) {
+            $size_breadcrumb = "img_breadcrumb";
+            $imagem_breadcrumb = wp_get_attachment_image_src($page_specific_image, $size_breadcrumb);
+            if (!empty($imagem_breadcrumb) && is_array($imagem_breadcrumb)) {
+                $breadcrumb_url = esc_url($imagem_breadcrumb[0]);
+            }
+        }
+    }
+    
+    // 2. Se não encontrou imagem específica, usar a padrão das opções do tema
+    if (empty($breadcrumb_url)) {
+        $attachment_breadcrumb_id = get_field('imagem_breadcrumb', 'option');
+        if (!empty($attachment_breadcrumb_id)) {
+            $size_breadcrumb = "img_breadcrumb";
+            $imagem_breadcrumb = wp_get_attachment_image_src($attachment_breadcrumb_id, $size_breadcrumb);
+            if (!empty($imagem_breadcrumb) && is_array($imagem_breadcrumb)) {
+                $breadcrumb_url = esc_url($imagem_breadcrumb[0]);
+            }
+        }
+    }
+    
+    return $breadcrumb_url;
+}
