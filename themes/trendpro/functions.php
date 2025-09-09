@@ -444,8 +444,11 @@ add_action('login_form_postpass', 'crafto_password_error_redirect', 1);
 /**
  * Sistema de Breadcrumbs Específicos por Página
  * 
- * Esta função verifica se existe uma imagem específica para a página atual
- * Se não existir, usa a imagem padrão das opções do tema
+ * Esta função verifica a prioridade das imagens de breadcrumb:
+ * 1. Imagem específica da página (imagem_breadcrumb_pagina)
+ * 2. Imagem destacada da página (post_thumbnail)
+ * 3. Imagem padrão das opções do tema (imagem_breadcrumb)
+ * 4. Fallback: imagem preta para tema dark
  */
 function get_breadcrumb_image_url() {
     // Verificar se o ACF está ativo
@@ -490,7 +493,12 @@ function get_breadcrumb_image_url() {
         }
     }
     
-    // 2. Se não encontrou imagem específica, usar a padrão das opções do tema
+    // 2. Se não encontrou imagem específica, verificar imagem destacada (apenas para singular)
+    if (empty($breadcrumb_url) && is_singular() && has_post_thumbnail()) {
+        $breadcrumb_url = get_the_post_thumbnail_url(get_the_ID(), 'img_breadcrumb');
+    }
+    
+    // 3. Se não encontrou imagem destacada, usar a padrão das opções do tema
     if (empty($breadcrumb_url)) {
         $attachment_breadcrumb_id = get_field('imagem_breadcrumb', 'option');
         if (!empty($attachment_breadcrumb_id)) {
@@ -500,6 +508,11 @@ function get_breadcrumb_image_url() {
                 $breadcrumb_url = esc_url($imagem_breadcrumb[0]);
             }
         }
+    }
+    
+    // 4. Fallback final: imagem preta para tema dark
+    if (empty($breadcrumb_url)) {
+        $breadcrumb_url = 'data:image/svg+xml;base64,' . base64_encode('<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="400" viewBox="0 0 1920 400"><rect width="1920" height="400" fill="#000000"/></svg>');
     }
     
     return $breadcrumb_url;
