@@ -40,7 +40,7 @@
                             'full', 
                             false, 
                             array(
-                                'class' => 'w-42px h-42px',
+                                'class' => 'w-40px h-40px',
                                 'alt' => esc_attr($service_icon['alt'] ?: get_the_title() . ' - Ícone'),
                                 'loading' => 'lazy'
                             )
@@ -50,7 +50,7 @@
                     <span class="banners-icon text-white icon-hover-base-color position-absolute left-30px lg-left-30px">
                         <img src="https://placehold.co/42x42/ffffff/64748b?text=?" 
                              alt="<?php echo esc_attr(get_the_title() . ' - Ícone'); ?>" 
-                             class="w-42px h-42px" loading="lazy" />
+                             class="w-40px h-40px" loading="lazy" />
                     </span>
                 <?php endif; ?>
             </div>
