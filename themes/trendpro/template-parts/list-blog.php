@@ -9,7 +9,7 @@
 
 
 <!-- start blog item -->
-<li class="grid-item">
+<li class="grid-item" data-anime='{ "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "easing": "easeOutQuad" }'>
 	<figure class="position-relative mb-0 box-hover">
 		<div class="blog-image">
 			<?php

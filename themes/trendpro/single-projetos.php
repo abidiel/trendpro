@@ -6,7 +6,7 @@ get_template_part('template-parts/breadcrumbs'); ?>
 <section class="pb-0 ficha-tecnica">
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-12 col-xxl-5 col-xl-7 col-lg-10 text-center">
+            <div class="col-12 col-xxl-5 col-xl-7 col-lg-10 text-center" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 200, "easing": "easeOutQuad" }'>
 
                 <?php if (get_field('imagem_introducao')) : ?>
                     <img class="mb-30px" src="<?php echo esc_url(get_field('imagem_introducao')['sizes']['cliente-imagem']); ?>" alt="">
@@ -70,8 +70,9 @@ if ($link_youtube || $link_youtube_vertical) :
     <!-- start section -->
     <section>
         <div class="row align-items-center justify-content-center">
-            <div class="col-12 position-relative h-750px md-h-600px sm-h-350px border-radius-6px border border-color-transparent position-relative" data-parallax-background-ratio="0.5" style="background-image: url('<?php if (get_field('imagem_background_video')) : ?><?php echo esc_url(get_field('imagem_background_video')['sizes']['video-principal-bg']); ?><?php endif; ?>');">
-                <div class="absolute-middle-center z-index-9">
+            <div class="col-12 position-relative h-750px md-h-600px sm-h-350px border-radius-6px border border-color-transparent position-relative" data-parallax-background-ratio="0.5" style="background-image: url('<?php if (get_field('imagem_background_video')) : ?><?php echo esc_url(get_field('imagem_background_video')['sizes']['video-principal-bg']); ?><?php endif; ?>');"
+                data-anime='{ "opacity": [0,1], "duration": 800, "delay": 0, "easing": "easeOutQuad" }'>
+                <div class="absolute-middle-center z-index-9" data-anime='{ "scale": [0.8, 1], "opacity": [0,1], "duration": 600, "delay": 300, "easing": "easeOutQuad" }'>
                     <a href="<?php echo esc_url($link_youtube); ?>"
                         class="video-link text-center bg-white rounded-circle video-icon-box video-icon-extra-large popup-youtube slide-up-animation"
                         data-desktop="<?php echo esc_url($link_youtube); ?>"
@@ -102,7 +103,7 @@ if (!empty($content)) :
     <section class="bg-dark-gray background-position-center-top overflow-hidden">
         <div class="container">
             <div class="row">
-                <div class="col-12">
+                <div class="col-12" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 200, "easing": "easeOutQuad" }'>
                     <div class="servico-content text-white">
                         <?php echo $content; ?>
                     </div>
@@ -124,7 +125,7 @@ if ($featured_posts) : ?>
 
                 <div class="col-10">
 
-                    <ul>
+                    <ul class="ps-0">
                         <?php foreach ($featured_posts as $post) :
 
                             // Setup this post for WP functions (variable must be named $post).

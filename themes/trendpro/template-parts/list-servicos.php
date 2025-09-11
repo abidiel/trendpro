@@ -9,7 +9,7 @@
 
 ?>
 
-<li class="grid-item selected digital transition-inner-all">
+<li class="grid-item selected digital transition-inner-all" data-anime='{ "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "easing": "easeOutQuad" }'>
     <a href="<?php the_permalink(); ?>" class="banner-link-wrap">
         <div class="interactive-banner-style-06">
             <div class="interactive-banners-image">

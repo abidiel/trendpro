@@ -12,10 +12,10 @@ get_template_part('template-parts/breadcrumbs'); ?>
             <div class="row">
                 <div class="col-lg-6 position-relative">
                     <div class="row align-items-center position-relative md-mb-15" data-anime='{ "opacity": [0,1], "duration": 600, "delay":0, "staggervalue": 300, "easing": "easeOutQuad" }'>
-                        <div class="col-md-5 sm-mb-30px" data-bottom-top="transform: translateY(50px)" data-top-bottom="transform: translateY(-50px)">
+                        <div class="col-md-5 sm-mb-30px d-none d-md-block" data-bottom-top="transform: translateY(50px)" data-top-bottom="transform: translateY(-50px)">
                             <img src="<?php echo esc_url(wp_get_attachment_image_url(get_field('servico_secao1_imagem_1')['ID'], 'full')); ?>" alt="<?php echo esc_attr(get_field('servico_secao1_imagem_1')['alt']); ?>" />
                         </div>
-                        <div class="col-xl-5 offset-xl-2 col-lg-5 offset-lg-2 col-md-7 sm-mb-30px text-end" data-bottom-top="transform: translateY(-30px)" data-top-bottom="transform: translateY(30px)">
+                        <div class="col-xl-5 offset-xl-2 col-lg-5 offset-lg-2 col-md-7 sm-mb-30px text-end d-none d-md-block" data-bottom-top="transform: translateY(-30px)" data-top-bottom="transform: translateY(30px)">
                             <img src="<?php echo esc_url(wp_get_attachment_image_url(get_field('servico_secao1_imagem_3')['ID'], 'full')); ?>" alt="<?php echo esc_attr(get_field('servico_secao1_imagem_3')['alt']); ?>" class="box-shadow-quadruple-large md-w-80 sm-w-100" />
                         </div>
                         <div class="w-50 sm-w-100 overflow-hidden position-absolute sm-position-relative left-140px bottom-minus-200px sm-bottom-0px sm-left-0px p-0 sm-ps-15px sm-pe-15px" data-shadow-animation="true" data-animation-delay="100" data-bottom-top="transform: translateY(20px)" data-top-bottom="transform: translateY(-20px)">
@@ -53,7 +53,8 @@ get_template_part('template-parts/breadcrumbs'); ?>
 
 <!-- start section -->
 <?php if (get_field('ativo_servico_single_secao_2')): ?>
-    <section class="cover-background">
+    <section class="cover-background"
+        data-anime='{ "opacity": [0,1], "duration": 800, "delay": 0, "easing": "easeOutQuad" }'>
         <div class="container">
             <div class="row justify-content-center mb-3">
                 <div class="col-lg-7 text-center" data-anime='{ "el": "childs", "translateY": [50, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
@@ -279,7 +280,7 @@ if (!empty($content)) :
 <section class="bg-dark-gray background-position-center-top overflow-hidden">
     <div class="container">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 200, "easing": "easeOutQuad" }'>
                 <div class="servico-content text-white">
                     <?php echo wp_kses_post($content); ?>
                 </div>

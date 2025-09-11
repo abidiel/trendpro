@@ -289,7 +289,7 @@ header .navbar-brand .mobile-logo {
 header.sticky.sticky-active .navbar-brand .default-logo {
     visibility: visible;
     opacity: 1;
-    width: auto;
+    width: 156px;
 }
 
 .portfolio-filter li.active a {

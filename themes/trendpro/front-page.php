@@ -42,7 +42,7 @@ if ($banner_query->have_posts()) :
             class="page-title-background-video position-relative overflow-hidden full-screen d-flex align-items-center">
             <div class="container">
                 <div class="row align-items-center h-100">
-                    <div class="col-xl-7 col-lg-8 col-md-10 position-relative text-white text-center text-md-start"
+                    <div class="col-xl-7 col-lg-8 col-md-10 offset-md-1 position-relative text-white text-center text-md-start"
                         data-anime='{ "el": "childs", "translateX": [100, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
                         <div>
                             <span class="fs-18 opacity-8 mb-25px sm-mb-15px d-inline-block fw-400"><?php echo $banner_text_subtitle; ?></span>
@@ -169,9 +169,11 @@ endif;
                 data-bottom-top="transform: translate3d(-30px, 0px, 0px);"
                 data-top-bottom="transform: translate3d(-110px, 0px, 0px);">
                 <div class="col-md-6 cover-background h-100 sm-h-400px xs-h-350px"
-                    style="background-image: url('<?php echo esc_url(get_field('eventcover_image')); ?>')">
+                    style="background-image: url('<?php echo esc_url(get_field('eventcover_image')); ?>')"
+                    data-anime='{ "opacity": [0,1], "duration": 800, "delay": 0, "easing": "easeOutQuad" }'>
                 </div>
-                <div class="col-lg-4 col-md-6 position-relative bg-nero-grey h-100 sm-h-350px sm-pb-8 overflow-hidden">
+                <div class="col-lg-4 col-md-6 position-relative bg-nero-grey h-100 sm-h-350px sm-pb-8 overflow-hidden"
+                    data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 200, "staggervalue": 200, "easing": "easeOutQuad" }'>
                     <div class="h-100 d-flex flex-column align-items-center justify-content-center">
                         <a href="<?php echo esc_url(get_field('eventcover_video')); ?>"
                             target="_blank"
@@ -441,7 +443,7 @@ endif;
 
                             $args = array(
                                 'post_type' => 'projetos',
-                                'showposts' => 3,
+                                'showposts' => 5,
                                 'post_status' => 'publish'
                             );
 
@@ -526,7 +528,8 @@ endif;
     <!-- start marquees -->
     <div class="fw-600 alt-font fs-180 md-fs-150 sm-fs-130 xs-fs-100 text-charcoal ls-minus-7px md-ls-minus-5px xs-ls-minus-2px text-nowrap text-center mb-20px"
         data-bottom-top="transform: translate3d(-170px, 0px, 0px) scale(0.8, 0.8);"
-        data-top-bottom="transform: translate3d(-200px, 0px, 0px) scale(1.8, 1.8);">
+        data-top-bottom="transform: translate3d(-200px, 0px, 0px) scale(1.8, 1.8);"
+        data-anime='{ "opacity": [0,1], "duration": 1000, "delay": 0, "easing": "easeOutQuad" }'>
         <span class="text-outline opacity-6">conteúdo</span> que <span class="text-outline opacity-6">gera</span>
         resultado
     </div>

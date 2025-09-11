@@ -26,7 +26,7 @@ get_template_part('template-parts/breadcrumbs');
 
     <div class="container" id="projetos">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 100, "easing": "easeOutQuad" }'>
                 <!-- filter navigation wrapper -->
                 <div class="portfolio-filter-wrapper">
                     <ul class="portfolio-filter nav nav-tabs text-start border-0 fw-500 pb-5 pt-1">
@@ -59,7 +59,7 @@ get_template_part('template-parts/breadcrumbs');
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 filter-content">
+            <div class="col-12 filter-content" data-anime='{ "el": "childs", "translateY": [50, 0], "opacity": [0,1], "duration": 800, "delay": 0, "staggervalue": 150, "easing": "easeOutQuad" }'>
                 <ul class="portfolio-boxed portfolio-wrapper grid-loading grid grid-4col xxl-grid-4col xl-grid-4col lg-grid-4col md-grid-2col sm-grid-2col xs-grid-1col gutter-large text-center">
                     <li class="grid-sizer"></li>
 

@@ -24,7 +24,7 @@ if ($term_list) { ?>
 
 
 <!-- start portfolio item -->
-<li class="grid-item  <?php echo $slugCategoria; ?> transition-inner-all">
+<li class="grid-item  <?php echo $slugCategoria; ?> transition-inner-all" data-anime='{ "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "easing": "easeOutQuad" }'>
     <div class="portfolio-box ">
         <div class="portfolio-image ">
             <?php $url = wp_get_attachment_image_url(get_post_thumbnail_id($post->ID), 'img_destacada_projeto_square') ?>

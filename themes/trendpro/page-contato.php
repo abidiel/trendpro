@@ -114,7 +114,8 @@ if (function_exists('wpcf7_enqueue_styles')) {
             <div class="container-fluid position-relative py-0">
                 <div class="row">
                     <div class="col-12">
-                        <div class="one-third-screen sm-small-screen" data-parallax-background-ratio="0.5" style="background-image: url(<?php echo esc_url(get_field('imagem_contato_heading')['sizes']['banner_imagem']); ?>)"></div>
+                        <div class="one-third-screen sm-small-screen" data-parallax-background-ratio="0.5" style="background-image: url(<?php echo esc_url(get_field('imagem_contato_heading')['sizes']['banner_imagem']); ?>)"
+                            data-anime='{ "opacity": [0,1], "duration": 800, "delay": 0, "easing": "easeOutQuad" }'></div>
                     </div>
                 </div>
             </div>
