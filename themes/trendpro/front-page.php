@@ -47,7 +47,7 @@ if ($banner_query->have_posts()) :
                         <div>
                             <span class="fs-18 opacity-8 mb-25px sm-mb-15px d-inline-block fw-400"><?php echo $banner_text_subtitle; ?></span>
                         </div>
-                        <h1 class="alt-font xl-w-100 text-shadow-double-large ls-minus-2px fs-60"><?php echo $banner_text; ?></h1>
+                        <h1 class="xl-w-100 text-shadow-double-large ls-minus-2px fs-60"><?php echo $banner_text; ?></h1>
 
                         <a href="https://api.whatsapp.com/send?phone=55<?php echo esc_attr(str_replace(array('(', ')', ' ', '-'), array('', '', '', ''), get_field('whatsapp', 'option'))); ?>&text=Gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os%20da%20Trend%20Pro."
                             target="_blank"
