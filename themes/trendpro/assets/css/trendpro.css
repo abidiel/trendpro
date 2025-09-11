@@ -27,6 +27,12 @@ body{
 .word-break-normal {
     word-break: normal;
 }
+
+/* custom padding */
+.px-lg-7 {
+    padding-left: 7rem !important;
+    padding-right: 7rem !important;
+}
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     margin-bottom: 25px;
 }
@@ -259,7 +265,7 @@ footer .elements-social li {
     z-index: 1;
 }
 
-.page-title-background-video .container {
+.page-title-background-video .container-fluid {
     position: relative;
     z-index: 2;
 }

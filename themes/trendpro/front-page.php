@@ -40,9 +40,9 @@ if ($banner_query->have_posts()) :
         <!-- start page title -->
         <section
             class="page-title-background-video position-relative overflow-hidden full-screen d-flex align-items-center">
-            <div class="container">
-                <div class="row align-items-center h-100">
-                    <div class="col-xl-7 col-lg-8 col-md-10 offset-md-1 position-relative text-white text-center text-md-start"
+            <div class="container-fluid">
+                <div class="row align-items-center h-100 px-md-4 px-lg-7">
+                    <div class="col-xl-7 col-lg-8 col-md-10 position-relative text-white text-center text-md-start"
                         data-anime='{ "el": "childs", "translateX": [100, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
                         <div>
                             <span class="fs-18 opacity-8 mb-25px sm-mb-15px d-inline-block fw-400"><?php echo $banner_text_subtitle; ?></span>
