@@ -29,7 +29,7 @@
     						<li class="nav-item"><a href="<?php echo esc_url(get_permalink(37)); ?>" class="nav-link">Sobre</a></li>
     						<li class="nav-item"><a href="<?php echo esc_url(get_permalink(41)); ?>" class="nav-link">Serviços</a></li>
     						<li class="nav-item"><a href="<?php echo esc_url(get_permalink(39)); ?>" class="nav-link">Cases</a></li>
-    						<!-- <li class="nav-item"><a href="<?php echo esc_url(get_permalink(43)); ?>" class="nav-link">Blog</a></li> -->
+    						<li class="nav-item"><a href="<?php echo esc_url(get_permalink(43)); ?>" class="nav-link">Blog</a></li>
     						<li class="nav-item"><a href="<?php echo esc_url(get_permalink(46)); ?>" class="nav-link">Contato</a></li>
 
 
