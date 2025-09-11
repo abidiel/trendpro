@@ -12,6 +12,7 @@ if (have_posts()) {
 
 		<!-- start section -->
 		<section class="one-third-screen bg-dark-gray ipad-top-space-margin sm-mb-50px" data-parallax-background-ratio="0.5" style="background-image: url('<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'fullhd')); ?>')">
+		<div class="opacity-extra-medium bg-black"></div>
 			<div class="row d-flex justify-content-center breadcrumb-normal position-relative text-center text-white pt-60px" data-anime='{ "el": "childs", "translateY": [20, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 200, "easing": "easeOutQuad" }'>
 				<div class="col-12">
 					<?php if (function_exists('yoast_breadcrumb')) : ?>
