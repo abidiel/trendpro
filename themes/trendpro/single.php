@@ -1,40 +1,72 @@
 <?php get_header();
 // Status: Ok, pronto.
 
-get_template_part('template-parts/breadcrumbs');
-
 
 if (have_posts()) {
 	while (have_posts()) : the_post();
 		setup_postdata($post); ?>
+
+
+
+
+
+		<!-- start section -->
+		<section class="one-third-screen bg-dark-gray ipad-top-space-margin sm-mb-50px" data-parallax-background-ratio="0.5" style="background-image: url('<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'fullhd')); ?>')">
+			<div class="row d-flex justify-content-center breadcrumb-normal position-relative text-center text-white pt-60px" data-anime='{ "el": "childs", "translateY": [20, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 200, "easing": "easeOutQuad" }'>
+				<div class="col-12">
+					<?php if (function_exists('yoast_breadcrumb')) : ?>
+						<div class="breadcrumb-wrapper">
+							<?php yoast_breadcrumb('<nav class="breadcrumb-nav" aria-label="Navegação">', '</nav>'); ?>
+						</div>
+					<?php endif; ?>
+				</div>
+			</div>
+		</section>
+		<!-- end section -->
+		<!-- start section -->
+		<section class="p-0">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-lg-10 overlap-section text-center">
+						<div class="p-10 box-shadow-extra-large border-radius-4px bg-white text-center">
+							<?php
+							$categories = get_the_category();
+							if (!empty($categories)) :
+								$first_category = $categories[0];
+							?>
+								<a href="<?php echo esc_url(get_category_link($first_category->cat_ID)); ?>" class="bg-solitude-blue text-uppercase fs-13 ps-25px pe-25px alt-font fw-500 text-base-color lh-40 sm-lh-55 border-radius-100px d-inline-block mb-3 sm-mb-15px">
+									<?php echo esc_html($first_category->cat_name); ?>
+								</a>
+							<?php endif; ?>
+							<h3 class="alt-font text-dark-gray fw-600 ls-minus-1px mb-15px"><?php the_title(); ?></h3>
+							<div class="lg-20px sm-mb-0">
+								<span>Por <a href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>" class="text-dark-gray"><?php echo esc_html(get_the_author()); ?></a></span> em <span class="text-dark-gray"><?php echo esc_html(get_the_date(get_option('date_format'))); ?></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- end section -->
+		<!-- start section -->
+		<section class="overlap-section text-center p-0 sm-pt-30px">
+			<img class="rounded-circle box-shadow-extra-large w-130px h-130px border border-8 border-color-white" src="<?php echo esc_url(get_avatar_url(get_the_author_meta('ID'), array('size' => 130))); ?>" alt="<?php echo esc_attr(get_the_author()); ?>">
+		</section>
+		<!-- end section -->
+
+
+
+
 
 		<!-- start section -->
 		<section class="bg-dark-gray background-position-center-top section-blog">
 			<div class="container">
 
 				<div class="row justify-content-center">
-					<div class="col-lg-10">
-						<?php
-						if (has_post_thumbnail()) {
-							the_post_thumbnail('banner_imagem', array('class' => 'img-fluid'));
-						}
-						?>
-					</div>
-					<div class="col-lg-8 last-paragraph-no-margin" data-anime='{ "el": "childs", "translateY": [50, 0], "opacity": [0,1], "duration": 1200, "delay": 0, "staggervalue": 150, "easing": "easeOutQuad" }'>
-						<h4 class="mt-6 text-white"><?php the_title(); ?></h2>
-							<p class="text-medium-gray mb-0"><?php echo esc_html(get_the_date(get_option('date_format'))); ?></p>
-							<?php
-							$categories = get_the_category();
-							if (!empty($categories)) :
-								$first_category = $categories[0]; ?>
-								<div class="mb-5">
-									<a href="<?php echo esc_url(get_category_link($first_category->cat_ID)); ?>">
-										<i class="fa fa-tag"></i>
-										<?php echo esc_html($first_category->cat_name); ?>
-									</a>
-								</div>
-							<?php endif; ?>
-							<?php the_content(); ?>
+
+					<div class="col-lg-10 last-paragraph-no-margin" data-anime='{ "el": "childs", "translateY": [50, 0], "opacity": [0,1], "duration": 1200, "delay": 0, "staggervalue": 150, "easing": "easeOutQuad" }'>
+
+						<?php the_content(); ?>
 					</div>
 				</div>
 			</div>
@@ -88,7 +120,7 @@ if (have_posts()) {
 						<div class="row justify-content-center">
 							<div class="col-12 text-center elements-social social-icon-style-04">
 								<ul class="medium-icon light">
-									<li><a class="facebook" href="https://www.facebook.com/sharer.php?u=<?php echo urlencode(get_permalink()); ?>" target="_blank"><i class="fa-brands fa-facebook-f"></i><span></span></a></li>
+									<li><a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(get_permalink()); ?>" target="_blank"><i class="fa-brands fa-facebook-f"></i><span></span></a></li>
 
 									<li><a class="twitter" href="https://twitter.com/intent/tweet?url=<?php echo esc_url(get_permalink()); ?>" target="_blank"><i class="fa-brands fa-twitter"></i><span></span></a></li>
 
@@ -142,7 +174,7 @@ if (have_posts()) {
 
 								<?php get_template_part('template-parts/list-blog-relacionados'); ?>
 
-						</div>
+							</div>
 
 						</ul>
 					</div>

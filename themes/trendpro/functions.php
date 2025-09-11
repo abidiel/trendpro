@@ -161,6 +161,7 @@ function configura_tamanho_imagens()
   add_image_size('logo_rodape', 230, 9999, false);
   add_image_size('banner_imagem', 1920, 1280, array('center', 'center'));
   add_image_size('img_breadcrumb', 1920, 400, array('center', 'center'));
+  add_image_size('fullhd', 1920, 1080, array('center', 'center'));
   add_image_size('principal_blog', 815, 9999, false, array('center', 'center'));
   add_image_size('blog_lista', 800, 1145, array('center', 'center'));
   add_image_size('img_destacada_projeto_square', 400, 300, array('center', 'center'));
