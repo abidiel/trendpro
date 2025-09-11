@@ -517,3 +517,90 @@ function get_breadcrumb_image_url() {
     
     return $breadcrumb_url;
 }
+
+/**************************************
+ * Google Tag Manager (GTM)
+ * Função para instalar o código GTM no header e footer
+ * Usa o campo ACF 'googletagmanager' das opções do tema
+ **************************************/
+function add_google_tag_manager() {
+    // Verificar se o ACF está ativo
+    if (!function_exists('get_field')) {
+        return;
+    }
+    
+    // Buscar o ID do GTM nas opções do tema
+    $gtm_id = get_field('googletagmanager', 'option');
+    
+    // Se não tiver ID configurado, não faz nada
+    if (empty($gtm_id)) {
+        return;
+    }
+    
+    // Sanitizar o ID do GTM
+    $gtm_id = sanitize_text_field($gtm_id);
+    
+    // Código GTM para o <head>
+    echo "<!-- Google Tag Manager -->\n";
+    echo "<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':\n";
+    echo "new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\n";
+    echo "j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=\n";
+    echo "'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);\n";
+    echo "})(window,document,'script','dataLayer','" . esc_js($gtm_id) . "');</script>\n";
+    echo "<!-- End Google Tag Manager -->\n";
+}
+add_action('wp_head', 'add_google_tag_manager', 1);
+
+function add_google_tag_manager_noscript() {
+    // Verificar se o ACF está ativo
+    if (!function_exists('get_field')) {
+        return;
+    }
+    
+    // Buscar o ID do GTM nas opções do tema
+    $gtm_id = get_field('googletagmanager', 'option');
+    
+    // Se não tiver ID configurado, não faz nada
+    if (empty($gtm_id)) {
+        return;
+    }
+    
+    // Sanitizar o ID do GTM
+    $gtm_id = sanitize_text_field($gtm_id);
+    
+    // Código GTM para o <body> (noscript)
+    echo "<!-- Google Tag Manager (noscript) -->\n";
+    echo "<noscript><iframe src=\"https://www.googletagmanager.com/ns.html?id=" . esc_attr($gtm_id) . "\"\n";
+    echo "height=\"0\" width=\"0\" style=\"display:none;visibility:hidden\"></iframe></noscript>\n";
+    echo "<!-- End Google Tag Manager (noscript) -->\n";
+}
+add_action('wp_body_open', 'add_google_tag_manager_noscript');
+
+// Fallback caso o hook wp_body_open não esteja disponível
+function add_google_tag_manager_fallback() {
+    // Verificar se o ACF está ativo
+    if (!function_exists('get_field')) {
+        return;
+    }
+    
+    // Buscar o ID do GTM nas opções do tema
+    $gtm_id = get_field('googletagmanager', 'option');
+    
+    // Se não tiver ID configurado, não faz nada
+    if (empty($gtm_id)) {
+        return;
+    }
+    
+    // Sanitizar o ID do GTM
+    $gtm_id = sanitize_text_field($gtm_id);
+    
+    // Código GTM para o <body> (noscript) - fallback
+    echo "<!-- Google Tag Manager (noscript) -->\n";
+    echo "<noscript><iframe src=\"https://www.googletagmanager.com/ns.html?id=" . esc_attr($gtm_id) . "\"\n";
+    echo "height=\"0\" width=\"0\" style=\"display:none;visibility:hidden\"></iframe></noscript>\n";
+    echo "<!-- End Google Tag Manager (noscript) -->\n";
+}
+add_action('wp_footer', 'add_google_tag_manager_fallback');
+
+
+

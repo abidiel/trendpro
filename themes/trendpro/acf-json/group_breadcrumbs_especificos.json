@@ -77,13 +77,6 @@
                 "operator": "==",
                 "value": "all"
             }
-        ],
-        [
-            {
-                "param": "current_user_role",
-                "operator": "==",
-                "value": "administrator"
-            }
         ]
     ],
     "menu_order": 0,
@@ -95,5 +88,5 @@
     "active": true,
     "description": "Permite definir imagens específicas de breadcrumb para cada página, post, categoria ou autor. Se não for definida, será usada a imagem padrão das opções do tema.",
     "show_in_rest": 0,
-    "modified": 1757381965
+    "modified": 1757597235
 }
