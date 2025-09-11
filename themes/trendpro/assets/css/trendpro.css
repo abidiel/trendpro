@@ -266,9 +266,6 @@ footer .elements-social li {
 
 
 
-header .navbar-brand .default-logo {
-    width: auto;
-}
 
 header .navbar-brand .mobile-logo {
     width: 0px !important;
@@ -278,7 +275,7 @@ header .navbar-brand .mobile-logo {
 @media (max-width: 991px) {
     header .navbar-brand .mobile-logo {
         width: auto !important;
-        max-height: 34px !important;
+        max-height: 16px !important;
     }
 }
 
