@@ -1310,7 +1310,8 @@ html {
 .wp-block-media-text__content h4,
 .wp-block-media-text__content h5,
 .wp-block-media-text__content h6,
-.section-blog .wp-block-heading {
+.section-blog .wp-block-heading,
+.section-blog p {
     color: white !important;
 }
 

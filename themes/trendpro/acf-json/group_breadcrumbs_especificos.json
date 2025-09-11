@@ -33,13 +33,6 @@
             {
                 "param": "post_type",
                 "operator": "==",
-                "value": "post"
-            }
-        ],
-        [
-            {
-                "param": "post_type",
-                "operator": "==",
                 "value": "page"
             }
         ],
@@ -88,5 +81,5 @@
     "active": true,
     "description": "Permite definir imagens específicas de breadcrumb para cada página, post, categoria ou autor. Se não for definida, será usada a imagem padrão das opções do tema.",
     "show_in_rest": 0,
-    "modified": 1757597235
+    "modified": 1757628426
 }
