@@ -40,8 +40,8 @@ if ($banner_query->have_posts()) :
         <!-- start page title -->
         <section
             class="page-title-background-video position-relative overflow-hidden full-screen d-flex align-items-center">
-            <div class="container-fluid">
-                <div class="row align-items-center h-100 px-md-4 px-lg-7">
+            <div class="container-fluid px-md-4 padding-banner-lg">
+                <div class="row align-items-center h-100">
                     <div class="col-xl-7 col-lg-8 col-md-10 position-relative text-white text-center text-md-start"
                         data-anime='{ "el": "childs", "translateX": [100, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
                         <div>
