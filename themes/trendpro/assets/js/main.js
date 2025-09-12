@@ -2826,40 +2826,42 @@
                     overlayBreakpoint = 767;
                 }
 
-                if (getWindowWidth() > overlayBreakpoint) {
-                    setTimeout(function () {
-                        _this.imagesLoaded(function () {
-                            var closestSectionObj = _this.closest('section');
-                            if (_this.closest('footer').length) {
-                                closestSectionObj = _this.closest('footer');
+                // Aplicar overlap tanto no desktop quanto no mobile
+                setTimeout(function () {
+                    _this.imagesLoaded(function () {
+                        var closestSectionObj = _this.closest('section');
+                        if (_this.closest('footer').length) {
+                            closestSectionObj = _this.closest('footer');
+                        }
+                        var sectionPaddingTop = parseInt(closestSectionObj.css('padding-top')),
+                                areaHeight = _this.find('*').outerHeight(),
+                                overlayTop = areaHeight + sectionPaddingTop;
+                        
+                        if (_this.hasClass('overlap-section-one-fourth')) {
+                            overlayTop = (areaHeight / 4) - overlayTop;
+                        } else if (_this.hasClass('overlap-section-three-fourth')) {
+                            overlayTop = ((areaHeight * 3) / 4) - overlayTop;
+                        } else {
+                            overlayTop = (areaHeight / 2) - overlayTop;
+                        }
+                        
+                        // Ajustar valores para mobile (reduzir o overlap)
+                        if (getWindowWidth() <= overlayBreakpoint) {
+                            overlayTop = overlayTop * 0.5; // Reduzir o overlap pela metade no mobile
+                        }
+                        
+                        _this.css('margin-top', overlayTop);
+                        
+                        var parentSectionObj = closestSectionObj.prev('.overlap-height'),
+                                overlapGap = parentSectionObj.find('.overlap-gap-section');
+                        parentSectionObj.imagesLoaded(function () {
+                            if (overlapGap.length > 0) {
+                                var gapSectionHeight = overlapGap.outerHeight() + (Math.abs(overlayTop) - sectionPaddingTop);
+                                overlapGap.parents('.overlap-height').height(gapSectionHeight);
                             }
-                            var sectionPaddingTop = parseInt(closestSectionObj.css('padding-top')),
-                                    areaHeight = _this.find('*').outerHeight(),
-                                    overlayTop = areaHeight + sectionPaddingTop;
-                            if (_this.hasClass('overlap-section-one-fourth')) {
-                                overlayTop = (areaHeight / 4) - overlayTop;
-                            } else if (_this.hasClass('overlap-section-three-fourth')) {
-                                overlayTop = ((areaHeight * 3) / 4) - overlayTop;
-                            } else {
-                                overlayTop = (areaHeight / 2) - overlayTop;
-                            }
-                            _this.css('margin-top', overlayTop);
-                            var parentSectionObj = closestSectionObj.prev('.overlap-height'),
-                                    overlapGap = parentSectionObj.find('.overlap-gap-section');
-                            parentSectionObj.imagesLoaded(function () {
-                                if (overlapGap.length > 0) {
-                                    var gapSectionHeight = overlapGap.outerHeight() + (Math.abs(overlayTop) - sectionPaddingTop);
-                                    overlapGap.parents('.overlap-height').height(gapSectionHeight);
-                                }
-                            });
                         });
-                    }, 500);
-                } else {
-                    setTimeout(function () {
-                        $('.overlap-height').height('inherit');
-                        $('.overlap-section, .overlap-section-one-fourth, .overlap-section-three-fourth').css('margin-top', 'inherit');
-                    }, 500);
-                }
+                    });
+                }, 500);
             });
         }
     }

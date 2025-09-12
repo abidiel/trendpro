@@ -8,12 +8,12 @@ if (have_posts()) {
 
 
 
-
-
 		<!-- start section -->
-		<section class="one-third-screen bg-dark-gray ipad-top-space-margin sm-mb-50px" data-parallax-background-ratio="0.5" style="background-image: url('<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'fullhd')); ?>')">
-		<div class="opacity-extra-medium bg-black"></div>
-			<div class="row d-flex justify-content-center breadcrumb-normal position-relative text-center text-white pt-60px" data-anime='{ "el": "childs", "translateY": [20, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 200, "easing": "easeOutQuad" }'>
+		<section class="small-screen bg-dark-gray ipad-top-space-margin sm-mb-50px bg-cover hero-bg-blur">
+			<div class="hero-bg-image opacity-5" style="background-image: url('<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'fullhd')); ?>')"></div>
+			<div class="opacity-extra-medium"></div>
+			<div class="hero-content">
+				<div class="row d-flex justify-content-center breadcrumb-normal position-relative text-center text-white" data-anime='{ "el": "childs", "translateY": [20, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 200, "easing": "easeOutQuad" }'>
 				<div class="col-12">
 					<?php if (function_exists('yoast_breadcrumb')) : ?>
 						<div class="breadcrumb-wrapper">
@@ -22,6 +22,7 @@ if (have_posts()) {
 					<?php endif; ?>
 				</div>
 			</div>
+			</div>
 		</section>
 		<!-- end section -->
 		<!-- start section -->
@@ -29,19 +30,19 @@ if (have_posts()) {
 			<div class="container">
 				<div class="row justify-content-center">
 					<div class="col-lg-10 overlap-section text-center">
-						<div class="p-10 box-shadow-extra-large border-radius-4px bg-white text-center">
+						<div class="p-10 box-shadow-extra-large border-radius-10px bg-nero-grey opacity-9 text-center">
 							<?php
 							$categories = get_the_category();
 							if (!empty($categories)) :
 								$first_category = $categories[0];
 							?>
-								<a href="<?php echo esc_url(get_category_link($first_category->cat_ID)); ?>" class="bg-solitude-blue text-uppercase fs-13 ps-25px pe-25px alt-font fw-500 text-base-color lh-40 sm-lh-55 border-radius-100px d-inline-block mb-3 sm-mb-15px">
+								<a href="<?php echo esc_url(get_category_link($first_category->cat_ID)); ?>" class="bg-base-color text-uppercase fs-13 ps-25px pe-25px alt-font fw-700 text-white lh-40 sm-lh-55 border-radius-100px d-inline-block mb-3 sm-mb-15px">
 									<?php echo esc_html($first_category->cat_name); ?>
 								</a>
 							<?php endif; ?>
-							<h3 class="alt-font text-dark-gray fw-600 ls-minus-1px mb-15px"><?php the_title(); ?></h3>
+							<h3 class="alt-font text-white fw-600 ls-minus-1px mb-15px"><?php the_title(); ?></h3>
 							<div class="lg-20px sm-mb-0">
-								<span>Por <a href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>" class="text-dark-gray"><?php echo esc_html(get_the_author()); ?></a></span> em <span class="text-dark-gray"><?php echo esc_html(get_the_date(get_option('date_format'))); ?></span>
+								<span>Por <a href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>" class="text-white"><?php echo esc_html(get_the_author()); ?></a></span> em <span class="text-white"><?php echo esc_html(get_the_date(get_option('date_format'))); ?></span>
 							</div>
 						</div>
 					</div>
@@ -103,21 +104,41 @@ if (have_posts()) {
 
 						<div class="row">
 							<div class="col-12 mb-6">
-								<div class="bg-nero-grey d-block d-md-flex w-100 box-shadow-extra-large align-items-center border-radius-4px p-7 sm-p-35px">
-									<div class="w-140px text-center me-50px sm-mx-auto">
-										<?php echo get_avatar(get_the_author_meta('user_email'), '80', ''); ?>
-										<a href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>" class="text-white fw-500 mt-20px d-inline-block lh-20"><?php the_author_posts_link(); ?></a>
-										<div class="text-gray fs-13">
-											<?php echo wp_kses_post(wpautop(get_the_author_meta('nickname'))); ?>
+								<div class="bg-nero-grey w-100 box-shadow-extra-large border-radius-10px p-7 sm-p-35px">
+									<div class="d-flex flex-column flex-md-row align-items-center align-items-md-start">
+										<!-- Avatar e informações do autor -->
+										<div class="author-info text-center text-md-start mb-4 mb-md-0 me-md-4" style="min-width: 140px; max-width: 200px;">
+											<?php echo get_avatar(get_the_author_meta('user_email'), '80', ''); ?>
+											<div class="mt-3">
+												<a href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>" class="text-white fw-500 d-block lh-1-2" style="word-break: break-word; hyphens: auto; line-height: 1.2;"><?php echo get_the_author(); ?></a>
+												<?php if(get_the_author_meta('nickname')): ?>
+													<div class="text-light-gray fs-13 mt-1">
+														<?php echo wp_kses_post(get_the_author_meta('nickname')); ?>
+													</div>
+												<?php endif; ?>
+											</div>
 										</div>
-									</div>
-									<div class="w-75 sm-w-100 text-center text-md-start last-paragraph-no-margin">
-										<?php echo wp_kses_post(wpautop(get_the_author_meta('description'))); ?>
-										<a href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>" class="text-white text-uppercase fs-13 ">Todos os posts de <?php the_author(); ?></a>
+										
+										<!-- Descrição do autor -->
+										<div class="author-description flex-grow-1 text-center text-md-start">
+											<?php if(get_the_author_meta('description')): ?>
+												<div class="last-paragraph-no-margin mb-3">
+													<?php echo wp_kses_post(wpautop(get_the_author_meta('description'))); ?>
+												</div>
+											<?php endif; ?>
+											
+											<!-- Link para todos os posts -->
+											<div class="author-posts-link">
+												<a href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>" class="text-white text-uppercase fs-13 d-inline-block" style="word-break: break-word; hyphens: auto;">
+													Todos os posts de <?php the_author(); ?>
+												</a>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
+						
 						<div class="row justify-content-center">
 							<div class="col-12 text-center elements-social social-icon-style-04">
 								<ul class="medium-icon light">

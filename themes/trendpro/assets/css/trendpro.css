@@ -1803,3 +1803,36 @@ ol.wp-block-list li,
   /* ==============================================
    GUTENBERG - CSS COMPLETO - fim
    ============================================== */
+
+/* ==============================================
+   BACKGROUND UTILITIES - TRENDPRO
+   ============================================== */
+
+/* Background cover utility class */
+.bg-cover {
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* Background blur effect for single post hero section */
+.hero-bg-blur {
+  position: relative;
+  background-image: none !important;
+}
+
+.hero-bg-blur .hero-bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(5px);
+}
+
+.hero-bg-blur .hero-content {
+  position: relative;
+}
