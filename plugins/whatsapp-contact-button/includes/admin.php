@@ -1,0 +1,1662 @@
+<?php
+
+/**
+ * Admin functionality for WhatsApp Contact Button
+ */
+
+// Prevent direct access
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+class WCB_Admin
+{
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        add_action('admin_menu', array($this, 'add_admin_menu'));
+        add_action('admin_init', array($this, 'admin_init'));
+        add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
+        add_action('wp_ajax_wcb_update_contact_status', array($this, 'ajax_update_contact_status'));
+        add_action('wp_ajax_wcb_delete_contact', array($this, 'ajax_delete_contact'));
+        add_action('wp_ajax_wcb_export_contacts', array($this, 'ajax_export_contacts'));
+        add_action('admin_notices', array($this, 'admin_notices'));
+    }
+
+    /**
+     * Add admin menu
+     */
+    public function add_admin_menu()
+    {
+        add_menu_page(
+            __('Botão WhatsApp', 'whatsapp-contact-button'),
+            __('Botão WhatsApp', 'whatsapp-contact-button'),
+            'manage_options',
+            'whatsapp-contacts',
+            array($this, 'admin_page'),
+            'dashicons-whatsapp',
+            30
+        );
+    }
+
+    /**
+     * Initialize admin settings
+     */
+    public function admin_init()
+    {
+        // Register settings
+        register_setting('wcb_settings', 'wcb_enabled');
+        register_setting('wcb_settings', 'wcb_button_position');
+        register_setting('wcb_settings', 'wcb_button_mode'); // NOVO: Modo de operação
+        register_setting('wcb_settings', 'wcb_direct_message'); // NOVO: Mensagem modo direto
+        register_setting('wcb_settings', 'wcb_track_direct_clicks'); // NOVO: Rastrear cliques modo direto
+        register_setting('wcb_settings', 'wcb_whatsapp_number'); // NOVO CAMPO
+        register_setting('wcb_settings', 'wcb_default_form_id');
+        register_setting('wcb_settings', 'wcb_form_mappings');
+        register_setting('wcb_settings', 'wcb_notification_emails');
+        register_setting('wcb_settings', 'wcb_delete_data_on_uninstall');
+        register_setting('wcb_settings', 'wcb_default_popup_text');
+        register_setting('wcb_settings', 'wcb_default_whatsapp_message');
+
+
+        // Check for dependencies
+        $this->check_dependencies();
+    }
+
+    /**
+     * Check plugin dependencies
+     */
+    private function check_dependencies()
+    {
+        if (!WhatsAppContactButton::is_cf7_active()) {
+            add_action('admin_notices', array($this, 'cf7_missing_notice'));
+        }
+
+        if (!WhatsAppContactButton::is_acf_active()) {
+            add_action('admin_notices', array($this, 'acf_missing_notice'));
+        }
+    }
+
+    /**
+     * Enqueue admin scripts and styles
+     */
+    public function enqueue_admin_scripts($hook)
+    {
+        if (strpos($hook, 'whatsapp-contacts') === false) {
+            return;
+        }
+
+        wp_enqueue_style(
+            'wcb-admin-style',
+            WCB_PLUGIN_URL . 'assets/css/admin.css',
+            array(),
+            WCB_PLUGIN_VERSION
+        );
+
+        wp_enqueue_script(
+            'wcb-admin-script',
+            WCB_PLUGIN_URL . 'assets/js/admin.js',
+            array('jquery'),
+            WCB_PLUGIN_VERSION,
+            true
+        );
+
+        // Localize script com o nome correto esperado pelo JS
+        wp_localize_script('wcb-admin-script', 'wcb_admin_data', array(
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('wcb_admin_nonce'),
+            'strings' => array(
+                'confirm_delete' => __('Tem certeza que deseja deletar este contato?', 'whatsapp-contact-button'),
+                'confirm_delete_multiple' => __('Tem certeza que deseja deletar os contatos selecionados?', 'whatsapp-contact-button'),
+                'no_contacts_selected' => __('Nenhum contato selecionado.', 'whatsapp-contact-button'),
+                'error_occurred' => __('Ocorreu um erro. Tente novamente.', 'whatsapp-contact-button')
+            )
+        ));
+
+
+
+        // Enqueue Chart.js para relatórios
+        wp_enqueue_script(
+            'chart-js',
+            'https://cdn.jsdelivr.net/npm/chart.js',
+            array(),
+            '3.9.1',
+            true
+        );
+    }
+
+
+    /**
+     * Main admin page
+     */
+    public function admin_page()
+    {
+        $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'contacts';
+
+?>
+        <div class="wrap">
+            <h1><?php _e('Botão WhatsApp', 'whatsapp-contact-button'); ?></h1>
+
+            <nav class="nav-tab-wrapper">
+                <a href="?page=whatsapp-contacts&tab=contacts" class="nav-tab <?php echo $active_tab == 'contacts' ? 'nav-tab-active' : ''; ?>">
+                    <?php _e('Contatos', 'whatsapp-contact-button'); ?>
+                </a>
+                <a href="?page=whatsapp-contacts&tab=analytics" class="nav-tab <?php echo $active_tab == 'analytics' ? 'nav-tab-active' : ''; ?>">
+                    <?php _e('Analytics', 'whatsapp-contact-button'); ?>
+                </a>
+                <a href="?page=whatsapp-contacts&tab=forms" class="nav-tab <?php echo $active_tab == 'forms' ? 'nav-tab-active' : ''; ?>">
+                    <?php _e('Formulários', 'whatsapp-contact-button'); ?>
+                </a>
+                <a href="?page=whatsapp-contacts&tab=settings" class="nav-tab <?php echo $active_tab == 'settings' ? 'nav-tab-active' : ''; ?>">
+                    <?php _e('Configurações', 'whatsapp-contact-button'); ?>
+                </a>
+            </nav>
+
+            <div class="tab-content">
+                <?php
+                switch ($active_tab) {
+                    case 'analytics':
+                        $this->analytics_tab();
+                        break;
+                    case 'forms':
+                        $this->forms_tab();
+                        break;
+                    case 'settings':
+                        $this->settings_tab();
+                        break;
+                    default:
+                        $this->contacts_tab();
+                        break;
+                }
+                ?>
+            </div>
+        </div>
+    <?php
+    }
+
+    /**
+     * Contacts tab
+     */
+    private function contacts_tab()
+    {
+        // Handle bulk actions
+        if (isset($_POST['action']) && $_POST['action'] !== '-1') {
+            $this->handle_bulk_actions();
+        }
+
+        // Get filters
+        $status_filter = isset($_GET['status']) ? sanitize_text_field($_GET['status']) : '';
+        $page_filter = isset($_GET['page_slug']) ? sanitize_text_field($_GET['page_slug']) : '';
+        $date_from = isset($_GET['date_from']) ? sanitize_text_field($_GET['date_from']) : '';
+        $date_to = isset($_GET['date_to']) ? sanitize_text_field($_GET['date_to']) : '';
+        $search = isset($_GET['search']) ? sanitize_text_field($_GET['search']) : '';
+
+        // Pagination
+        $per_page = 20;
+        $current_page = isset($_GET['paged']) ? max(1, intval($_GET['paged'])) : 1;
+        $offset = ($current_page - 1) * $per_page;
+
+        // Get contacts
+        $args = array(
+            'limit' => $per_page,
+            'offset' => $offset,
+            'status' => $status_filter,
+            'page_slug' => $page_filter,
+            'date_from' => $date_from,
+            'date_to' => $date_to,
+            'search' => $search
+        );
+
+        $contacts = WCB_Database::get_contacts($args);
+        $total_contacts = WCB_Database::get_contacts_count($args);
+        $total_pages = ceil($total_contacts / $per_page);
+
+        // Get unique pages for filter
+        $pages = $this->get_unique_pages();
+
+    ?>
+        <div class="wcb-contacts-tab">
+            <!-- Filters -->
+            <div class="wcb-filters">
+                <form method="get" action="">
+                    <input type="hidden" name="page" value="whatsapp-contacts">
+                    <input type="hidden" name="tab" value="contacts">
+
+                    <div class="wcb-filter-row">
+                        <select name="status">
+                            <option value=""><?php _e('Todos os status', 'whatsapp-contact-button'); ?></option>
+                            <option value="Novo" <?php selected($status_filter, 'Novo'); ?>><?php _e('Novo', 'whatsapp-contact-button'); ?></option>
+                            <option value="Contatado" <?php selected($status_filter, 'Contatado'); ?>><?php _e('Contatado', 'whatsapp-contact-button'); ?></option>
+                            <option value="Convertido" <?php selected($status_filter, 'Convertido'); ?>><?php _e('Convertido', 'whatsapp-contact-button'); ?></option>
+                            <option value="Perdido" <?php selected($status_filter, 'Perdido'); ?>><?php _e('Perdido', 'whatsapp-contact-button'); ?></option>
+                        </select>
+
+                        <select name="page_slug">
+                            <option value=""><?php _e('Todas as páginas', 'whatsapp-contact-button'); ?></option>
+                            <?php foreach ($pages as $page): ?>
+                                <option value="<?php echo esc_attr($page->page_slug); ?>" <?php selected($page_filter, $page->page_slug); ?>>
+                                    <?php echo esc_html($page->page_title); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+
+                        <input type="date" name="date_from" value="<?php echo esc_attr($date_from); ?>" placeholder="<?php _e('Data inicial', 'whatsapp-contact-button'); ?>">
+                        <input type="date" name="date_to" value="<?php echo esc_attr($date_to); ?>" placeholder="<?php _e('Data final', 'whatsapp-contact-button'); ?>">
+
+                        <input type="text" name="search" value="<?php echo esc_attr($search); ?>" placeholder="<?php _e('Buscar por nome, email ou telefone', 'whatsapp-contact-button'); ?>">
+
+                        <input type="submit" class="button" value="<?php _e('Filtrar', 'whatsapp-contact-button'); ?>">
+                        <a href="?page=whatsapp-contacts&tab=contacts" class="button"><?php _e('Limpar', 'whatsapp-contact-button'); ?></a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Bulk actions -->
+            <form method="post" id="wcb-contacts-form">
+                <?php wp_nonce_field('wcb_bulk_action', 'wcb_bulk_nonce'); ?>
+
+                <div class="tablenav top">
+                    <div class="alignleft actions bulkactions">
+                        <select name="action">
+                            <option value="-1"><?php _e('Ações em massa', 'whatsapp-contact-button'); ?></option>
+                            <option value="delete"><?php _e('Deletar', 'whatsapp-contact-button'); ?></option>
+                            <option value="status_novo"><?php _e('Marcar como Novo', 'whatsapp-contact-button'); ?></option>
+                            <option value="status_contatado"><?php _e('Marcar como Contatado', 'whatsapp-contact-button'); ?></option>
+                            <option value="status_convertido"><?php _e('Marcar como Convertido', 'whatsapp-contact-button'); ?></option>
+                            <option value="status_perdido"><?php _e('Marcar como Perdido', 'whatsapp-contact-button'); ?></option>
+                        </select>
+                        <input type="submit" class="button action" value="<?php _e('Aplicar', 'whatsapp-contact-button'); ?>">
+                    </div>
+
+                    <div class="alignright actions">
+                        <button type="button" class="button" id="wcb-export-contacts"><?php _e('Exportar CSV', 'whatsapp-contact-button'); ?></button>
+                    </div>
+                </div>
+
+                <!-- Contacts table -->
+                <table class="wp-list-table widefat fixed striped">
+                    <thead>
+                        <tr>
+                            <td class="manage-column column-cb check-column">
+                                <input type="checkbox" id="cb-select-all">
+                            </td>
+                            <th><?php _e('Nome', 'whatsapp-contact-button'); ?></th>
+                            <th><?php _e('Telefone', 'whatsapp-contact-button'); ?></th>
+                            <th><?php _e('Email', 'whatsapp-contact-button'); ?></th>
+                            <th><?php _e('Página', 'whatsapp-contact-button'); ?></th>
+                            <th><?php _e('Dispositivo', 'whatsapp-contact-button'); ?></th>
+                            <th><?php _e('Data', 'whatsapp-contact-button'); ?></th>
+                            <th><?php _e('Status', 'whatsapp-contact-button'); ?></th>
+                            <th><?php _e('Ações', 'whatsapp-contact-button'); ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (empty($contacts)): ?>
+                            <tr>
+                                <td colspan="9" class="no-items"><?php _e('Nenhum contato encontrado.', 'whatsapp-contact-button'); ?></td>
+                            </tr>
+                        <?php else: ?>
+                            <?php foreach ($contacts as $contact): ?>
+                                <tr>
+                                    <th class="check-column">
+                                        <input type="checkbox" name="contact_ids[]" value="<?php echo esc_attr($contact->id); ?>">
+                                    </th>
+                                    <td><strong><?php echo esc_html($contact->name); ?></strong></td>
+                                    <td><?php echo esc_html($contact->phone); ?></td>
+                                    <td><?php echo esc_html($contact->email); ?></td>
+                                    <td>
+                                        <a href="<?php echo esc_url($contact->page_url); ?>" target="_blank">
+                                            <?php echo esc_html($contact->page_title); ?>
+                                        </a>
+                                    </td>
+                                    <td><?php echo esc_html($contact->device_type); ?></td>
+                                    <td><?php echo esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($contact->submit_time))); ?></td>
+                                    <td>
+                                        <select class="wcb-status-select" data-contact-id="<?php echo esc_attr($contact->id); ?>">
+                                            <option value="Novo" <?php selected($contact->status, 'Novo'); ?>><?php _e('Novo', 'whatsapp-contact-button'); ?></option>
+                                            <option value="Contatado" <?php selected($contact->status, 'Contatado'); ?>><?php _e('Contatado', 'whatsapp-contact-button'); ?></option>
+                                            <option value="Convertido" <?php selected($contact->status, 'Convertido'); ?>><?php _e('Convertido', 'whatsapp-contact-button'); ?></option>
+                                            <option value="Perdido" <?php selected($contact->status, 'Perdido'); ?>><?php _e('Perdido', 'whatsapp-contact-button'); ?></option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="button button-small wcb-view-contact" data-contact-id="<?php echo esc_attr($contact->id); ?>">
+                                            <?php _e('Ver', 'whatsapp-contact-button'); ?>
+                                        </button>
+                                        <button type="button" class="button button-small wcb-delete-contact" data-contact-id="<?php echo esc_attr($contact->id); ?>">
+                                            <?php _e('Deletar', 'whatsapp-contact-button'); ?>
+                                        </button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+
+                <!-- Pagination -->
+                <?php if ($total_pages > 1): ?>
+                    <div class="tablenav bottom">
+                        <div class="tablenav-pages">
+                            <?php
+                            $pagination_args = array(
+                                'base' => add_query_arg('paged', '%#%'),
+                                'format' => '',
+                                'prev_text' => __('&laquo;'),
+                                'next_text' => __('&raquo;'),
+                                'total' => $total_pages,
+                                'current' => $current_page
+                            );
+                            echo paginate_links($pagination_args);
+                            ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </form>
+        </div>
+
+        <!-- Contact details modal -->
+        <div id="wcb-contact-modal" class="wcb-modal" style="display: none;">
+            <div class="wcb-modal-content">
+                <span class="wcb-modal-close">&times;</span>
+                <h2><?php _e('Detalhes do Contato', 'whatsapp-contact-button'); ?></h2>
+                <div id="wcb-contact-details"></div>
+            </div>
+        </div>
+    <?php
+    }
+
+    /**
+     * Analytics tab
+     */
+    private function analytics_tab()
+    {
+        // Get date range
+        $date_from = isset($_GET['date_from']) ? sanitize_text_field($_GET['date_from']) : date('Y-m-d', strtotime('-30 days'));
+        $date_to = isset($_GET['date_to']) ? sanitize_text_field($_GET['date_to']) : date('Y-m-d');
+
+        // Get analytics data
+        $summary = WCB_Database::get_analytics_summary($date_from, $date_to);
+
+
+
+        $top_pages = WCB_Database::get_top_pages($date_from, $date_to, 10);
+
+        // Process summary data
+        $analytics_data = array(
+            'clicks' => 0,
+            'submits' => 0,
+            'redirects' => 0
+        );
+
+
+        foreach ($summary as $item) {
+            switch ($item->event_type) {
+                case 'click':
+                    $analytics_data['clicks'] = $item->count;
+                    break;
+                case 'submit':
+                    $analytics_data['submits'] = $item->count;
+                    break;
+                case 'redirect':
+                    $analytics_data['redirects'] = $item->count;
+                    break;
+            }
+        }
+
+        // Calculate conversion rates
+        $click_to_submit = $analytics_data['clicks'] > 0 ? round(($analytics_data['submits'] / $analytics_data['clicks']) * 100, 2) : 0;
+        $submit_to_redirect = $analytics_data['submits'] > 0 ? round(($analytics_data['redirects'] / $analytics_data['submits']) * 100, 2) : 0;
+
+    ?>
+        <div class="wcb-analytics-tab">
+            <!-- Date filter -->
+            <div class="wcb-analytics-filters">
+                <form method="get" action="">
+                    <input type="hidden" name="page" value="whatsapp-contacts">
+                    <input type="hidden" name="tab" value="analytics">
+
+                    <label><?php _e('Período:', 'whatsapp-contact-button'); ?></label>
+                    <input type="date" name="date_from" value="<?php echo esc_attr($date_from); ?>">
+                    <span><?php _e('até', 'whatsapp-contact-button'); ?></span>
+                    <input type="date" name="date_to" value="<?php echo esc_attr($date_to); ?>">
+                    <input type="submit" class="button" value="<?php _e('Filtrar', 'whatsapp-contact-button'); ?>">
+                </form>
+            </div>
+
+            <!-- Summary cards -->
+            <div class="wcb-analytics-cards">
+                <div class="wcb-card">
+                    <h3><?php _e('Cliques no Botão', 'whatsapp-contact-button'); ?></h3>
+                    <div class="wcb-card-number"><?php echo number_format($analytics_data['clicks']); ?></div>
+                </div>
+                <div class="wcb-card">
+                    <h3><?php _e('Formulários Enviados', 'whatsapp-contact-button'); ?></h3>
+                    <div class="wcb-card-number"><?php echo number_format($analytics_data['submits']); ?></div>
+                </div>
+                <div class="wcb-card">
+                    <h3><?php _e('Redirecionamentos WhatsApp', 'whatsapp-contact-button'); ?></h3>
+                    <div class="wcb-card-number"><?php echo number_format($analytics_data['redirects']); ?></div>
+                </div>
+                <div class="wcb-card">
+                    <h3><?php _e('Taxa de Conversão', 'whatsapp-contact-button'); ?></h3>
+                    <div class="wcb-card-number"><?php echo $click_to_submit; ?>%</div>
+                    <div class="wcb-card-subtitle"><?php _e('Cliques → Envios', 'whatsapp-contact-button'); ?></div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="wcb-analytics-charts">
+                <div class="wcb-chart-container">
+                    <h3><?php _e('Funil de Conversão', 'whatsapp-contact-button'); ?></h3>
+                    <canvas id="wcb-funnel-chart"></canvas>
+                </div>
+            </div>
+
+            <!-- Top pages table -->
+            <div class="wcb-top-pages">
+                <h3><?php _e('Top Páginas Geradoras de Leads', 'whatsapp-contact-button'); ?></h3>
+                <table class="wp-list-table widefat fixed striped">
+                    <thead>
+                        <tr>
+                            <th><?php _e('Página', 'whatsapp-contact-button'); ?></th>
+                            <th><?php _e('Cliques', 'whatsapp-contact-button'); ?></th>
+                            <th><?php _e('Envios', 'whatsapp-contact-button'); ?></th>
+                            <th><?php _e('Redirecionamentos', 'whatsapp-contact-button'); ?></th>
+                            <th><?php _e('Taxa de Conversão', 'whatsapp-contact-button'); ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (empty($top_pages)): ?>
+                            <tr>
+                                <td colspan="5"><?php _e('Nenhum dado encontrado para o período selecionado.', 'whatsapp-contact-button'); ?></td>
+                            </tr>
+                        <?php else: ?>
+                            <?php foreach ($top_pages as $page): ?>
+                                <?php
+                                $conversion_rate = $page->clicks > 0 ? round(($page->submits / $page->clicks) * 100, 2) : 0;
+
+                                // Fallback para títulos vazios
+                                $page_title = $page->page_title;
+                                if (empty($page_title) || trim($page_title) === '') {
+                                    $page_title = !empty($page->page_slug) ? ucwords(str_replace(['-', '_'], ' ', $page->page_slug)) : 'Página sem título';
+                                }
+                                ?>
+                                <tr>
+                                    <td><strong><?php echo esc_html($page_title); ?></strong></td>
+                                    <td><?php echo number_format($page->clicks); ?></td>
+                                    <td><?php echo number_format($page->submits); ?></td>
+                                    <td><?php echo number_format($page->redirects); ?></td>
+                                    <td><?php echo $conversion_rate; ?>%</td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script>
+            jQuery(document).ready(function($) {
+                // Funnel chart
+                var ctx = document.getElementById('wcb-funnel-chart').getContext('2d');
+                var funnelChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['<?php _e('Cliques', 'whatsapp-contact-button'); ?>', '<?php _e('Envios', 'whatsapp-contact-button'); ?>', '<?php _e('Redirecionamentos', 'whatsapp-contact-button'); ?>'],
+                        datasets: [{
+                            label: '<?php _e('Eventos', 'whatsapp-contact-button'); ?>',
+                            data: [<?php echo $analytics_data['clicks']; ?>, <?php echo $analytics_data['submits']; ?>, <?php echo $analytics_data['redirects']; ?>],
+                            backgroundColor: ['#25D366', '#128C7E', '#075E54'],
+                            borderColor: ['#25D366', '#128C7E', '#075E54'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
+    <?php
+    }
+
+    /**
+     * Settings tab
+     */
+    private function settings_tab()
+    {
+        // Handle form submission
+        if (isset($_POST['submit']) && wp_verify_nonce($_POST['wcb_settings_nonce'], 'wcb_save_settings')) {
+            $this->save_settings();
+        }
+
+        // Get current settings
+        $enabled = WhatsAppContactButton::get_option('wcb_enabled', true);
+        $button_position = WhatsAppContactButton::get_option('wcb_button_position', 'bottom-right');
+        $button_mode = WhatsAppContactButton::get_option('wcb_button_mode', 'form'); // NOVO: Modo padrão = formulário
+        $direct_message = WhatsAppContactButton::get_option('wcb_direct_message', ''); // NOVO: Mensagem modo direto
+        $track_direct_clicks = WhatsAppContactButton::get_option('wcb_track_direct_clicks', true); // NOVO: Rastrear cliques
+        $whatsapp_number = WhatsAppContactButton::get_option('wcb_whatsapp_number', ''); // NOVO CAMPO
+        $default_form_id = WhatsAppContactButton::get_option('wcb_default_form_id', '');
+        $form_mappings = WhatsAppContactButton::get_option('wcb_form_mappings', array());
+        $notification_emails = WhatsAppContactButton::get_option('wcb_notification_emails', array(get_option('admin_email')));
+        $delete_data = WhatsAppContactButton::get_option('wcb_delete_data_on_uninstall', false);
+
+        // Get available CF7 forms
+        $cf7_forms = $this->get_cf7_forms();
+
+    ?>
+        <div class="wcb-settings-tab">
+            <form method="post" action="">
+                <?php wp_nonce_field('wcb_save_settings', 'wcb_settings_nonce'); ?>
+
+                <!-- BLOCO 1: Configurações Básicas -->
+                <div class="wcb-settings-block" style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 20px; margin-bottom: 30px;">
+                    <h3 style="margin-top: 0; color: #495057; border-bottom: 2px solid #007cba; padding-bottom: 10px;">
+                        <span style="color: #007cba;">⚙️</span> <?php _e('Configurações Básicas', 'whatsapp-contact-button'); ?>
+                    </h3>
+                    
+                    <table class="form-table" style="margin-bottom: 0;">
+                        <tr>
+                            <th scope="row"><?php _e('Ativar Plugin', 'whatsapp-contact-button'); ?></th>
+                            <td>
+                                <label>
+                                    <input type="checkbox" name="wcb_enabled" value="1" <?php checked($enabled); ?>>
+                                    <?php _e('Ativar botão WhatsApp', 'whatsapp-contact-button'); ?>
+                                </label>
+                                <p class="description"><?php _e('Habilita ou desabilita o botão WhatsApp em todo o site.', 'whatsapp-contact-button'); ?></p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row"><?php _e('Posição do Botão', 'whatsapp-contact-button'); ?></th>
+                            <td>
+                                <select name="wcb_button_position">
+                                    <option value="bottom-right" <?php selected($button_position, 'bottom-right'); ?>><?php _e('Inferior Direito', 'whatsapp-contact-button'); ?></option>
+                                    <option value="bottom-left" <?php selected($button_position, 'bottom-left'); ?>><?php _e('Inferior Esquerdo', 'whatsapp-contact-button'); ?></option>
+                                </select>
+                                <p class="description"><?php _e('Posição do botão flutuante na tela.', 'whatsapp-contact-button'); ?></p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- BLOCO 2: Configuração de Número -->
+                <div class="wcb-settings-block" style="background: #f0f8ff; border: 1px solid #b3d9ff; border-radius: 8px; padding: 20px; margin-bottom: 30px;">
+                    <h3 style="margin-top: 0; color: #0066cc; border-bottom: 2px solid #0066cc; padding-bottom: 10px;">
+                        <span style="color: #0066cc;">📞</span> <?php _e('Configuração do Número WhatsApp', 'whatsapp-contact-button'); ?>
+                    </h3>
+                    
+                    <div style="background: #fff; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
+                        <h4 style="margin-top: 0; color: #0066cc;"><?php _e('Número Principal do Site', 'whatsapp-contact-button'); ?></h4>
+                        <p style="margin: 5px 0 15px; color: #666;"><?php _e('Este é o número WhatsApp configurado nas Opções do Tema (usado em rodapé, cabeçalho, etc.)', 'whatsapp-contact-button'); ?></p>
+
+                        <div style="padding: 12px; background: #f8f9fa; border-radius: 4px; border-left: 4px solid #28a745;">
+                            <strong><?php _e('Status Atual:', 'whatsapp-contact-button'); ?></strong><br>
+                            <?php if (function_exists('get_field')): ?>
+                                <?php $main_whatsapp = get_field('whatsapp', 'option'); ?>
+                                <?php if ($main_whatsapp): ?>
+                                    <span style="color: #28a745;">✅ <?php _e('Configurado:', 'whatsapp-contact-button'); ?> <code><?php echo esc_html($main_whatsapp); ?></code></span>
+                                <?php else: ?>
+                                    <span style="color: #dc3545;">❌ <?php _e('Não configurado nas Opções do Tema', 'whatsapp-contact-button'); ?></span>
+                                <?php endif; ?>
+                            <?php else: ?>
+                                <span style="color: #dc3545;">❌ <?php _e('ACF não está ativo', 'whatsapp-contact-button'); ?></span>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+                    <div style="background: #fff; padding: 15px; border-radius: 6px;">
+                        <h4 style="margin-top: 0; color: #ffc107;"><?php _e('Sobrescrever para o Botão', 'whatsapp-contact-button'); ?></h4>
+                        <p style="margin: 5px 0 15px; color: #666;"><?php _e('Use apenas se precisar de um número diferente especificamente para o botão WhatsApp', 'whatsapp-contact-button'); ?></p>
+
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; font-weight: 600; margin-bottom: 5px;">
+                                <?php _e('Número Específico:', 'whatsapp-contact-button'); ?>
+                                <span style="color: #666; font-weight: normal; font-size: 12px;">(<?php _e('opcional', 'whatsapp-contact-button'); ?>)</span>
+                            </label>
+                            <input type="text" name="wcb_whatsapp_number" value="<?php echo esc_attr($whatsapp_number); ?>" class="regular-text" placeholder="<?php _e('Ex: 5511999999999', 'whatsapp-contact-button'); ?>">
+                        </div>
+
+                        <!-- Info sobre prioridade -->
+                        <div style="padding: 12px; background: #e9ecef; border-radius: 4px; border-left: 4px solid #6c757d; margin-bottom: 15px;">
+                            <strong>ℹ️ <?php _e('Como funciona a prioridade:', 'whatsapp-contact-button'); ?></strong><br>
+                            <span style="color: #28a745;">1️⃣ <?php _e('Se preenchido acima → usa este número', 'whatsapp-contact-button'); ?></span><br>
+                            <span style="color: #6c757d;">2️⃣ <?php _e('Se vazio → usa o número das Opções do Tema', 'whatsapp-contact-button'); ?></span>
+                        </div>
+
+                        <!-- Status atual -->
+                        <div style="padding: 12px; background: #f8f9fa; border-radius: 4px; border-left: 4px solid #007cba;">
+                            <strong><?php _e('Número Ativo no Botão:', 'whatsapp-contact-button'); ?></strong>
+                            <?php $active_number = WhatsAppContactButton::get_whatsapp_number(); ?>
+                            <?php if ($active_number): ?>
+                                <br><span style="color: #28a745;">📱 <code><?php echo esc_html($active_number); ?></code></span>
+                                <?php if (!empty($whatsapp_number)): ?>
+                                    <br><small style="color: #666;"><?php _e('(número específico do plugin)', 'whatsapp-contact-button'); ?></small>
+                                <?php else: ?>
+                                    <br><small style="color: #666;"><?php _e('(número das opções do tema)', 'whatsapp-contact-button'); ?></small>
+                                <?php endif; ?>
+                            <?php else: ?>
+                                <br><span style="color: #dc3545;">❌ <?php _e('Nenhum número configurado', 'whatsapp-contact-button'); ?></span>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLOCO 3: Modo de Operação -->
+                <div class="wcb-settings-block" style="background: #f0fff4; border: 1px solid #c3e6cb; border-radius: 8px; padding: 20px; margin-bottom: 30px;">
+                    <h3 style="margin-top: 0; color: #155724; border-bottom: 2px solid #28a745; padding-bottom: 10px;">
+                        <span style="color: #28a745;">🔧</span> <?php _e('Modo de Operação', 'whatsapp-contact-button'); ?>
+                    </h3>
+                    
+                    <div style="background: #fff; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
+                        <h4 style="margin-top: 0; color: #155724;"><?php _e('Como o botão deve funcionar?', 'whatsapp-contact-button'); ?></h4>
+                        
+                        <div style="margin: 15px 0;">
+                            <label style="display: block; margin-bottom: 15px; cursor: pointer; padding: 10px; border: 2px solid #e9ecef; border-radius: 6px; transition: all 0.3s;">
+                                <input type="radio" name="wcb_button_mode" value="direct" <?php checked($button_mode, 'direct'); ?> style="margin-right: 10px;">
+                                <strong style="color: #ffc107;">📱 <?php _e('Botão Direto', 'whatsapp-contact-button'); ?></strong>
+                                <span style="color: #666; font-weight: normal; display: block; margin-top: 5px;"><?php _e('Redireciona imediatamente para o WhatsApp com mensagem pré-definida', 'whatsapp-contact-button'); ?></span>
+                            </label>
+                            
+                            <label style="display: block; cursor: pointer; padding: 10px; border: 2px solid #e9ecef; border-radius: 6px; transition: all 0.3s;">
+                                <input type="radio" name="wcb_button_mode" value="form" <?php checked($button_mode, 'form'); ?> style="margin-right: 10px;">
+                                <strong style="color: #28a745;">📝 <?php _e('Botão com Formulário', 'whatsapp-contact-button'); ?></strong>
+                                <span style="color: #666; font-weight: normal; display: block; margin-top: 5px;"><?php _e('Abre modal com formulário para capturar dados do lead', 'whatsapp-contact-button'); ?></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- SEÇÃO CONDICIONAL: Configurações do Modo Direto -->
+                    <div id="wcb-direct-mode-settings" style="<?php echo $button_mode === 'direct' ? '' : 'display: none;'; ?>">
+                        <div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 6px; padding: 15px;">
+                            <h4 style="margin-top: 0; color: #856404;">📱 <?php _e('Configurações do Modo Direto', 'whatsapp-contact-button'); ?></h4>
+                            
+                            <!-- Mensagem WhatsApp -->
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: block; font-weight: 600; margin-bottom: 5px;">
+                                    <?php _e('Mensagem do WhatsApp:', 'whatsapp-contact-button'); ?>
+                                    <span style="color: #dc3545;">*</span>
+                                </label>
+                                <textarea name="wcb_direct_message" style="width: 100%; height: 80px;" placeholder="<?php _e('Ex: Olá! Gostaria de conversar sobre seus serviços.', 'whatsapp-contact-button'); ?>" required><?php echo esc_textarea($direct_message); ?></textarea>
+                                <p class="description"><?php _e('Mensagem que será enviada automaticamente quando o usuário clicar no botão.', 'whatsapp-contact-button'); ?></p>
+                            </div>
+
+                            <!-- Rastrear cliques -->
+                            <div style="margin-bottom: 15px;">
+                                <label style="display: flex; align-items: center; cursor: pointer;">
+                                    <input type="checkbox" name="wcb_track_direct_clicks" value="1" <?php checked($track_direct_clicks); ?> style="margin-right: 8px;">
+                                    <strong><?php _e('Rastrear cliques nos analytics', 'whatsapp-contact-button'); ?></strong>
+                                </label>
+                                <p class="description"><?php _e('Registra cada clique no botão para análise de conversão.', 'whatsapp-contact-button'); ?></p>
+                            </div>
+
+                            <!-- Info sobre variáveis -->
+                            <div style="margin-top: 15px; padding: 12px; background: #e8f4f8; border-left: 4px solid #00a0d2; border-radius: 4px;">
+                                <strong><?php _e('Variáveis disponíveis:', 'whatsapp-contact-button'); ?></strong><br>
+                                <code>{titulo_pagina}</code> - Título da página atual<br>
+                                <code>{url_pagina}</code> - URL da página atual<br>
+                                <code>{data_atual}</code> - Data atual<br>
+                                <code>{hora_atual}</code> - Hora atual<br>
+                                <code>{dispositivo}</code> - Tipo de dispositivo
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SEÇÃO CONDICIONAL: Configurações do Modo Formulário -->
+                    <div id="wcb-form-mode-settings" style="<?php echo $button_mode === 'form' ? '' : 'display: none;'; ?>">
+                        <div style="background: #e7f7e7; border: 1px solid #c3e6cb; border-radius: 6px; padding: 15px; margin-bottom: 20px;">
+                            <h4 style="margin-top: 0; color: #155724;">📝 <?php _e('Configurações do Modo Formulário', 'whatsapp-contact-button'); ?></h4>
+                            <p style="margin: 5px 0;"><?php _e('Configure formulários, mapeamentos e mensagens personalizadas para cada página.', 'whatsapp-contact-button'); ?></p>
+                        </div>
+
+                        <!-- Configurações Globais -->
+                        <div id="wcb-form-global-settings" style="background: #fff; border: 1px solid #dee2e6; border-radius: 6px; padding: 15px;">
+                            <h4 style="margin-top: 0; color: #495057;"><?php _e('Configurações Globais', 'whatsapp-contact-button'); ?></h4>
+
+                            <!-- Formulário Padrão -->
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: block; font-weight: 600; margin-bottom: 5px;"><?php _e('Formulário Contact Form 7:', 'whatsapp-contact-button'); ?></label>
+                                <select name="wcb_default_form_id" class="regular-text">
+                                    <option value=""><?php _e('Nenhum formulário selecionado', 'whatsapp-contact-button'); ?></option>
+                                    <?php foreach ($cf7_forms as $form): ?>
+                                        <option value="<?php echo esc_attr($form->ID); ?>" <?php selected($default_form_id, $form->ID); ?>>
+                                            <?php echo esc_html($form->post_title); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <p class="description"><?php _e('Formulário exibido por padrão quando não há mapeamento específico.', 'whatsapp-contact-button'); ?></p>
+                            </div>
+
+                            <!-- Texto Popup Padrão -->
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: block; font-weight: 600; margin-bottom: 5px;"><?php _e('Texto do Popup:', 'whatsapp-contact-button'); ?></label>
+                                <textarea name="wcb_default_popup_text" style="width: 100%; height: 80px;" placeholder="<?php _e('Texto exibido no modal/popup do WhatsApp', 'whatsapp-contact-button'); ?>"><?php echo esc_textarea(WhatsAppContactButton::get_option('wcb_default_popup_text', '')); ?></textarea>
+                                <p class="description"><?php _e('Texto padrão do popup. Pode ser sobrescrito por mapeamento específico.', 'whatsapp-contact-button'); ?></p>
+                            </div>
+
+                            <!-- Mensagem WhatsApp Padrão -->
+                            <div style="margin-bottom: 15px;">
+                                <label style="display: block; font-weight: 600; margin-bottom: 5px;"><?php _e('Mensagem Base WhatsApp:', 'whatsapp-contact-button'); ?></label>
+                                <textarea name="wcb_default_whatsapp_message" style="width: 100%; height: 80px;" placeholder="<?php _e('Ex: Olá! Sou {nome_usuario} ({email_usuario}). Vim através da página {titulo_pagina} e gostaria de conversar.', 'whatsapp-contact-button'); ?>"><?php echo esc_textarea(WhatsAppContactButton::get_option('wcb_default_whatsapp_message', '')); ?></textarea>
+
+                                <!-- INFO SOBRE VARIÁVEIS -->
+                                <div style="margin-top: 8px; padding: 10px; background: #e8f4f8; border-left: 4px solid #00a0d2; border-radius: 4px;">
+                                    <strong><?php _e('Variáveis disponíveis:', 'whatsapp-contact-button'); ?></strong><br>
+                                    <code>{nome_usuario}</code> - Nome do formulário<br>
+                                    <code>{email_usuario}</code> - Email do formulário<br>
+                                    <code>{telefone_usuario}</code> - Telefone do formulário<br>
+                                    <code>{titulo_pagina}</code> - Título da página atual<br>
+                                    <code>{url_pagina}</code> - URL da página atual<br>
+                                    <code>{data_atual}</code> - Data do contato<br>
+                                    <code>{hora_atual}</code> - Hora do contato<br>
+                                    <code>{dispositivo}</code> - Tipo de dispositivo
+                                </div>
+
+                                <p class="description"><?php _e('Mensagem base do WhatsApp. Use as variáveis acima para personalizar.', 'whatsapp-contact-button'); ?></p>
+                            </div>
+
+                            <!-- Status dos Formulários -->
+                            <?php if (!empty($default_form_id)): ?>
+                                <?php $form_post = get_post($default_form_id); ?>
+                                <?php if ($form_post): ?>
+                                    <div style="padding: 10px; background: #e7f7e7; border-left: 4px solid #4caf50; border-radius: 4px;">
+                                        <strong>✅ <?php _e('Formulário ativo:', 'whatsapp-contact-button'); ?></strong> <?php echo esc_html($form_post->post_title); ?>
+                                        <br><small><?php _e('ID:', 'whatsapp-contact-button'); ?> <?php echo $default_form_id; ?></small>
+                                    </div>
+                                <?php endif; ?>
+                            <?php else: ?>
+                                <div style="padding: 10px; background: #f0f0f0; border-left: 4px solid #999; border-radius: 4px;">
+                                    <strong>ℹ️ <?php _e('Nenhum formulário padrão configurado', 'whatsapp-contact-button'); ?></strong>
+                                    <br><small><?php _e('O botão mostrará link direto para WhatsApp quando não houver mapeamento específico.', 'whatsapp-contact-button'); ?></small>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- SEÇÃO CONDICIONAL: Mapeamento de Formulários -->
+                <div id="wcb-form-mappings-section" style="<?php echo $button_mode === 'form' ? '' : 'display: none;'; ?>">
+                    <h3><?php _e('Mapeamento de Formulários por Página', 'whatsapp-contact-button'); ?></h3>
+                    <div class="wcb-form-mappings">
+                    <p class="description"><?php _e('Configure qual formulário Contact Form 7 será exibido em páginas específicas. Estas configurações sobrescrevem o formulário padrão.', 'whatsapp-contact-button'); ?></p>
+
+                    <div id="wcb-form-mappings-container">
+                        <?php if (!empty($form_mappings)): ?>
+                            <?php foreach ($form_mappings as $index => $mapping): ?>
+                                <div class="wcb-form-mapping-row" style="margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9;">
+                                    <!-- Primeira linha: Tipo, Valor, Formulário -->
+                                    <div style="display: flex; gap: 10px; margin-bottom: 15px; align-items: center;">
+                                        <select name="wcb_form_mappings[<?php echo $index; ?>][type]" style="width: 200px;">
+                                            <option value="slug" <?php selected($mapping['type'], 'slug'); ?>><?php _e('Slug da Página', 'whatsapp-contact-button'); ?></option>
+                                            <option value="category" <?php selected($mapping['type'], 'category'); ?>><?php _e('Categoria', 'whatsapp-contact-button'); ?></option>
+                                            <option value="post_type" <?php selected($mapping['type'], 'post_type'); ?>><?php _e('Tipo de Post', 'whatsapp-contact-button'); ?></option>
+                                        </select>
+
+                                        <input type="text" name="wcb_form_mappings[<?php echo $index; ?>][value]" value="<?php echo esc_attr($mapping['value']); ?>" placeholder="<?php _e('ex: contato, sobre', 'whatsapp-contact-button'); ?>" style="width: 250px;">
+
+                                        <select name="wcb_form_mappings[<?php echo $index; ?>][form_id]" style="width: 200px;">
+                                            <option value=""><?php _e('Selecione um formulário', 'whatsapp-contact-button'); ?></option>
+                                            <?php foreach ($cf7_forms as $form): ?>
+                                                <option value="<?php echo esc_attr($form->ID); ?>" <?php selected($mapping['form_id'], $form->ID); ?>>
+                                                    <?php echo esc_html($form->post_title); ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+
+
+                                    </div>
+
+                                    <!-- Segunda linha: Texto do Popup -->
+                                    <div style="margin-bottom: 15px; width: 100%">
+                                        <label style="display: block; font-weight: 600; margin-bottom: 5px;"><?php _e('Texto do Popup (específico desta página):', 'whatsapp-contact-button'); ?></label>
+                                        <textarea name="wcb_form_mappings[<?php echo $index; ?>][popup_text]" placeholder="<?php _e('Deixe vazio para usar o texto padrão do ACF', 'whatsapp-contact-button'); ?>" style="width: 100%; height: 60px; resize: vertical;"><?php echo esc_textarea($mapping['popup_text'] ?? ''); ?></textarea>
+                                    </div>
+
+                                    <!-- Terceira linha: Mensagem WhatsApp -->
+                                    <div style="margin-bottom: 15px; width: 100%">
+                                        <label style="display: block; font-weight: 600; margin-bottom: 5px;"><?php _e('Mensagem Base WhatsApp (específica desta página):', 'whatsapp-contact-button'); ?></label>
+                                        <textarea name="wcb_form_mappings[<?php echo $index; ?>][whatsapp_message]" placeholder="<?php _e('Deixe vazio para usar a mensagem padrão do ACF', 'whatsapp-contact-button'); ?>" style="width: 100%; height: 60px; resize: vertical;"><?php echo esc_textarea($mapping['whatsapp_message'] ?? ''); ?></textarea>
+                                    </div>
+
+                                    <!-- Quarta linha: Botão Remover -->
+                                    <div style="text-align: right;">
+                                        <button type="button" class="button wcb-remove-mapping" style="background: #dc3545; color: white; border: none;"><?php _e('Remover', 'whatsapp-contact-button'); ?></button>
+                                    </div>
+
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+
+                    <button type="button" class="button" id="wcb-add-mapping"><?php _e('Adicionar Mapeamento', 'whatsapp-contact-button'); ?></button>
+
+
+                    <!-- Disclaimer na seção de Mapeamento de Formulários -->
+                    <div class="wcb-info-box" style="background: #e7f3ff; border: 1px solid #bee5eb; padding: 15px; border-radius: 6px; margin-bottom: 20px;margin-top: 20px">
+                        <h4 style="margin-top: 0; color: #0c5460;">
+                            <span class="dashicons dashicons-info" style="margin-right: 5px;"></span>
+                            Como funcionam os mapeamentos
+                        </h4>
+                        <ul style="margin: 10px 0 0 20px; line-height: 1.6;">
+                            <li><strong>Slug:</strong> Identifica páginas específicas (ex: "contato", "sobre")</li>
+                            <li><strong>Categoria:</strong> Funciona para posts do blog E posts personalizados (projetos, serviços, produtos, etc.)</li>
+                            <li><strong>Tipo de Post:</strong> Aplica a todo um tipo de conteúdo (ex: "projetos", "page")</li>
+                        </ul>
+
+                        <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 12px; border-radius: 4px; margin-top: 15px;">
+                            <h5 style="margin: 0 0 8px; color: #856404;">
+                                <span class="dashicons dashicons-warning" style="margin-right: 5px;"></span>
+                                Ordem de Prioridade
+                            </h5>
+                            <p style="margin: 0; color: #856404; font-size: 13px;">
+                                Quando uma página tem múltiplos mapeamentos, o sistema usa esta ordem:<br>
+                                <strong>1º Slug</strong> → <strong>2º Categoria</strong> → <strong>3º Tipo de Post</strong>
+                            </p>
+                            <p style="margin: 8px 0 0; font-style: italic; color: #856404; font-size: 12px;">
+                                💡 Exemplo: Se você tem um mapeamento para "projetos" (tipo) e outro para "cobertura-de-evento" (categoria),
+                                a categoria terá prioridade por ser mais específica.
+                            </p>
+                        </div>
+
+                        <p style="margin: 15px 0 0; font-style: italic; color: #495057;">
+                            💡 <strong>Dica:</strong> O mapeamento por categoria é universal - se você tem uma categoria "eventos" tanto em posts quanto em projetos, o mesmo formulário será usado em ambos.
+                        </p>
+                    </div>
+
+
+                    <!-- Exemplos de uso -->
+                    <div class="wcb-info-box" style="background: #e7f3ff; border: 1px solid #bee5eb; padding: 15px; border-radius: 6px; margin-bottom: 20px; margin-top: 10px">
+                        <h4 style="margin-top: 0; color: #0c5460;">
+                            <span class="dashicons dashicons-admin-settings" style="margin-right: 5px;"></span>
+                            <?php _e('Exemplos de Configuração:', 'whatsapp-contact-button'); ?>
+                        </h4>
+                        <ul style="margin: 10px 0 0 20px; line-height: 1.6;">
+                            <li><strong><?php _e('Slug da Página:', 'whatsapp-contact-button'); ?></strong> <code>front-page</code> - <?php _e('Página inicial', 'whatsapp-contact-button'); ?></li>
+                            <li><strong><?php _e('Slug da Página:', 'whatsapp-contact-button'); ?></strong> <code>quem-somos</code> - <?php _e('Página quem somos', 'whatsapp-contact-button'); ?></li>
+                            <li><strong><?php _e('Categoria:', 'whatsapp-contact-button'); ?></strong> <code>cobertura-de-evento</code> - <?php _e('Posts da categoria Cobertura de evento', 'whatsapp-contact-button'); ?></li>
+                            <li><strong><?php _e('Tipo de Post:', 'whatsapp-contact-button'); ?></strong> <code>projetos</code> - <?php _e('Páginas do tipo de post projetos', 'whatsapp-contact-button'); ?></li>
+                        </ul>
+                    </div>
+
+
+
+
+
+
+                    </div>
+                </div>
+
+                <table class="form-table">
+                    <tr>
+                        <th scope="row"><?php _e('Emails para Notificações', 'whatsapp-contact-button'); ?></th>
+                        <td>
+                            <textarea name="wcb_notification_emails" rows="3" cols="50" placeholder="<?php _e('Um email por linha', 'whatsapp-contact-button'); ?>"><?php echo esc_textarea(implode("\n", $notification_emails)); ?></textarea>
+                            <p class="description"><?php _e('Emails que receberão notificações de novos contatos (um por linha).', 'whatsapp-contact-button'); ?></p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row"><?php _e('Desinstalação', 'whatsapp-contact-button'); ?></th>
+                        <td>
+                            <label>
+                                <input type="checkbox" name="wcb_delete_data_on_uninstall" value="1" <?php checked($delete_data); ?>>
+                                <?php _e('Deletar todos os dados ao desinstalar o plugin', 'whatsapp-contact-button'); ?>
+                            </label>
+                            <p class="description" style="color: #d63638;"><strong><?php _e('ATENÇÃO: Esta ação é irreversível!', 'whatsapp-contact-button'); ?></strong></p>
+                        </td>
+                    </tr>
+                </table>
+
+                <?php submit_button(__('Salvar Configurações', 'whatsapp-contact-button')); ?>
+            </form>
+        </div>
+
+        <!-- Template for new form mapping -->
+        <script type="text/template" id="wcb-form-mapping-template">
+            <div class="wcb-form-mapping-row" style="margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9;">
+                
+                <!-- Primeira linha: Tipo, Valor, Formulário -->
+                <div style="display: flex; gap: 10px; margin-bottom: 15px; align-items: center;">
+                    <select name="wcb_form_mappings[INDEX][type]" style="width: 200px;">
+                        <option value="slug"><?php _e('Slug da Página', 'whatsapp-contact-button'); ?></option>
+                        <option value="category"><?php _e('Categoria', 'whatsapp-contact-button'); ?></option>
+                        <option value="post_type"><?php _e('Tipo de Post', 'whatsapp-contact-button'); ?></option>
+                    </select>
+
+                    <input type="text" name="wcb_form_mappings[INDEX][value]" placeholder="<?php _e('ex: contato, sobre', 'whatsapp-contact-button'); ?>" style="width: 250px;">
+
+                    <select name="wcb_form_mappings[INDEX][form_id]" style="flex: 1;">
+                        <option value=""><?php _e('Selecione um formulário', 'whatsapp-contact-button'); ?></option>
+                        <?php foreach ($cf7_forms as $form): ?>
+                            <option value="<?php echo esc_attr($form->ID); ?>"><?php echo esc_html($form->post_title); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <!-- Segunda linha: Texto do Popup -->
+                <div style="margin-bottom: 15px; width: 100%">
+                    <label style="display: block; font-weight: 600; margin-bottom: 5px;"><?php _e('Texto do Popup (específico desta página):', 'whatsapp-contact-button'); ?></label>
+                    <textarea name="wcb_form_mappings[INDEX][popup_text]" placeholder="<?php _e('Deixe vazio para usar o texto padrão global', 'whatsapp-contact-button'); ?>" style="width: 100%; height: 60px; resize: vertical;"></textarea>
+                </div>
+
+                <!-- Terceira linha: Mensagem WhatsApp -->
+                <div style="margin-bottom: 15px; width: 100%">
+                    <label style="display: block; font-weight: 600; margin-bottom: 5px;"><?php _e('Mensagem Base WhatsApp (específica desta página):', 'whatsapp-contact-button'); ?></label>
+                    <textarea name="wcb_form_mappings[INDEX][whatsapp_message]" placeholder="<?php _e('Deixe vazio para usar a mensagem padrão global', 'whatsapp-contact-button'); ?>" style="width: 100%; height: 60px; resize: vertical;"></textarea>
+                </div>
+
+                <!-- Quarta linha: Botão Remover -->
+                <div style="text-align: right;">
+                    <button type="button" class="button wcb-remove-mapping" style="background: #dc3545; color: white; border: none;"><?php _e('Remover', 'whatsapp-contact-button'); ?></button>
+                </div>
+            </div>
+        </script>
+
+        <script>
+            jQuery(document).ready(function($) {
+                var mappingIndex = <?php echo count($form_mappings); ?>;
+
+                // Remove todos os event listeners existentes primeiro
+                $('#wcb-add-mapping').off();
+                $(document).off('click', '.wcb-remove-mapping');
+
+                // Add new mapping - com proteção contra múltiplos cliques
+                $('#wcb-add-mapping').on('click', function(e) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+
+                    // Desabilita o botão temporariamente
+                    $(this).prop('disabled', true);
+
+                    var template = $('#wcb-form-mapping-template').html();
+                    template = template.replace(/INDEX/g, mappingIndex);
+                    $('#wcb-form-mappings-container').append(template);
+                    mappingIndex++;
+
+                    // Reabilita o botão após 500ms
+                    setTimeout(() => {
+                        $(this).prop('disabled', false);
+                    }, 500);
+                });
+
+                // Remove mapping
+                $(document).on('click', '.wcb-remove-mapping', function(e) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    $(this).closest('.wcb-form-mapping-row').remove();
+                });
+
+                // NOVO: Controle de modo de operação
+                function toggleModeSections() {
+                    var selectedMode = $('input[name="wcb_button_mode"]:checked').val();
+                    
+                    if (selectedMode === 'direct') {
+                        // Mostrar configurações do modo direto
+                        $('#wcb-direct-mode-settings').slideDown(300);
+                        
+                        // Ocultar configurações do modo formulário
+                        $('#wcb-form-mode-settings').slideUp(300);
+                        $('#wcb-form-global-settings').slideUp(300);
+                        $('#wcb-form-mappings-section').slideUp(300);
+                        
+                        // Tornar mensagem obrigatória
+                        $('textarea[name="wcb_direct_message"]').prop('required', true);
+                    } else {
+                        // Ocultar configurações do modo direto
+                        $('#wcb-direct-mode-settings').slideUp(300);
+                        
+                        // Mostrar configurações do modo formulário
+                        $('#wcb-form-mode-settings').slideDown(300);
+                        $('#wcb-form-global-settings').slideDown(300);
+                        $('#wcb-form-mappings-section').slideDown(300);
+                        
+                        // Remover obrigatoriedade da mensagem
+                        $('textarea[name="wcb_direct_message"]').prop('required', false);
+                    }
+                }
+
+                // Event listener para mudança de modo
+                $('input[name="wcb_button_mode"]').on('change', function() {
+                    toggleModeSections();
+                });
+
+                // Executar na carga da página
+                toggleModeSections();
+            });
+        </script>
+
+    <?php
+    }
+
+    /**
+     * Save settings
+     */
+    private function save_settings()
+    {
+        // Sanitize and save settings
+        $enabled = isset($_POST['wcb_enabled']) ? true : false;
+        $button_position = sanitize_text_field($_POST['wcb_button_position']);
+        $button_mode = isset($_POST['wcb_button_mode']) ? sanitize_text_field($_POST['wcb_button_mode']) : 'form'; // NOVO: Modo de operação
+        $direct_message = isset($_POST['wcb_direct_message']) ? stripslashes($_POST['wcb_direct_message']) : ''; // NOVO: Mensagem modo direto
+        $track_direct_clicks = isset($_POST['wcb_track_direct_clicks']) ? true : false; // NOVO: Rastrear cliques
+        $whatsapp_number = isset($_POST['wcb_whatsapp_number']) ? preg_replace('/[^0-9]/', '', $_POST['wcb_whatsapp_number']) : ''; // NOVO CAMPO
+        $default_form_id = isset($_POST['wcb_default_form_id']) ? intval($_POST['wcb_default_form_id']) : '';
+        $default_popup_text = isset($_POST['wcb_default_popup_text']) ? stripslashes($_POST['wcb_default_popup_text']) : '';
+        $default_whatsapp_message = isset($_POST['wcb_default_whatsapp_message']) ? stripslashes($_POST['wcb_default_whatsapp_message']) : '';
+        $form_mappings = isset($_POST['wcb_form_mappings']) ? $_POST['wcb_form_mappings'] : array();
+        $notification_emails_raw = sanitize_textarea_field($_POST['wcb_notification_emails']);
+        $delete_data = isset($_POST['wcb_delete_data_on_uninstall']) ? true : false;
+
+        // Process notification emails
+        $notification_emails = array_filter(array_map('trim', explode("\n", $notification_emails_raw)));
+        $notification_emails = array_filter($notification_emails, 'is_email');
+        // Process form mappings
+        $clean_form_mappings = array();
+        if (!empty($form_mappings)) {
+            foreach ($form_mappings as $mapping) {
+                if (!empty($mapping['value']) && !empty($mapping['form_id'])) {
+                    $clean_form_mappings[] = array(
+                        'type' => sanitize_text_field($mapping['type']),
+                        'value' => sanitize_text_field($mapping['value']),
+                        'form_id' => intval($mapping['form_id']),
+                        'popup_text' => stripslashes($mapping['popup_text'] ?? ''),
+                        'whatsapp_message' => stripslashes($mapping['whatsapp_message'] ?? '')
+                    );
+                }
+            }
+        }
+
+        // Save options
+        WhatsAppContactButton::update_option('wcb_enabled', $enabled);
+        WhatsAppContactButton::update_option('wcb_button_position', $button_position);
+        WhatsAppContactButton::update_option('wcb_button_mode', $button_mode); // NOVO: Modo de operação
+        WhatsAppContactButton::update_option('wcb_direct_message', $direct_message); // NOVO: Mensagem modo direto
+        WhatsAppContactButton::update_option('wcb_track_direct_clicks', $track_direct_clicks); // NOVO: Rastrear cliques
+        WhatsAppContactButton::update_option('wcb_whatsapp_number', $whatsapp_number); // NOVO CAMPO
+        WhatsAppContactButton::update_option('wcb_default_form_id', $default_form_id);
+        WhatsAppContactButton::update_option('wcb_default_popup_text', $default_popup_text);
+        WhatsAppContactButton::update_option('wcb_default_whatsapp_message', $default_whatsapp_message);
+        WhatsAppContactButton::update_option('wcb_form_mappings', $clean_form_mappings);
+        WhatsAppContactButton::update_option('wcb_notification_emails', $notification_emails);
+        WhatsAppContactButton::update_option('wcb_delete_data_on_uninstall', $delete_data);
+
+        add_action('admin_notices', array($this, 'settings_saved_notice'));
+    }
+
+    /**
+     * Handle bulk actions
+     */
+    private function handle_bulk_actions()
+    {
+        if (!wp_verify_nonce($_POST['wcb_bulk_nonce'], 'wcb_bulk_action')) {
+            return;
+        }
+
+        $action = sanitize_text_field($_POST['action']);
+        $contact_ids = isset($_POST['contact_ids']) ? array_map('intval', $_POST['contact_ids']) : array();
+
+        if (empty($contact_ids)) {
+            return;
+        }
+
+        switch ($action) {
+            case 'delete':
+                WCB_Database::delete_contacts($contact_ids);
+                add_action('admin_notices', array($this, 'bulk_delete_notice'));
+                break;
+
+            case 'status_novo':
+            case 'status_contatado':
+            case 'status_convertido':
+            case 'status_perdido':
+                $status = str_replace('status_', '', $action);
+                $status = ucfirst($status);
+
+                foreach ($contact_ids as $contact_id) {
+                    WCB_Database::update_contact($contact_id, array('status' => $status));
+                }
+                add_action('admin_notices', array($this, 'bulk_status_notice'));
+                break;
+        }
+    }
+
+    /**
+     * Get unique pages from contacts
+     */
+    private function get_unique_pages()
+    {
+        global $wpdb;
+
+        $table = $wpdb->prefix . 'whatsapp_contacts';
+
+        return $wpdb->get_results("
+            SELECT DISTINCT page_slug, page_title 
+            FROM $table 
+            WHERE page_slug != '' 
+            ORDER BY page_title ASC
+        ");
+    }
+
+    /**
+     * Get Contact Form 7 forms
+     */
+    private function get_cf7_forms()
+    {
+        if (!WhatsAppContactButton::is_cf7_active()) {
+            return array();
+        }
+
+        return get_posts(array(
+            'post_type' => 'wpcf7_contact_form',
+            'posts_per_page' => -1,
+            'post_status' => 'publish'
+        ));
+    }
+
+    /**
+     * AJAX: Update contact status
+     */
+    public function ajax_update_contact_status()
+    {
+        check_ajax_referer('wcb_admin_nonce', 'nonce');
+
+        if (!current_user_can('manage_options')) {
+            wp_die(__('Permissão negada.', 'whatsapp-contact-button'));
+        }
+
+        $contact_id = intval($_POST['contact_id']);
+        $status = sanitize_text_field($_POST['status']);
+
+        $result = WCB_Database::update_contact($contact_id, array('status' => $status));
+
+        if ($result !== false) {
+            wp_send_json_success(array('message' => __('Status atualizado com sucesso.', 'whatsapp-contact-button')));
+        } else {
+            wp_send_json_error(array('message' => __('Erro ao atualizar status.', 'whatsapp-contact-button')));
+        }
+    }
+
+    /**
+     * AJAX: Delete contact
+     */
+    public function ajax_delete_contact()
+    {
+        check_ajax_referer('wcb_admin_nonce', 'nonce');
+
+        if (!current_user_can('manage_options')) {
+            wp_die(__('Permissão negada.', 'whatsapp-contact-button'));
+        }
+
+        $contact_id = intval($_POST['contact_id']);
+
+        $result = WCB_Database::delete_contact($contact_id);
+
+        if ($result !== false) {
+            wp_send_json_success(array('message' => __('Contato deletado com sucesso.', 'whatsapp-contact-button')));
+        } else {
+            wp_send_json_error(array('message' => __('Erro ao deletar contato.', 'whatsapp-contact-button')));
+        }
+    }
+
+    /**
+     * AJAX: Export contacts
+     */
+    public function ajax_export_contacts()
+    {
+        check_ajax_referer('wcb_admin_nonce', 'nonce');
+
+        if (!current_user_can('manage_options')) {
+            wp_die(__('Permissão negada.', 'whatsapp-contact-button'));
+        }
+
+        // Get filters from request
+        $filters = array(
+            'status' => sanitize_text_field($_POST['status'] ?? ''),
+            'page_slug' => sanitize_text_field($_POST['page_slug'] ?? ''),
+            'date_from' => sanitize_text_field($_POST['date_from'] ?? ''),
+            'date_to' => sanitize_text_field($_POST['date_to'] ?? ''),
+            'search' => sanitize_text_field($_POST['search'] ?? ''),
+            'limit' => 10000 // Large limit for export
+        );
+
+        $contacts = WCB_Database::get_contacts($filters);
+
+        // Generate CSV
+        $filename = 'whatsapp-contacts-' . date('Y-m-d-H-i-s') . '.csv';
+        $upload_dir = wp_upload_dir();
+        $file_path = $upload_dir['path'] . '/' . $filename;
+
+        $file = fopen($file_path, 'w');
+
+        // 1. Obter todos os campos personalizados existentes nos contatos
+        $all_form_keys = [];
+
+        foreach ($contacts as $contact) {
+            $form_data = json_decode($contact->form_data ?? '', true);
+            if (is_array($form_data)) {
+                $all_form_keys = array_merge($all_form_keys, array_keys($form_data));
+            }
+        }
+        $all_form_keys = array_unique($all_form_keys);
+
+        $headers = [
+            'Nome',
+            'Telefone',
+            'Email',
+            'Página',
+            'URL',
+            'Dispositivo',
+            'Data de Envio',
+            'Observações'
+        ];
+
+        fputcsv($file, $headers);
+
+        // Campos que não devem ir nas observações
+        $ignore_keys = ['your-name', 'your-email', 'your-phone', 'wcb_whatsapp_form', 'wcb_page_title', 'wcb_page_url', 'wcb_page_slug', 'user_agent'];
+
+        foreach ($contacts as $contact) {
+            $form_data = json_decode($contact->form_data ?? '', true);
+            $observacoes = [];
+
+            if (is_array($form_data)) {
+                foreach ($form_data as $key => $value) {
+                    if (!in_array($key, $ignore_keys)) {
+                        // Format key (ex: data-evento -> Data evento)
+                        $label = ucwords(str_replace(['_', '-'], ' ', $key));
+                        $observacoes[] = "$label: $value";
+                    }
+                }
+            }
+
+            $row = [
+                $contact->name,
+                $contact->phone,
+                $contact->email,
+                $contact->page_title,
+                $contact->page_url,
+                $contact->device_type,
+                $contact->submit_time,
+                implode('. ', $observacoes)
+            ];
+
+            fputcsv($file, $row);
+        }
+
+
+        fclose($file);
+
+        $file_url = $upload_dir['url'] . '/' . $filename;
+
+        wp_send_json_success(array(
+            'download_url' => $file_url,
+            'message' => sprintf(__('Arquivo CSV gerado com %d contatos.', 'whatsapp-contact-button'), count($contacts))
+        ));
+    }
+
+    /**
+     * Admin notices
+     */
+    public function admin_notices()
+    {
+        // This method will be called by action hooks
+        
+        // NOVO: Aviso sobre formulários mal configurados
+        if (isset($_GET['page']) && $_GET['page'] === 'whatsapp-contacts') {
+            if ($this->has_misconfigured_forms()) {
+                $this->misconfigured_forms_notice();
+            }
+        }
+    }
+
+    /**
+     * NOVA FUNÇÃO: Aviso sobre formulários mal configurados
+     */
+    public function misconfigured_forms_notice()
+    {
+        $forms = $this->get_cf7_forms_status();
+        $misconfigured_forms = array_filter($forms, function($form) {
+            return !$form['has_required_field'];
+        });
+        
+        if (empty($misconfigured_forms)) {
+            return;
+        }
+        
+        echo '<div class="notice notice-warning is-dismissible">';
+        echo '<h3>⚠️ Formulários CF7 não configurados corretamente</h3>';
+        echo '<p>Os seguintes formulários não têm o campo obrigatório <code>[hidden wcb_whatsapp_form "1"]</code>:</p>';
+        echo '<ul>';
+        foreach ($misconfigured_forms as $form) {
+            echo '<li><strong>' . esc_html($form['title']) . '</strong> (ID: ' . $form['id'] . ')</li>';
+        }
+        echo '</ul>';
+        echo '<p><strong>Sem este campo, o plugin não funcionará!</strong></p>';
+        echo '<p><a href="#wcb-forms-status" class="button button-primary">Ver Status dos Formulários</a></p>';
+        echo '</div>';
+    }
+
+    /**
+     * CF7 missing notice
+     */
+    public function cf7_missing_notice()
+    {
+    ?>
+        <div class="notice notice-warning">
+            <p><?php _e('O plugin WhatsApp Contact Button requer o Contact Form 7 para funcionar corretamente.', 'whatsapp-contact-button'); ?></p>
+        </div>
+    <?php
+    }
+
+    /**
+     * ACF missing notice
+     */
+    public function acf_missing_notice()
+    {
+    ?>
+        <div class="notice notice-warning">
+            <p><?php _e('O plugin WhatsApp Contact Button requer o Advanced Custom Fields para acessar as configurações do tema.', 'whatsapp-contact-button'); ?></p>
+        </div>
+    <?php
+    }
+
+    /**
+     * Settings saved notice
+     */
+    public function settings_saved_notice()
+    {
+    ?>
+        <div class="notice notice-success is-dismissible">
+            <p><?php _e('Configurações salvas com sucesso!', 'whatsapp-contact-button'); ?></p>
+        </div>
+    <?php
+    }
+
+    /**
+     * Bulk delete notice
+     */
+    public function bulk_delete_notice()
+    {
+    ?>
+        <div class="notice notice-success is-dismissible">
+            <p><?php _e('Contatos deletados com sucesso!', 'whatsapp-contact-button'); ?></p>
+        </div>
+    <?php
+    }
+
+    /**
+     * Bulk status notice
+     */
+    public function bulk_status_notice()
+    {
+    ?>
+        <div class="notice notice-success is-dismissible">
+            <p><?php _e('Status dos contatos atualizados com sucesso!', 'whatsapp-contact-button'); ?></p>
+        </div>
+<?php
+    }
+
+    /**
+     * NOVA FUNÇÃO: Aba de Formulários
+     */
+    public function forms_tab()
+    {
+        $forms = $this->get_cf7_forms_status();
+        $has_cf7 = class_exists('WPCF7');
+        
+        ?>
+        <div id="wcb-forms-status">
+            <h2>📋 Status dos Formulários CF7</h2>
+            
+            <?php if (!$has_cf7): ?>
+                <div class="notice notice-error">
+                    <p><strong>❌ Contact Form 7 não está ativo!</strong></p>
+                    <p>Este plugin requer o Contact Form 7 para funcionar. <a href="<?php echo admin_url('plugin-install.php?s=contact+form+7&tab=search&type=term'); ?>">Instalar Contact Form 7</a></p>
+                </div>
+            <?php elseif (empty($forms)): ?>
+                <div class="notice notice-warning">
+                    <p><strong>⚠️ Nenhum formulário CF7 encontrado!</strong></p>
+                    <p>Crie um formulário no Contact Form 7 para usar este plugin.</p>
+                </div>
+            <?php else: ?>
+                
+                <!-- Gerador de Código -->
+                <div class="wcb-settings-block" style="background: #f0f8ff; border: 1px solid #0073aa; padding: 20px; margin: 20px 0; border-radius: 8px;">
+                    <h3 style="margin-top: 0; color: #0073aa;">🔧 Gerador de Código do Formulário</h3>
+                    <p>Use este código como base para criar seus formulários CF7:</p>
+                    <textarea readonly style="width: 100%; height: 120px; font-family: monospace; background: #f9f9f9; border: 1px solid #ddd; padding: 10px; border-radius: 4px;"><?php echo esc_textarea($this->generate_cf7_form_code()); ?></textarea>
+                    <p><strong>⚠️ Importante:</strong> O campo <code>[hidden wcb_whatsapp_form "1"]</code> é obrigatório!</p>
+                </div>
+
+                <!-- Lista de Formulários -->
+                <table class="wp-list-table widefat fixed striped">
+                    <thead>
+                        <tr>
+                            <th>Formulário</th>
+                            <th>ID</th>
+                            <th>Status</th>
+                            <th>Campo Obrigatório</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($forms as $form): ?>
+                            <tr>
+                                <td><strong><?php echo esc_html($form['title']); ?></strong></td>
+                                <td><?php echo $form['id']; ?></td>
+                                <td>
+                                    <?php if ($form['has_required_field']): ?>
+                                        <span style="color: #46b450; font-weight: bold;">✅ Configurado</span>
+                                    <?php else: ?>
+                                        <span style="color: #dc3232; font-weight: bold;">❌ Campo Faltando</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <?php if ($form['has_required_field']): ?>
+                                        <span style="color: #46b450;">✓ Presente</span>
+                                    <?php else: ?>
+                                        <span style="color: #dc3232;">✗ Ausente</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <a href="<?php echo admin_url('admin.php?page=wpcf7&post=' . $form['id'] . '&action=edit'); ?>" class="button button-small">
+                                        Editar Formulário
+                                    </a>
+                                    <?php if (!$form['has_required_field']): ?>
+                                        <button type="button" class="button button-small button-primary wcb-show-help" data-form-id="<?php echo $form['id']; ?>">
+                                            Como Corrigir
+                                        </button>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+
+                <!-- Resumo -->
+                <?php
+                $configured_count = count(array_filter($forms, function($form) { return $form['has_required_field']; }));
+                $total_count = count($forms);
+                $misconfigured_count = $total_count - $configured_count;
+                ?>
+                <div class="wcb-summary" style="margin-top: 20px; padding: 15px; background: #f9f9f9; border-radius: 5px;">
+                    <h4>📊 Resumo</h4>
+                    <p><strong>Total de formulários:</strong> <?php echo $total_count; ?></p>
+                    <p><strong>Configurados corretamente:</strong> <span style="color: #46b450;"><?php echo $configured_count; ?></span></p>
+                    <p><strong>Precisam de correção:</strong> <span style="color: #dc3232;"><?php echo $misconfigured_count; ?></span></p>
+                </div>
+
+            <?php endif; ?>
+        </div>
+
+        <!-- Modal de Ajuda -->
+        <div id="wcb-help-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999;">
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 8px; max-width: 600px; width: 90%;">
+                <h3>🔧 Como Corrigir o Formulário</h3>
+                <p>Para que este formulário funcione com o plugin WhatsApp, você precisa adicionar o campo obrigatório:</p>
+                <div style="background: #f0f0f0; padding: 15px; border-radius: 4px; margin: 15px 0;">
+                    <code>[hidden wcb_whatsapp_form "1"]</code>
+                </div>
+                <h4>Passos:</h4>
+                <ol>
+                    <li>Clique em "Editar Formulário" acima</li>
+                    <li>No editor do formulário, adicione a linha: <code>[hidden wcb_whatsapp_form "1"]</code></li>
+                    <li>Salve o formulário</li>
+                    <li>Volte aqui para verificar se o status mudou para "✅ Configurado"</li>
+                </ol>
+                <p><strong>⚠️ Importante:</strong> Sem este campo, o plugin não processará os dados do formulário!</p>
+                <button type="button" class="button button-primary" onclick="document.getElementById('wcb-help-modal').style.display='none';">Fechar</button>
+            </div>
+        </div>
+
+        <script>
+        jQuery(document).ready(function($) {
+            $('.wcb-show-help').on('click', function() {
+                $('#wcb-help-modal').show();
+            });
+        });
+        </script>
+        <?php
+    }
+
+    /**
+     * NOVA FUNÇÃO: Validar se formulário CF7 tem campo obrigatório
+     */
+    public function validate_cf7_form($form_id) {
+        if (!class_exists('WPCF7')) {
+            return false;
+        }
+        
+        $form = wpcf7_contact_form($form_id);
+        if (!$form) {
+            return false;
+        }
+        
+        // Verificar se o método prop existe
+        if (!method_exists($form, 'prop')) {
+            return false;
+        }
+        
+        $form_content = $form->prop('form');
+        if (!$form_content) {
+            return false;
+        }
+        
+        return strpos($form_content, 'wcb_whatsapp_form') !== false;
+    }
+
+    /**
+     * NOVA FUNÇÃO: Obter lista de formulários CF7 com status
+     */
+    public function get_cf7_forms_status() {
+        if (!class_exists('WPCF7')) {
+            return array();
+        }
+        
+        $forms = WPCF7_ContactForm::find();
+        $forms_status = array();
+        
+        foreach ($forms as $form) {
+            $forms_status[] = array(
+                'id' => $form->id(),
+                'title' => $form->title(),
+                'has_required_field' => $this->validate_cf7_form($form->id()),
+                'form_content' => $form->prop('form')
+            );
+        }
+        
+        return $forms_status;
+    }
+
+    /**
+     * NOVA FUNÇÃO: Gerar código do formulário CF7
+     */
+    public function generate_cf7_form_code() {
+        return '[text* your-name placeholder "Seu nome"]
+[email* your-email placeholder "Seu e-mail"]
+[tel* your-phone placeholder "Seu WhatsApp"]
+
+[hidden wcb_whatsapp_form "1"]
+
+[submit "Enviar"]';
+    }
+
+    /**
+     * NOVA FUNÇÃO: Verificar se há formulários configurados incorretamente
+     */
+    public function has_misconfigured_forms() {
+        $forms = $this->get_cf7_forms_status();
+        foreach ($forms as $form) {
+            if (!$form['has_required_field']) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * NOVA FUNÇÃO: Sanitizar textarea preservando emojis
+     */
+    private function sanitize_textarea_with_emojis($text) {
+        // Remover apenas tags HTML perigosas, mas preservar emojis
+        $text = wp_strip_all_tags($text);
+        
+        // Remover caracteres de controle, mas preservar emojis
+        $text = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/', '', $text);
+        
+        // Garantir que está em UTF-8
+        if (!mb_check_encoding($text, 'UTF-8')) {
+            $text = mb_convert_encoding($text, 'UTF-8', 'auto');
+        }
+        
+        return trim($text);
+    }
+}
+
+add_action('wp_ajax_wcb_get_contact_details', function () {
+    check_ajax_referer('wcb_admin_nonce', 'nonce');
+
+    $contact_id = intval($_POST['contact_id'] ?? 0);
+    if (!$contact_id) {
+        wp_send_json_error(array('message' => 'ID do contato inválido.'));
+    }
+
+    global $wpdb;
+    $table = $wpdb->prefix . 'whatsapp_contacts';
+
+    $contact = $wpdb->get_row($wpdb->prepare("SELECT * FROM $table WHERE id = %d", $contact_id), ARRAY_A);
+
+    if (!$contact) {
+        wp_send_json_error(array('message' => 'Contato não encontrado.'));
+    }
+
+    $form_data = json_decode($contact['form_data'], true);
+    if (!is_array($form_data)) {
+        $form_data = array();
+    }
+
+    wp_send_json_success(array(
+        'id' => $contact['id'],
+        'name' => $contact['name'],
+        'email' => $contact['email'],
+        'phone' => $contact['phone'],
+        'page_title' => $contact['page_title'],
+        'page_url' => $contact['page_url'],
+        'page_slug' => $contact['page_slug'],
+        'device_type' => $contact['device_type'],
+        'user_agent' => $contact['user_agent'],
+        'submit_time' => $contact['submit_time'],
+        'form_data' => $form_data
+    ));
+});
+

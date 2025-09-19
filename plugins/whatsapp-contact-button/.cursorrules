@@ -1,0 +1,643 @@
+# Cursor AI Rules - WhatsApp Contact Button Plugin
+# Coloque este arquivo na raiz do plugin como .cursorrules
+
+## Contexto do Plugin
+Você está trabalhando no **WhatsApp Contact Button Plugin v1.1.1** para WordPress.
+- Tipo: Plugin WordPress para captura de leads via WhatsApp
+- Integração: Contact Form 7 + ACF Pro + WordPress APIs
+- Banco: Tabelas customizadas (contacts + analytics)
+- Versão: v1.1.2 (validação CF7 + modo direto + UX melhorias) → v1.2.0 (máscaras, cards, exportação)
+- Objetivo: Código seguro, performático e funcional 100%
+
+## Arquitetura do Plugin
+
+### Estrutura de Arquivos
+```
+whatsapp-contact-button/
+├── .cursorrules                    # Este arquivo
+├── whatsapp-contact-button.php     # Classe principal
+├── docs/                          # Documentação completa
+│   ├── development/
+│   │   ├── maintenance-guide.md   # Manual técnico
+│   │   └── roadmap-v1.2.0.md      # Próximas funcionalidades
+│   ├── documentation.md           # Doc técnica principal
+│   └── theme-integration.md       # Guia integração temas
+├── includes/
+│   ├── admin.php                  # Interface admin (3 abas)
+│   ├── frontend.php               # Funcionalidades frontend
+│   ├── cf7-integration.php        # Integração Contact Form 7
+│   ├── database.php               # Operações banco
+│   ├── analytics.php              # Queries analytics
+│   └── notifications.php          # Sistema emails
+├── assets/
+│   ├── css/
+│   │   ├── admin.css              # Estilos admin
+│   │   └── style.css              # Frontend + --base-color
+│   └── js/
+│       ├── admin.js               # Scripts admin
+│       └── script.js              # Frontend + tracking
+├── readme.txt                     # WordPress padrão
+└── uninstall.php                  # Cleanup
+```
+
+### Classes Principais
+```php
+// Classe principal
+WhatsAppContactButton              // Core + sistema prioridades
+
+// Funcionalidades específicas  
+WCB_Admin                         // Interface admin 3 abas
+WCB_Frontend                      // Frontend + mapeamento páginas
+WCB_CF7_Integration               // Integração formulários
+WCB_Database                      // Operações banco otimizadas
+WCB_Analytics                     // Métricas e relatórios
+WCB_Notifications                 // Sistema emails
+```
+
+## Padrões de Código WordPress
+
+### Segurança e Sanitização OBRIGATÓRIA
+```php
+// SEMPRE sanitizar inputs
+$name = sanitize_text_field($_POST['name']);
+$email = sanitize_email($_POST['email']);
+$textarea = sanitize_textarea_field($_POST['content']);
+$number = preg_replace('/[^0-9]/', '', $_POST['phone']);
+
+// SEMPRE escape outputs
+echo esc_html($contact->name);
+echo esc_url($contact->page_url);  
+echo esc_attr($contact->device_type);
+echo wp_kses_post($popup_text);
+
+// SEMPRE verificar nonces AJAX
+check_ajax_referer('wcb_admin_nonce', 'nonce');
+if (!current_user_can('manage_options')) wp_die();
+
+// SEMPRE prepared statements
+$wpdb->prepare("SELECT * FROM {$table} WHERE id = %d", $contact_id);
+```
+
+### Nomenclatura Padronizada
+```php
+// Classes: WCB_NomeClasse
+class WCB_NovaFuncionalidade {}
+
+// Funções: snake_case  
+function wcb_process_data() {}
+
+// Hooks: wcb_nome_hook
+do_action('wcb_before_contact_insert', $data);
+
+// Options: wcb_nome_opcao
+get_option('wcb_whatsapp_number');
+
+// CSS: .wcb-classe-css
+.wcb-modal-content {}
+
+// JavaScript: wcbCamelCase
+function wcbOpenModal() {}
+```
+
+## Banco de Dados
+
+### Tabelas Específicas
+```php
+// Contatos capturados
+$table_contacts = $wpdb->prefix . 'whatsapp_contacts';
+// Campos: id, name, email, phone, consent, page_title, page_url, 
+//         page_slug, device_type, user_agent, submit_time, 
+//         whatsapp_redirect_time, status, form_data
+
+// Analytics de eventos
+$table_analytics = $wpdb->prefix . 'whatsapp_analytics';  
+// Campos: id, event_type, page_title, page_url, page_slug,
+//         device_type, user_agent, session_id, contact_id, event_time
+```
+
+### Operações de Banco Seguras
+```php
+// Inserir contato
+$result = $wpdb->insert(
+    $table_contacts,
+    array(
+        'name' => sanitize_text_field($data['name']),
+        'email' => sanitize_email($data['email']),
+        'phone' => sanitize_text_field($data['phone']),
+        'page_title' => sanitize_text_field($data['page_title']),
+        'page_url' => esc_url_raw($data['page_url']),
+        'form_data' => wp_json_encode($form_data),
+        'submit_time' => current_time('mysql')
+    ),
+    array('%s', '%s', '%s', '%s', '%s', '%s', '%s')
+);
+
+// Buscar com filtros
+$contacts = $wpdb->get_results(
+    $wpdb->prepare(
+        "SELECT * FROM {$table_contacts} 
+         WHERE submit_time >= %s AND submit_time <= %s 
+         ORDER BY submit_time DESC LIMIT %d OFFSET %d",
+        $date_from,
+        $date_to, 
+        $per_page,
+        $offset
+    )
+);
+```
+
+## Sistema Específico do Plugin
+
+### Campos ACF Integrados
+```php
+// Nas opções do tema (SEMPRE verificar existência)
+$whatsapp_number = get_field('whatsapp', 'option');
+if ($whatsapp_number):
+    echo esc_html($whatsapp_number);
+endif;
+
+// Campos específicos opções tema
+get_field('whatsapp', 'option')                    // Número principal
+get_field('whatsapp_texto_popup', 'option')        // DEPRECADO v1.1.0
+get_field('whatsapp_mensagem_base', 'option')      // DEPRECADO v1.1.0
+```
+
+### Opções Plugin com Sistema Prioridade
+```php
+// Configurações principais
+WhatsAppContactButton::get_option('wcb_enabled', true)
+WhatsAppContactButton::get_option('wcb_whatsapp_number', '')  // Específico plugin
+WhatsAppContactButton::get_option('wcb_default_form_id', 0)
+WhatsAppContactButton::get_option('wcb_default_popup_text', '')
+WhatsAppContactButton::get_option('wcb_default_whatsapp_message', '')
+
+// Mapeamentos por página (v1.1.0)
+WhatsAppContactButton::get_option('wcb_form_mappings', [])
+
+// Sistema prioridade número WhatsApp
+$number = WhatsAppContactButton::get_whatsapp_number();
+// 1º Plugin (wcb_whatsapp_number) → 2º ACF (whatsapp)
+```
+
+### Contact Form 7 Integration
+```php
+// Hook principal captura CF7
+add_action('wpcf7_mail_sent', array($this, 'handle_form_submission'));
+
+// Verificar se CF7 ativo
+if (!class_exists('WPCF7')) {
+    return;
+}
+
+// Capturar dados formulário
+$submission = WPCF7_Submission::get_instance();
+if (!$submission) return;
+
+$posted_data = $submission->get_posted_data();
+
+// Verificar identificador plugin
+if (!isset($posted_data['wcb_whatsapp_form'])) {
+    return;
+}
+
+// Extrair campos padrão
+$name = sanitize_text_field($posted_data['your-name'] ?? '');
+$email = sanitize_email($posted_data['your-email'] ?? '');  
+$phone = sanitize_text_field($posted_data['your-phone'] ?? '');
+```
+
+### Campos CF7 Obrigatórios
+```html
+<!-- Estrutura formulário obrigatória -->
+[text* your-name placeholder "Seu nome"]
+[email* your-email placeholder "Seu e-mail"]
+[tel* your-phone placeholder "Seu WhatsApp"]
+
+<!-- Campos ocultos OBRIGATÓRIOS -->
+[hidden wcb_whatsapp_form "1"]
+<input type="hidden" name="wcb_page_title" class="wcb-page-title" value="">
+<input type="hidden" name="wcb_page_url" class="wcb-page-url" value="">  
+<input type="hidden" name="wcb_page_slug" class="wcb-page-slug" value="">
+
+[submit "Enviar"]
+```
+
+## Sistema Mapeamento por Página (v1.1.0)
+
+### Tipos Suportados com Prioridade
+```php
+// Ordem de prioridade (mais específico → menos específico)
+'slug'          // 1º - Slug página específica (ex: 'contato', 'sobre')
+'category'      // 2º - Categoria posts/CPT (ex: 'noticias', 'eventos')  
+'page_template' // 3º - Template página (ex: 'page-contact.php')
+'post_type'     // 4º - Tipo post (ex: 'product', 'projetos')
+
+// Exemplo configuração
+$mappings = [
+    [
+        'type' => 'category',
+        'value' => 'cobertura-de-evento',
+        'form_id' => 456,
+        'popup_text' => 'Texto específico eventos...',
+        'whatsapp_message' => 'Mensagem específica eventos...'
+    ]
+];
+```
+
+### Contexto Página Detectado
+```php
+// Function: get_current_page_context()
+$context = [
+    'slug' => 'contato',                           // Slug atual
+    'post_type' => 'page',                         // Tipo post
+    'categories' => ['noticias', 'eventos'],       // TODAS taxonomias (v1.1.0)
+    'template' => 'page-contact',                  // Template
+    'is_front_page' => false,                      // Homepage?
+    'is_home' => false                             // Blog page?
+];
+```
+
+## Sistema Variáveis Personalizáveis
+
+### Variáveis Disponíveis Mensagens
+```php
+// Substitution: replace_message_variables()
+$variables = [
+    '{nome_usuario}'     => $contact_data['name'],
+    '{email_usuario}'    => $contact_data['email'],
+    '{telefone_usuario}' => $contact_data['phone'],
+    '{titulo_pagina}'    => $contact_data['page_title'],
+    '{url_pagina}'       => $contact_data['page_url'],
+    '{data_atual}'       => date_i18n(get_option('date_format')),
+    '{hora_atual}'       => date_i18n(get_option('time_format')),
+    '{dispositivo}'      => ucfirst($contact_data['device_type'])
+];
+
+// Exemplo uso
+$message = "Olá! Sou {nome_usuario} ({email_usuario}). Vim através da página {titulo_pagina}";
+$final_message = $this->replace_message_variables($message, $contact_data);
+```
+
+## JavaScript Frontend
+
+### Tracking Analytics
+```javascript
+// Eventos rastreados
+wcbTrackEvent('click');           // Clique botão
+wcbTrackEvent('submit');          // Envio formulário  
+wcbTrackEvent('redirect', contact_id); // Redirecionamento WhatsApp
+
+// Preenchimento campos ocultos
+function wcbFillHiddenFields() {
+    const pageTitle = document.title || 'Página sem título';
+    const pageUrl = window.location.href;
+    const pageSlug = window.location.pathname.split('/').filter(Boolean).pop() || 'home';
+    
+    // Preencher todos os campos ocultos
+    document.querySelectorAll('.wcb-page-title').forEach(field => {
+        field.value = pageTitle;
+    });
+    
+    document.querySelectorAll('.wcb-page-url').forEach(field => {
+        field.value = pageUrl; 
+    });
+    
+    document.querySelectorAll('.wcb-page-slug').forEach(field => {
+        field.value = pageSlug;
+    });
+}
+```
+
+### Modal e Validação
+```javascript
+// Abrir modal
+function wcbOpenModal() {
+    document.getElementById('wcb-modal').style.display = 'flex';
+    wcbFillHiddenFields(); // Sempre preencher campos ocultos
+    wcbTrackEvent('click');
+}
+
+// Fechar modal  
+function wcbCloseModal() {
+    document.getElementById('wcb-modal').style.display = 'none';
+}
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    // Botão abrir
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('#wcb-button')) {
+            e.preventDefault();
+            wcbOpenModal();
+        }
+    });
+    
+    // Fechar modal
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.wcb-modal-close') || 
+            e.target.classList.contains('wcb-modal-overlay')) {
+            wcbCloseModal();
+        }
+    });
+});
+```
+
+## AJAX e Endpoints
+
+### Estrutura AJAX Segura
+```php
+// Hook AJAX
+add_action('wp_ajax_wcb_export_contacts', array($this, 'ajax_export_contacts'));
+
+// Método AJAX
+public function ajax_export_contacts() {
+    // Verificar nonce
+    check_ajax_referer('wcb_admin_nonce', 'nonce');
+    
+    // Verificar permissões
+    if (!current_user_can('manage_options')) {
+        wp_die(__('Sem permissão.', 'whatsapp-contact-button'));
+    }
+    
+    // Processar...
+    $filters = array(
+        'status' => sanitize_text_field($_POST['status'] ?? ''),
+        'date_from' => sanitize_text_field($_POST['date_from'] ?? ''),
+        'date_to' => sanitize_text_field($_POST['date_to'] ?? '')
+    );
+    
+    // Gerar CSV
+    $this->generate_csv_export($filters);
+    
+    wp_die();
+}
+```
+
+### JavaScript AJAX
+```javascript
+// Chamada AJAX
+jQuery.ajax({
+    url: wcb_admin.ajax_url,
+    type: 'POST',
+    data: {
+        action: 'wcb_export_contacts',
+        nonce: wcb_admin.nonce,
+        status: jQuery('#filter-status').val(),
+        date_from: jQuery('#filter-date-from').val()
+    },
+    success: function(response) {
+        // Processar resposta
+    },
+    error: function(xhr, status, error) {
+        console.error('Erro AJAX:', error);
+    }
+});
+```
+
+## CSS e Integração Tema
+
+### Variável CSS Principal
+```css
+/* Plugin usa --base-color automaticamente */
+:root {
+    --base-color: #your-brand-color; /* Definir no tema */
+}
+
+/* Sistema fallback plugin */
+:root {
+    --wcb-theme-color: var(--base-color, #007cba);
+    --wcb-theme-color-light: color-mix(in srgb, var(--wcb-theme-color) 20%, white);
+    --wcb-theme-color-dark: color-mix(in srgb, var(--wcb-theme-color) 80%, black);
+}
+```
+
+### Classes CSS Específicas
+```css
+/* Botão flutuante */
+.wcb-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #25d366; /* Verde WhatsApp */
+    border-radius: 50%;
+    z-index: 9999;
+}
+
+/* Modal */
+.wcb-modal {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+}
+
+.wcb-modal-content {
+    background: white;
+    max-width: 500px;
+    margin: 50px auto;
+    border-radius: 10px;
+}
+
+/* Formulário integração tema */
+.wcb-form-container input:focus,
+.wcb-form-container textarea:focus {
+    border-color: var(--wcb-theme-color);
+    box-shadow: 0 0 0 3px var(--wcb-theme-color-light);
+}
+```
+
+## Hooks Específicos Plugin
+
+### Actions Disponíveis
+```php
+// Antes/depois inserir contato
+do_action('wcb_before_contact_insert', $contact_data);
+do_action('wcb_after_contact_insert', $contact_id, $contact_data);
+
+// Novo contato criado
+do_action('wcb_new_contact', $contact_id, $contact_data);
+
+// Antes redirecionamento
+do_action('wcb_before_whatsapp_redirect', $whatsapp_url, $contact_data);
+```
+
+### Filters Disponíveis  
+```php
+// Filtrar mensagem WhatsApp
+$message = apply_filters('wcb_whatsapp_message', $message, $contact_data);
+
+// Filtrar dados antes salvar
+$contact_data = apply_filters('wcb_contact_data', $contact_data, $posted_data);
+
+// Filtrar emails notificação
+$emails = apply_filters('wcb_notification_emails', $emails, $contact_data);
+```
+
+## Funcionalidades Implementadas v1.1.2
+
+### ✅ Novas Funcionalidades
+```php
+// 1. Modo de operação duplo
+// - Botão redirecionar direto (nova feature)
+// - Botão com formulário (funcionalidade existente)
+
+// 2. Validação automática CF7
+// - Verificação campo obrigatório [hidden wcb_whatsapp_form "1"]
+// - Avisos visuais no admin
+// - Aba "Formulários" com status e correções
+
+// 3. Melhorias UX
+// - Gerador automático de código CF7
+// - Documentação integrada com modal de ajuda
+// - Validação frontend com feedback visual
+
+// 4. Correções técnicas
+// - Erros JavaScript corrigidos
+// - Console limpo
+// - Verificações de segurança jQuery
+```
+
+## Roadmap v1.2.0
+
+### Funcionalidades Planejadas
+```php
+// 1. Máscaras automáticas CF7
+// Detectar campos telefone e aplicar máscara (11) 99999-9999
+
+// 2. Cards organizados modal "Ver"
+// Separar dados pessoais de dados formulário, esconder campos técnicos
+
+// 3. Exportação selecionados  
+// Checkboxes seleção múltipla + validação
+
+// 4. Rastreamento origem visita
+// utm_source, utm_medium, utm_campaign, document.referrer
+
+// 5. Correção exportação CSV
+// Campos select/array aparecem como "Array" - implementar parser adequado
+
+// 6. Problema emojis
+// Investigar e corrigir emojis aparecendo como nas mensagens WhatsApp
+```
+
+## Comandos Úteis Cursor
+
+### Para desenvolvimento
+- "Implementar máscaras automáticas CF7 seguindo padrões plugin"
+- "Criar cards organizados modal Ver contato sem duplicações"  
+- "Adicionar exportação selecionados com checkboxes e validação"
+- "Implementar rastreamento origem visita utm + referrer"
+- "Corrigir parser CSV campos array/select CF7"
+
+### Para debugging
+- "Debuggar mapeamento por categoria não funcionando"
+- "Por que analytics retorna página sem título?"
+- "Como corrigir validação CF7 no modal?"
+- "Verificar se sistema prioridade está funcionando"
+
+### Para manutenção
+- "Revisar código adicionando sanitização faltante"
+- "Otimizar queries banco dados analytics" 
+- "Atualizar documentação funcionalidade X"
+- "Validar compatibilidade WordPress 6.x"
+
+## Anti-Patterns (Evitar)
+
+### ❌ Código Inseguro
+```php
+// NUNCA fazer
+echo $_POST['data'];                    // Sem escape
+$query = "SELECT * FROM table WHERE id = " . $_GET['id']; // SQL injection
+update_option('key', $_POST['value']); // Sem sanitização
+```
+
+### ❌ Integração CF7 Incorreta
+```php
+// NUNCA assumir CF7 ativo
+$form = wpcf7_contact_form($id); // Sem verificar class_exists
+
+// NUNCA processar sem verificar identificador
+if ($posted_data) { // Sem verificar wcb_whatsapp_form
+    $this->process_data($posted_data);
+}
+```
+
+### ❌ CSS Conflitante  
+```css
+/* NUNCA usar !important desnecessário */
+.wcb-button {
+    background: red !important; /* Quebra integração tema */
+}
+
+/* NUNCA estilos muito específicos que quebram */
+form input { /* Muito genérico, afeta outros plugins */
+    border: 1px solid blue;
+}
+```
+
+### ❌ JavaScript Invasivo
+```javascript
+// NUNCA overrides globais
+window.onload = function() { /* Quebra outros plugins */ };
+
+// NUNCA event listeners sem namespace
+$(document).on('click', 'button', function() { /* Muito genérico */ });
+```
+
+## Debugging e Logs
+
+### Ativar Debug WordPress
+```php
+// wp-config.php
+define('WP_DEBUG', true);
+define('WP_DEBUG_LOG', true);
+
+// Logs plugin (procurar por 'WCB:')
+error_log('WCB: Debug message');
+error_log('WCB Context: ' . print_r($context, true));
+error_log('WCB Mappings: ' . print_r($mappings, true));
+```
+
+### Verificações Comuns
+```php
+// Verificar CF7 ativo
+if (!class_exists('WPCF7')) {
+    error_log('WCB: Contact Form 7 não está ativo');
+}
+
+// Verificar formulário existe
+$form = wpcf7_contact_form($form_id);
+if (!$form) {
+    error_log('WCB: Formulário ID ' . $form_id . ' não encontrado');
+}
+
+// Verificar campo ACF
+$number = get_field('whatsapp', 'option');
+if (!$number) {
+    error_log('WCB: Campo ACF whatsapp não configurado');
+}
+```
+
+## Testes e Validação
+
+### Checklist Funcional
+```php
+// ✅ Teste básico
+// 1. Clique botão → Modal abre
+// 2. Preenche formulário → Envia sem erro  
+// 3. Redireciona WhatsApp → URL correta
+// 4. Salva banco → Dados corretos
+// 5. Analytics → Eventos registrados
+
+// ✅ Teste mapeamento (v1.1.0)
+// 1. Página categoria → Formulário específico
+// 2. Sistema prioridade → Categoria > tipo post
+// 3. Variáveis mensagem → Substituição correta
+
+// ✅ Teste admin
+// 1. Lista contatos → Filtros funcionando
+// 2. Exportação CSV → Todos campos
+// 3. Analytics → Gráficos carregando
+```
+
+Sempre mantenha foco em segurança, compatibilidade WordPress e funcionalidade completa do sistema de captura de leads via WhatsApp.
