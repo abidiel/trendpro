@@ -1,0 +1,239 @@
+{
+    "key": "group_area_cliente",
+    "title": "Dados do Cliente",
+    "fields": [
+        {
+            "key": "field_cliente_logo",
+            "label": "Logo do Cliente",
+            "name": "cliente_logo",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Logo da empresa do cliente",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 1,
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_entregas",
+            "label": "Entregas Realizadas",
+            "name": "entregas",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Adicione as entregas realizadas para este cliente",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_entrega_titulo",
+            "min": 0,
+            "max": 0,
+            "layout": "block",
+            "button_label": "Adicionar Entrega",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_entrega_titulo",
+                    "label": "Título da Entrega",
+                    "name": "titulo",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Nome da entrega (ex: Logo + Manual de Marca)",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Ex: Logo + Manual de Marca",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "parent_repeater": "field_entregas"
+                },
+                {
+                    "key": "field_entrega_descricao",
+                    "label": "Descrição",
+                    "name": "descricao",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "Descrição detalhada da entrega",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Descreva o que foi entregue...",
+                    "maxlength": "",
+                    "rows": 3,
+                    "new_lines": "wpautop",
+                    "parent_repeater": "field_entregas"
+                },
+                {
+                    "key": "field_entrega_servico",
+                    "label": "Tipo de Serviço",
+                    "name": "servico",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "Selecione o tipo de serviço realizado",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "edicao_vfx": "Edição VFX",
+                        "desenvolvimento_sites": "Desenvolvimento de Sites",
+                        "cobertura_eventos": "Cobertura de Eventos",
+                        "producao_conteudo": "Produção de Conteúdo",
+                        "banco_conteudo": "Banco de Conteúdo"
+                    },
+                    "default_value": false,
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 1,
+                    "allow_in_bindings": 1,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "create_options": 0,
+                    "save_options": 0,
+                    "parent_repeater": "field_entregas"
+                },
+                {
+                    "key": "field_entrega_banner",
+                    "label": "Banner\/Preview",
+                    "name": "banner",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Imagem de preview da entrega",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "allow_in_bindings": 1,
+                    "preview_size": "medium",
+                    "parent_repeater": "field_entregas"
+                },
+                {
+                    "key": "field_entrega_links",
+                    "label": "Links de Download",
+                    "name": "links_download",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "Adicione quantos links de download precisar (arquivos brutos, materiais editados, etc.)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "100",
+                        "class": "",
+                        "id": ""
+                    },
+                    "collapsed": "field_link_titulo",
+                    "min": 0,
+                    "max": 0,
+                    "layout": "table",
+                    "button_label": "Adicionar Link",
+                    "rows_per_page": 20,
+                    "sub_fields": [
+                        {
+                            "key": "field_link_titulo",
+                            "label": "Título do Link",
+                            "name": "titulo",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "Nome do link (ex: Arquivos Brutos, Materiais Editados)",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "40",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "Ex: Arquivos Brutos",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": "",
+                            "parent_repeater": "field_entrega_links"
+                        },
+                        {
+                            "key": "field_link_url",
+                            "label": "URL do Link",
+                            "name": "url",
+                            "aria-label": "",
+                            "type": "url",
+                            "instructions": "Link direto para download",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "60",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "https:\/\/dropbox.com\/...",
+                            "parent_repeater": "field_entrega_links"
+                        }
+                    ],
+                    "parent_repeater": "field_entregas"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "area_cliente"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Campos para configuração da área do cliente",
+    "show_in_rest": 0,
+    "modified": 1758283077
+}
