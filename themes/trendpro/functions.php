@@ -173,6 +173,8 @@ function configura_tamanho_imagens()
   add_image_size('cliente-logo-depoimento', 211, 42, false);
   add_image_size('video-principal-bg', 1920, 865, true);
   add_image_size('servico-imagem', 620, 720, true);
+  add_image_size('imagem-area-cliente', 590, 800, true);
+  add_image_size('cliente-logo', 300, 9999, false);
 }
 add_action('after_setup_theme', 'configura_tamanho_imagens');
 
@@ -602,6 +604,21 @@ function add_google_tag_manager_fallback() {
     echo "<!-- End Google Tag Manager (noscript) -->\n";
 }
 add_action('wp_footer', 'add_google_tag_manager_fallback');
+
+
+
+/**
+ * Remove o prefixo "Protegido:" dos títulos de posts com senha
+ * 
+ * Esta função remove o prefixo "Protegido:" que o WordPress adiciona automaticamente
+ * aos títulos de posts protegidos por senha, mantendo apenas o título original.
+ */
+function remove_protected_title_prefix($title) {
+    // Remove o prefixo "Protegido:" do início do título
+    $title = preg_replace('/^Protegido:\s*/', '', $title);
+    return $title;
+}
+add_filter('the_title', 'remove_protected_title_prefix');
 
 
 

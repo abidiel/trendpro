@@ -97,9 +97,8 @@ get_header();
                     <!-- Logo do Cliente -->
                     <?php if ($cliente_logo): ?>
                     <div class="logo-container mb-30px">
-                        <?php echo wp_get_attachment_image($cliente_logo['ID'], 'medium', false, array(
-                            'class' => 'cliente-logo',
-                            'style' => 'max-width: 400px; height: auto;'
+                        <?php echo wp_get_attachment_image($cliente_logo['ID'], 'cliente-logo', false, array(
+                            'class' => 'cliente-logo'
                         )); ?>
                     </div>
                     <?php endif; ?>
@@ -127,11 +126,11 @@ get_header();
                         <figure class="m-0">
                             <?php if ($entrega['banner']): ?>
                             <a href="#" class="position-relative d-block">
-                                <?php echo wp_get_attachment_image($entrega['banner']['ID'], 'medium_large', false, array(
+                                <?php echo wp_get_attachment_image($entrega['banner']['ID'], 'imagem-area-cliente', false, array(
                                     'alt' => esc_attr($entrega['titulo'])
                                 )); ?>
                                 <?php if ($entrega['servico']): ?>
-                                <div class="label position-absolute right-20px top-20px bg-base-color fw-600 text-white text-uppercase border-radius-30px ps-15px pe-15px fs-11 ls-05px">
+                                <div class="label position-absolute right-20px top-20px bg-base-color fw-700 text-white text-uppercase border-radius-30px ps-15px pe-15px fs-11 ls-05px">
                                     <?php 
                                     // Converter chave em texto amigável
                                     $servico_texto = $entrega['servico'];
@@ -232,10 +231,6 @@ get_header();
     padding: 60px 0 40px 0;
 }
 
-.cliente-logo {
-    max-width: 400px;
-    height: auto;
-}
 
 .cliente-content-wrapper {
     background: rgba(255, 255, 255, 0.1);
@@ -274,6 +269,49 @@ get_header();
 
 .entregas-section {
     padding: 40px 0 60px 0;
+}
+
+/* Espaçamento entre cards de entregas */
+.entregas-section .interactive-banner-style-02 {
+    margin-bottom: 30px;
+}
+
+/* Garantir que o último card não tenha margin-bottom */
+.entregas-section .interactive-banner-style-02:last-child {
+    margin-bottom: 0;
+}
+
+/* Altura consistente para cards de entregas */
+.entregas-section .interactive-banner-style-02 > div {
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.entregas-section .interactive-banner-style-02 figure {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.entregas-section .interactive-banner-style-02 figcaption {
+    margin-top: auto;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Quando não há descrição, ajustar espaçamento */
+.entregas-section .interactive-banner-style-02 .position-relative.z-index-2 {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Garantir que os links de download fiquem sempre no final */
+.entregas-section .interactive-banner-style-02 .links-download {
+    margin-top: auto;
 }
 
 .no-entregas {
@@ -321,9 +359,6 @@ get_header();
         padding: 40px 0 30px 0;
     }
     
-    .cliente-logo {
-        max-width: 300px;
-    }
     
     .cliente-content-wrapper {
         padding: 25px;
@@ -342,6 +377,20 @@ get_header();
     
     .entregas-section {
         padding: 30px 0 40px 0;
+    }
+    
+    /* Espaçamento reduzido no mobile */
+    .entregas-section .interactive-banner-style-02 {
+        margin-bottom: 20px;
+    }
+    
+    /* Altura mínima reduzida no mobile */
+    .entregas-section .interactive-banner-style-02 > div {
+        min-height: 400px;
+    }
+    
+    .entregas-section .interactive-banner-style-02 figcaption {
+        min-height: 150px;
     }
 }
 
