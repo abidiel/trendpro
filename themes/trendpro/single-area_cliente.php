@@ -380,6 +380,7 @@ get_header();
     color: #495057;
 }
 
+
 /* Responsividade para modal Dropbox */
 @media (max-width: 768px) {
     /* Modal mais compacto no mobile */
