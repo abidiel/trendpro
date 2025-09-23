@@ -281,37 +281,9 @@ get_header();
     margin-bottom: 0;
 }
 
-/* Altura consistente para cards de entregas */
-.entregas-section .interactive-banner-style-02 > div {
-    min-height: 500px;
-    display: flex;
-    flex-direction: column;
-}
-
-.entregas-section .interactive-banner-style-02 figure {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.entregas-section .interactive-banner-style-02 figcaption {
-    margin-top: auto;
-    min-height: 200px;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Quando não há descrição, ajustar espaçamento */
+/* Ajuste mínimo para cards sem descrição */
 .entregas-section .interactive-banner-style-02 .position-relative.z-index-2 {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-/* Garantir que os links de download fiquem sempre no final */
-.entregas-section .interactive-banner-style-02 .links-download {
-    margin-top: auto;
+    min-height: 80px;
 }
 
 .no-entregas {
@@ -384,14 +356,6 @@ get_header();
         margin-bottom: 20px;
     }
     
-    /* Altura mínima reduzida no mobile */
-    .entregas-section .interactive-banner-style-02 > div {
-        min-height: 400px;
-    }
-    
-    .entregas-section .interactive-banner-style-02 figcaption {
-        min-height: 150px;
-    }
 }
 
 /* Estilos para modal Dropbox */
