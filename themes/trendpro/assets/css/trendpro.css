@@ -92,6 +92,13 @@ header .elements-social ul li a {
     width: auto;
     height: auto;
 }
+
+
+header .navbar-brand .default-logo {
+    width: 156px;
+}
+
+
 /* revolution slider */
 #architecture-slider .tp-splitted {
     text-align: inherit !important;
@@ -1849,3 +1856,6 @@ ol.wp-block-list li,
 .hero-bg-blur .hero-content {
   position: relative;
 }
+
+
+

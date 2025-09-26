@@ -221,6 +221,111 @@ get_header();
     </div>
 </div>
 
+        <!-- start section -->
+        <section class="ps-13 pe-13 xxl-ps-8 xxl-pe-8 xl-ps-3 xl-pe-3 sm-ps-2 sm-pe-2 bg-dark-gray">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- start stack card -->
+                        <div class="stack-card cards" data-scale="true" data-top-space="35">
+                            <div class="stack-item mb-50px" data-index="0">
+                                <div class="stack-card-item p-70px xl-p-50px sm-p-30px cover-background" style="background-image: url('https://craftohtml.themezaa.com/images/demo-modern-business-gradient-bg-01.jpg')">
+                                    <img src="https://craftohtml.themezaa.com/images/demo-modern-business-bg-01.png" alt="" class="position-absolute z-index-1 left-0px top-0px h-100 d-none d-lg-block" data-bottom-top="transform:rotate(0deg); filter: blur(0px)" data-top-bottom="transform:rotate(-20deg); filter: blur(100px)">
+                                    <div class="row z-index-9 position-relative align-items-center">
+                                        <div class="col-xl-8 col-lg-6 md-mb-30px">
+                                            <img src="https://placehold.co/674x452">
+                                        </div>
+                                        <div class="col-xl-4 col-lg-6 pt-6 pb-6 xl-py-0">
+                                            <div class="icon-with-text-style-08 mb-20px">
+                                                <div class="feature-box feature-box-left-icon-middle">
+                                                    <div class="feature-box-icon feature-box-icon-rounded w-50px h-50px bg-white box-shadow-bottom border-radius-100px me-10px">
+                                                        <i class="bi bi-megaphone fs-22 text-base-color"></i>
+                                                    </div>
+                                                    <div class="feature-box-content">
+                                                        <span class="d-inline-block fs-16 fw-500 text-dark-gray">Outstanding speed</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h2 class="ls-minus-1px text-dark-gray fw-700 mb-20px">Excellence framework.</h2>
+                                            <p>Our excellence framework is a strategic approach that ensures quality and continuous improvement across all operations.</p>
+                                            <a href="demo-modern-business-services.html" class="btn btn-large btn-dark-gray btn-switch-text btn-box-shadow btn-rounded text-transform-none left-icon">
+                                                <span>
+                                                    <span><i class="feather icon-feather-edit"></i></span>
+                                                    <span class="btn-double-text" data-text="Start exploring">Start exploring</span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="stack-item mb-50px" data-index="1">
+                                <div class="stack-card-item p-70px xl-p-50px sm-p-30px cover-background" style="background-image: url('https://craftohtml.themezaa.com/images/demo-modern-business-gradient-bg-01.jpg')">
+                                    <img src="https://craftohtml.themezaa.com/images/demo-modern-business-bg-01.png" alt="" class="position-absolute z-index-1 left-0px top-0px h-100 d-none d-lg-block" data-bottom-top="transform:rotate(0deg); filter: blur(0px)" data-top-bottom="transform:rotate(-60deg); filter: blur(75px)">
+                                    <div class="row z-index-9 position-relative align-items-center">
+                                        <div class="col-xl-8 col-lg-6 md-mb-30px">
+                                            <img src="https://placehold.co/674x452">
+                                        </div>
+                                        <div class="col-xl-4 col-lg-6 pt-6 pb-6 xl-py-0">
+                                            <div class="icon-with-text-style-08 mb-20px">
+                                                <div class="feature-box feature-box-left-icon-middle">
+                                                    <div class="feature-box-icon feature-box-icon-rounded w-50px h-50px bg-white box-shadow-bottom border-radius-100px me-10px">
+                                                        <i class="bi bi-speedometer2 fs-22 text-base-color"></i>
+                                                    </div>
+                                                    <div class="feature-box-content">
+                                                        <span class="d-inline-block fs-16 fw-500 text-dark-gray">Performance playbook</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h2 class="ls-minus-1px text-dark-gray fw-700 mb-20px">Strategic performance.</h2>
+                                            <p>Our excellence framework is a strategic approach that ensures quality and continuous improvement across all operations.</p>
+                                            <a href="demo-modern-business-services.html" class="btn btn-large btn-dark-gray btn-switch-text btn-box-shadow btn-rounded text-transform-none left-icon">
+                                                <span>
+                                                    <span><i class="feather icon-feather-edit"></i></span>
+                                                    <span class="btn-double-text" data-text="Start exploring">Start exploring</span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="stack-item" data-index="2">
+                                <div class="stack-card-item p-70px xl-p-50px sm-p-30px cover-background" style="background-image: url('https://craftohtml.themezaa.com/images/demo-modern-business-gradient-bg-01.jpg')">
+                                    <img src="https://craftohtml.themezaa.com/images/demo-modern-business-bg-01.png" alt="" class="position-absolute z-index-1 left-0px top-0px h-100 d-none d-lg-block" data-bottom-top="transform:rotate(0deg); filter: blur(0px)" data-top-bottom="transform:rotate(-10deg); filter: blur(20px)">
+                                    <div class="row z-index-9 position-relative align-items-center">
+                                        <div class="col-xl-8 col-lg-6 md-mb-30px">
+                                            <img src="https://placehold.co/674x452">
+                                        </div>
+                                        <div class="col-xl-4 col-lg-6 pt-6 pb-6 xl-py-0">
+                                            <div class="icon-with-text-style-08 mb-20px">
+                                                <div class="feature-box feature-box-left-icon-middle">
+                                                    <div class="feature-box-icon feature-box-icon-rounded w-50px h-50px bg-white box-shadow-bottom border-radius-100px me-10px">
+                                                        <i class="bi bi-vector-pen fs-22 text-base-color"></i>
+                                                    </div>
+                                                    <div class="feature-box-content">
+                                                        <span class="d-inline-block fs-16 fw-500 text-dark-gray">Performance power</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h2 class="ls-minus-1px text-dark-gray fw-700 mb-20px">Outcome accelerator.</h2>
+                                            <p>Our excellence framework is a strategic approach that ensures quality and continuous improvement across all operations.</p>
+                                            <a href="demo-modern-business-services.html" class="btn btn-large btn-dark-gray btn-switch-text btn-box-shadow btn-rounded text-transform-none left-icon">
+                                                <span>
+                                                    <span><i class="feather icon-feather-edit"></i></span>
+                                                    <span class="btn-double-text" data-text="Start exploring">Start exploring</span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end stack card -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- end section -->
+
 <style>
 /* Estilos específicos para área do cliente */
 .password-section {
