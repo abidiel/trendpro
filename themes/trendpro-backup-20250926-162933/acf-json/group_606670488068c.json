@@ -1,0 +1,51 @@
+{
+    "key": "group_606670488068c",
+    "title": "Breadcrumb",
+    "fields": [
+        {
+            "key": "field_60667051086c0",
+            "label": "Imagem padrão para background",
+            "name": "imagem_breadcrumb",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Tamanho do corte: 1920x400\r\n<br>\r\nÁrea visível (desktop) 1920x332",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 1,
+            "preview_size": "medium"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "opcoes-do-tema"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1752775499
+}

@@ -1,0 +1,277 @@
+# Cursor AI Rules - Projeto Trend Pro
+# Coloque este arquivo na raiz do projeto como .cursorrules
+
+## Contexto do Projeto
+Você está trabalhando no site institucional da Trend Pro, empresa de tecnologia e inovação.
+- Framework CSS: Crafto (helper classes)
+- CMS: WordPress + ACF Pro
+- Estágio: Etapa 7 - Testes e otimização final
+- Objetivo: Código limpo, performático e acessível
+
+## Padrões de Código
+
+### WordPress + ACF
+- SEMPRE usar escape de dados: esc_html(), wp_kses_post(), esc_url(), esc_attr()
+- SEMPRE verificar existência de campos ACF antes de usar
+- SEMPRE usar wp_get_attachment_image() para imagens
+- Evitar variáveis desnecessárias, escape direto no HTML
+- Usar have_rows() e the_row() para repeaters
+
+### Framework Crafto
+- Usar helper classes em vez de CSS customizado quando possível
+- Nomenclatura: .fs-16 (font-size), .p-20px (padding), .bg-base-color (background)
+- Classes de spacing: .m-* .p-* .mt-* .mb-* etc
+- Classes de cores: .text-base-color .bg-white .text-dark-gray
+- Classes de layout: .w-100 .h-auto .border-radius-10px
+
+### Estrutura HTML
+- Sempre usar tags semânticas: <section>, <article>, <header>, <nav>, <main>, <footer>
+- Estrutura de headings correta: H1 > H2 > H3 (sem pular níveis)
+- Atributos alt obrigatórios em imagens
+- Classes CSS seguindo padrão: kebab-case
+
+### Performance
+- Lazy loading em imagens: loading="lazy"
+- Tamanhos de imagem apropriados: use 'large', 'medium', etc
+- Scripts no final do body quando possível
+- CSS crítico inline quando necessário
+
+## Exemplos de Código Correto
+
+### Campo ACF Simples
+```php
+<?php if (get_field('titulo')): ?>
+    <h2 class="fs-32 text-base-color fw-600 mb-20px">
+        <?php echo esc_html(get_field('titulo')); ?>
+    </h2>
+<?php endif; ?>
+```
+
+### Imagem ACF
+```php
+<?php
+$imagem = get_field('imagem_hero');
+if ($imagem):
+    echo wp_get_attachment_image(
+        $imagem['ID'],
+        'large',
+        false,
+        array(
+            'class' => 'w-100 h-auto border-radius-10px',
+            'loading' => 'lazy'
+        )
+    );
+endif;
+?>
+```
+
+### Repeater ACF
+```php
+<?php if (have_rows('servicos')): ?>
+    <div class="servicos-grid">
+        <?php while (have_rows('servicos')): the_row(); ?>
+            <div class="servico-item bg-white p-30px border-radius-15px">
+                <h3 class="fs-24 text-dark-gray fw-600 mb-15px">
+                    <?php echo esc_html(get_sub_field('titulo')); ?>
+                </h3>
+                <p class="fs-16 text-medium-gray">
+                    <?php echo wp_kses_post(get_sub_field('descricao')); ?>
+                </p>
+            </div>
+        <?php endwhile; ?>
+    </div>
+<?php endif; ?>
+```
+
+### Link ACF
+```php
+<?php
+$link = get_field('botao_cta');
+if ($link): ?>
+    <a href="<?php echo esc_url($link['url']); ?>" 
+       target="<?php echo esc_attr($link['target']); ?>"
+       class="btn bg-base-color text-white p-15px border-radius-5px fw-600">
+        <?php echo esc_html($link['title']); ?>
+    </a>
+<?php endif; ?>
+```
+
+## Paleta de Cores Trend Pro
+- Azul principal: #2563eb (.text-base-color, .bg-base-color)
+- Cinza escuro: #374151 (.text-dark-gray, .bg-dark-gray)
+- Cinza médio: #6b7280 (.text-medium-gray, .bg-medium-gray)
+- Cinza claro: #f3f4f6 (.text-light-gray, .bg-light-gray)
+- Branco: #ffffff (.text-white, .bg-white)
+- Verde: #10b981 (.text-green, .bg-green)
+
+## Tipografia
+- H1: .fs-60 .fw-700 (Hero titles)
+- H2: .fs-45 .fw-600 (Section titles)
+- H3: .fs-32 .fw-600 (Subsection titles)
+- H4: .fs-24 .fw-500 (Card titles)
+- Body: .fs-16 .fw-400 (Regular text)
+- Small: .fs-14 .fw-400 (Captions, labels)
+
+## Classes Crafto Mais Usadas
+```css
+/* Spacing */
+.p-20px .p-30px .p-15px         /* Padding comum */
+.m-20px .mb-20px .mt-30px       /* Margin comum */
+
+/* Layout */
+.w-100 .w-50 .h-auto           /* Width/Height */
+.border-radius-10px .border-radius-15px  /* Border radius */
+
+/* Text */
+.text-center .text-start        /* Align */
+.fw-400 .fw-500 .fw-600 .fw-700 /* Font weight */
+.fs-14 .fs-16 .fs-24 .fs-32     /* Font size */
+
+/* Colors */
+.bg-white .bg-light-gray        /* Backgrounds */
+.text-dark-gray .text-base-color /* Text colors */
+```
+
+## Estruturas Comuns
+
+### Section Padrão
+```php
+<section class="secao-servicos pt-70px pb-70px">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-50px">
+                <?php if (get_field('titulo_secao')): ?>
+                    <h2 class="fs-45 text-dark-gray fw-600 mb-20px">
+                        <?php echo esc_html(get_field('titulo_secao')); ?>
+                    </h2>
+                <?php endif; ?>
+                
+                <?php if (get_field('subtitulo_secao')): ?>
+                    <p class="fs-18 text-medium-gray">
+                        <?php echo wp_kses_post(get_field('subtitulo_secao')); ?>
+                    </p>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</section>
+```
+
+### Card Component
+```php
+<div class="card bg-white p-30px border-radius-15px">
+    <?php
+    $icone = get_sub_field('icone');
+    if ($icone):
+        echo wp_get_attachment_image(
+            $icone['ID'],
+            'thumbnail',
+            false,
+            array('class' => 'card-icon mb-20px w-60px h-auto')
+        );
+    endif;
+    ?>
+    
+    <h3 class="fs-24 text-dark-gray fw-600 mb-15px">
+        <?php echo esc_html(get_sub_field('titulo')); ?>
+    </h3>
+    
+    <p class="fs-16 text-medium-gray mb-20px">
+        <?php echo wp_kses_post(get_sub_field('descricao')); ?>
+    </p>
+    
+    <?php
+    $link = get_sub_field('link');
+    if ($link): ?>
+        <a href="<?php echo esc_url($link['url']); ?>" 
+           class="text-base-color fw-600 fs-14">
+            <?php echo esc_html($link['title']); ?> →
+        </a>
+    <?php endif; ?>
+</div>
+```
+
+## Otimizações Prioritárias
+
+### Performance
+1. Otimizar imagens (usar formatos modernos)
+2. Minificar CSS/JS não críticos
+3. Implementar lazy loading
+4. Consolidar requests HTTP
+5. Cache de navegador
+
+### SEO
+1. Alt text descritivos em todas imagens
+2. Meta descriptions únicas
+3. Estrutura de headings correta
+4. Schema markup completo
+5. URLs amigáveis
+
+### Acessibilidade
+1. Contraste mínimo 4.5:1
+2. Navegação por teclado
+3. Landmarks ARIA
+4. Labels em formulários
+5. Focus indicators visíveis
+
+## Anti-Paterns (Evitar)
+
+### ❌ Variáveis Desnecessárias
+```php
+<?php $titulo = get_field('titulo'); ?>
+<h2><?php echo esc_html($titulo); ?></h2>
+```
+
+### ❌ HTML sem Escape
+```php
+<h2><?php echo get_field('titulo'); ?></h2>
+```
+
+### ❌ Imagens sem wp_get_attachment_image
+```php
+<img src="<?php echo $imagem['url']; ?>" alt="">
+```
+
+### ❌ CSS Inline Desnecessário
+```html
+<div style="padding: 20px; color: blue;">
+```
+
+## Comandos Úteis
+
+### Para gerar código
+- "Crie uma seção de serviços seguindo os padrões Crafto"
+- "Otimize este código PHP seguindo as práticas ACF"
+- "Adicione escape de dados neste template"
+- "Converta este CSS para classes Crafto"
+
+### Para revisar código
+- "Revise este código seguindo os padrões do projeto"
+- "Otimize performance deste componente"
+- "Adicione acessibilidade neste formulário"
+- "Valide escape de dados neste template"
+
+### Para debugging
+- "Por que este campo ACF não está aparecendo?"
+- "Como melhorar performance desta página?"
+- "Este código está seguindo os padrões?"
+
+## Estrutura de Arquivos
+```
+trend-pro/
+├── README.md              # Contexto do projeto
+├── PADROES.md            # Padrões de código
+├── PROCESSO.md           # Etapas de desenvolvimento
+├── style.css             # CSS principal
+├── functions.php         # Funções WordPress
+├── templates/
+│   ├── page-home.php
+│   ├── page-sobre.php
+│   └── components/
+└── assets/
+    ├── css/crafto.css
+    ├── js/main.js
+    └── images/
+```
+
+Sempre consulte os arquivos README-trend-pro.md, PADROES-crafto.md e PROCESSO-desenvolvimento.md para contexto completo do projeto.

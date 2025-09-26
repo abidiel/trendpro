@@ -1,0 +1,88 @@
+{
+    "key": "group_6819281a38f08",
+    "title": "(Cases) Seção 1 - Heading",
+    "fields": [
+        {
+            "key": "field_6819281a39c7f",
+            "label": "Subtítulo",
+            "name": "cases_subtitle",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Subtítulo da página de serviços",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Conheça nossos serviços",
+            "maxlength": "",
+            "allow_in_bindings": 1,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6819281a39c84",
+            "label": "Título",
+            "name": "cases_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Título principal da página de serviços",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Conteúdos que Impulsionam Resultados",
+            "maxlength": "",
+            "allow_in_bindings": 1,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6819281a39c89",
+            "label": "Texto Descritivo",
+            "name": "cases_description",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Texto descritivo dos serviços",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Um catálogo de serviços completos para diversas frentes do marketing. Estratégia e Profissionalismo com foco em Resultados.",
+            "maxlength": "",
+            "allow_in_bindings": 1,
+            "rows": "",
+            "placeholder": "",
+            "new_lines": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page",
+                "operator": "==",
+                "value": "39"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Campos para o cabeçalho da página de serviços",
+    "show_in_rest": 0,
+    "modified": 1752590706
+}

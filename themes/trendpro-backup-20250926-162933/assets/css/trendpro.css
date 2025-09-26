@@ -1,0 +1,1851 @@
+/* ===================================
+    Crafto - Trend Pro
+====================================== */
+/* font */
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet");
+@import url("https://use.typekit.net/rxc4tzr.css");
+/* variable */
+:root {     
+    --base-color: #ff2a9f;
+    --dark-gray:#0b0c0d;
+    --medium-gray:#737373;
+    --second-color: #a62682;
+    --pink-light: #db88d2;
+    --extra-medium-gray:#707070;
+    --alt-font: "Josefin Sans", sans-serif;
+    --primary-font: "brother-1816", sans-serif;
+} 
+
+
+html {
+    overflow-x: hidden;
+}
+body{
+    line-height: 30px;
+}
+/* reset */
+.word-break-normal {
+    word-break: normal;
+}
+
+/* custom padding */
+@media (min-width: 992px) {
+    .padding-banner-lg {
+        padding-left: 7rem !important;
+        padding-right: 7rem !important;
+    }
+}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 25px;
+}
+h1, .h1 {
+    line-height: 4.6rem;
+}
+h2 {
+    line-height: 3.7rem;
+}
+h3 {
+    line-height: 3.4rem;
+}
+h4 {
+    line-height: 3rem;
+}
+h5 {
+    line-height: 2.5rem;
+}
+h6 {
+    line-height: 2.3rem;
+}
+/* header */ 
+header .widget-text {
+    font-size: 15px;
+}
+header .navbar-brand {
+    padding: 28px 0;
+}
+header.sticky .disable-fixed .navbar-brand {
+    padding: 18px 0;
+}
+header .navbar-brand img {
+    max-height: 42px;
+}
+.hamburger-logo img {
+    max-height: 85px;
+}
+.header-icon .header-social-icon a {
+    font-size: 17px;
+    padding-left: 15px;
+    font-weight: 600;
+}
+header.sticky .navbar {
+    min-height: 70px;
+}
+.hamburger-menu-simple .menu-item-list .nav-link {
+    font-size: 55px;
+    line-height: 50px;
+}
+header .elements-social ul li {
+    margin-right: 25px;
+    margin-left: 0;
+}
+header .elements-social ul li a {
+    width: auto;
+    height: auto;
+}
+/* revolution slider */
+#architecture-slider .tp-splitted {
+    text-align: inherit !important;
+}
+.magic-cursor-base-color #ball-cursor:before, .magic-cursor-base-color #ball-cursor:after {
+    color: var(--dark-gray);  
+}
+/* tag */
+.blog-comment li .btn-reply:hover {
+    color: var(--dark-gray);
+}
+.tag-cloud a:hover, .tag-cloud a.active {
+    border-color: var(--white);
+}
+.blog-comment li .btn-reply {
+    border: 1px solid var(--extra-medium-gray);
+    background-color: transparent;
+}
+.blog-comment li .btn-reply {
+    padding: 6px 20px 7px;
+}
+.categories-btn {
+    padding: 4px 18px;
+    border-radius: 24px;
+}
+/* first letter block  */ 
+.first-letter-block {
+    line-height: 88px;
+}
+/* top right bottom left */
+.top-25 {
+    top: 25%;
+}
+.right-18 {
+    right: 18%;
+}
+/* text color */ 
+.text-nero-grey {
+    color: #151515;
+}
+.text-charcoal {
+    color: #282828;
+}
+/* bg color */ 
+.bg-nero-grey {
+    background-color: #151515;
+}
+.bg-dark-gray-transparent {
+    background-color:rgba(25, 25, 25,.7);
+}
+.bg-charcoal-grey {
+    background-color: #3E3E3E;
+}
+.bg-base-color-transparent {
+    background-color: rgba(239, 255, 2,.2);
+}
+.bg-gradient-dark-transparent {
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(-4%, #101010), to(transparent));
+    background: linear-gradient(to top, #101010 -4%, transparent 100%);
+}
+.bg-gradient-dark-gray-transparent {
+    background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(25, 25, 25, 1)), to(transparent));
+    background-image: linear-gradient(to top, rgba(25, 25, 25, .9) 20%, transparent 90%);
+}
+/* border color */
+.border-color-charcoal-grey {
+    border-color: #3E3E3E !important;
+}
+/* slider navigation*/
+.slider-navigation-style-07 {
+    left: 58.4%;
+}
+/* btn */ 
+.btn.btn-base-color, .btn.btn-box-shadow.btn-base-color:hover {
+    color: var(--dark-gray);  
+}
+.btn.btn-link {
+    padding: 0 0 2px;
+    font-weight: 600;
+}
+.btn { 
+    font-family: var(--primary-font);
+}
+
+/* page title */
+.page-title-extra-small h1 {
+    font-size: 5.375rem;
+    line-height: 5.5rem;
+}
+.page-title-extra-small h2 {
+    font-size: 13px;
+    line-height: 26px;
+}
+/* footer */
+footer .footer-logo img {
+    max-height: 70px;
+}
+footer .elements-social li {
+    margin: 0 15px 0 0;
+}
+/* magic cursor */
+.magic-drag-cursor #ball-cursor:before {
+  font-size: 15px;
+}
+/* media query responsive */
+@media (max-width: 1430px) {
+    .architecture-number {
+        display: none !important;
+    }
+}
+@media (orientation: landscape) and (max-width: 1080px) {
+    .architecture-slider-text-row {
+        margin-top: 200px !important;
+    }
+}
+@media (orientation: landscape) and (max-width: 850px) {
+    .architecture-slider-text-row { 
+        margin-bottom: 200px !important;
+    }
+}
+@media (orientation: landscape) and (max-width: 768px) {
+    .architecture-slider-text-row {
+        margin-top: 200px !important;
+        margin-bottom: 200px !important; 
+    }
+}
+@media (max-width: 991px) {
+    .interactive-banner-style-06 .interactive-banners-content {
+        transform: translateY(calc(100% - 100px));
+    }
+    .md-right-0 {
+        right: 0;
+    }
+    header .navbar-brand {
+        padding: 20px 0;
+    }
+}
+@media (max-width: 767px) {
+    .slider-navigation-style-07 {
+        left: 0;
+    }
+    .interactive-banner-style-06 .interactive-banners-content {
+        transform: translateY(calc(100% - 110px));
+    }
+    .hamburger-menu-simple .menu-item-list .nav-link {
+        font-size: 38px;
+        line-height: 34px;
+    }
+}
+
+
+
+
+
+  @media (max-width: 991px) {
+
+ 
+    header .hamburger-push-button.icon span {
+        background-color: var(--white);
+    }
+}
+
+
+.page-title-background-video::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    /* Ajuste a opacidade aqui */
+    z-index: 1;
+}
+
+.page-title-background-video .container-fluid {
+    position: relative;
+    z-index: 2;
+}
+
+
+
+
+header .navbar-brand .mobile-logo {
+    width: 0px !important;
+}
+
+
+@media (max-width: 991px) {
+    header .navbar-brand .mobile-logo {
+        width: auto !important;
+        max-height: 16px !important;
+    }
+}
+
+@media (max-width: 991px) {
+    .navbar.bg-transparent {
+        background-color: #ffffff00 !important;
+    }
+}
+
+
+header.sticky.sticky-active .navbar-brand .default-logo {
+    visibility: visible;
+    opacity: 1;
+    width: 156px;
+}
+
+.portfolio-filter li.active a {
+    color: #ffffff;
+ }
+
+ .portfolio-filter li:hover a, .portfolio-filter li:focus a, .portfolio-filter li.active a {
+    color: var(--white);
+    font-weight: 700;
+    border-bottom: 1px solid white;
+    padding-bottom: 5px; /* Adiciona um pequeno espaço abaixo do texto */
+    transition: border-color 0.3s ease; /* Efeito suave se quiser */
+}
+
+
+
+
+
+.ficha-tecnica .row > .col:last-child {
+    border-right: none !important;
+}
+
+
+
+
+
+/* ----------------------------------------------------------------------
+	Pagination & Pager
+-------------------------------------------------------------------------*/
+
+
+/*Post Nav*/
+.post-navigation {
+    border-top: 1px solid #eee;
+    display: inline-block;
+    list-style: outside none none;
+    min-height: 84px;
+    padding: 20px 0 0;
+    position: relative;
+    width: 100%;
+}
+
+.post-navigation a {
+    color: #e1e1e1;
+}
+
+.nav-next a,
+.nav-previous a {
+    position: absolute;
+    font-size: 16px;
+    max-width: 40%;
+    height: 44px;
+}
+
+.nav-next a span,
+.nav-previous a span {
+    display: block;
+    color: #e1e1e1;
+    font-size: 11px;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: -6px;
+    margin-top: 3px;
+}
+
+.post-navigation a:hover {
+    transition: all 0.3s ease;
+    color: var(--base-color);
+    ;
+}
+
+.nav-next a {
+    right: 25px;
+    text-align: right;
+}
+
+.nav-next a:before {
+    content: "\f061";
+    font-family: "FontAwesome";
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    transform: translate3d(0, -50%, 0);
+    transition: all 0.3s ease;
+    right: 10px;
+    padding-top: 2px;
+}
+
+.nav-next a:hover:before {
+    transform: translate3d(5px, -50%, 0);
+}
+
+.nav-previous a {
+    left: 25px;
+}
+
+.nav-previous a:before {
+    content: "\f060";
+    font-family: "FontAwesome";
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    transform: translate3d(0, -50%, 0);
+    transition: all 0.3s ease;
+    padding-top: 2px;
+    left: 10px;
+}
+
+.nav-previous a:hover:before {
+    transform: translate3d(-5px, -50%, 0);
+}
+
+.nav-previous a-title {
+    padding-left: 40px;
+}
+
+.nav-next a-title {
+    padding-right: 40px;
+}
+
+.post-navigation .post-all {
+    font-size: 24px;
+    left: auto;
+    position: absolute;
+    right: 50%;
+    text-align: center;
+    top: 32px;
+    width: 12px;
+    opacity: 0.7;
+}
+
+.single-post .nav-previous a {
+    left: 0px;
+}
+
+.single-post .nav-next a {
+    right: 0px;
+}
+
+.nav-next a,
+.nav-previous a {
+    font-size: 14px;
+}
+
+@media (max-width: 1024px) {
+
+    .post-prev-title,
+    .post-next-title {
+        display: none;
+    }
+
+    .nav-links span {
+        display: none !important;
+    }
+}
+
+
+/* ----------------------------------------------------------------------
+	wpcf7-acceptance
+-------------------------------------------------------------------------*/
+
+.wpcf7-acceptance {
+
+
+
+    input[type="checkbox"] {
+        position: relative;
+        cursor: pointer;
+        padding: 0;
+        margin-right: 15px;
+        width: 20px;
+    }
+
+    input[type="checkbox"]:before {
+        content: '';
+        margin-right: 10px;
+        display: inline-block;
+        margin-top: -2px;
+        width: 20px;
+        height: 20px;
+        background: #fcfcfc;
+        border: 1px solid #aaa;
+        border-radius: 2px;
+    }
+
+
+    input[type="checkbox"]:checked:before {
+        background: var(--base-color);
+        border-color: var(--base-color);
+    }
+
+    input[type="checkbox"]:disabled {
+        color: #b8b8b8;
+        cursor: auto;
+    }
+
+    input[type="checkbox"]:disabled:before {
+        box-shadow: none;
+        background: #ddd;
+    }
+
+    input[type="checkbox"]:checked:after {
+        content: '';
+        position: absolute;
+        left: 5px;
+        top: 8px;
+        background: white;
+        width: 2px;
+        height: 2px;
+        box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
+        transform: rotate(45deg);
+    }
+
+
+    span.wpcf7-list-item {
+        margin: 20px 0 0 0;
+    }
+
+}
+
+.breadcrumbs a{
+    color: rgb(232, 232, 232) !important;
+}
+
+.breadcrumbs{
+    font-size: 14px
+}
+
+
+
+
+
+
+/* ----------------------------------------------------------------------
+	CF7
+-------------------------------------------------------------------------*/
+
+/* Estrutura do formulário */
+.position-relative.form-group {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    margin-bottom: 20px !important;
+}
+
+/* Form textarea alinhamento */
+.form-textarea {
+    align-items: flex-start !important;
+}
+
+/* Posicionamento do ícone */
+.form-icon {
+    position: absolute !important;
+    top: 30% !important;
+    transform: translateY(-50%) !important;
+    left: 0 !important;
+    width: 22px !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+}
+
+/* Estilos do ícone */
+.form-icon i {
+    display: block !important;
+    font-size: 18px !important;
+    line-height: 1 !important;
+}
+
+/* Ajuste do ícone na textarea */
+.form-textarea .form-icon {
+    top: 15px !important;
+    transform: none !important;
+}
+
+/* Wrapper do campo */
+.wpcf7-form-control-wrap {
+    flex: 1 !important;
+    width: 100% !important;
+    position: relative !important;
+}
+
+/* Estilos dos campos */
+.wpcf7-form-control {
+    padding-left: 30px !important;
+    width: 100% !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid #ccc !important;
+    color: #fff !important;
+    height: 40px !important;
+}
+
+/* Ajustes para textarea */
+textarea.wpcf7-form-control {
+    height: auto !important;
+    padding-top: 10px !important;
+}
+
+/* Mensagens de erro */
+.wpcf7-not-valid-tip {
+    position: absolute !important;
+    left: 30px !important;
+    top: 100% !important;
+    font-size: 12px !important;
+    color: #ff0000 !important;
+    margin-top: 3px !important;
+}
+
+/* Remover BR tags */
+.position-relative.form-group br {
+    display: none !important;
+}
+
+/* Animação para campos inválidos */
+@keyframes highlight {
+    0% { border-color: #ff0000; box-shadow: 0 0 0 0 rgba(255,0,0,0.2); }
+    70% { box-shadow: 0 0 0 10px rgba(255,0,0,0); }
+    100% { border-color: #ccc; }
+}
+
+.wpcf7-not-valid {
+    animation: highlight 1s ease-in-out;
+}
+
+/* Botão de envio */
+.wpcf7-submit {
+    position: relative !important;
+    background-color: var(--base-color) !important;
+    border: none !important;
+    color: white !important;
+    padding: 14px 26px !important;
+    cursor: pointer !important;
+    transition: background-color 0.3s !important;
+}
+
+/* Spinner do botão */
+.wpcf7 .ajax-loader {
+    margin-left: 15px !important;
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    right: -30px !important;
+}
+
+/* Mensagens de resposta do formulário */
+.wpcf7 form .wpcf7-response-output {
+    margin: 20px 0 !important;
+    padding: 12px !important;
+    border-radius: 5px !important;
+    font-size: 14px !important;
+}
+
+/* Animação para mensagem de sucesso */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.wpcf7-mail-sent-ok {
+    animation: fadeIn 0.5s ease-in-out forwards;
+    background-color: #d4edda !important;
+    color: #155724 !important;
+    border-color: #c3e6cb !important;
+}
+
+/* Estilo para mensagem de erro do formulário */
+.wpcf7-validation-errors {
+    background-color: #f8d7da !important;
+    color: #721c24 !important;
+    border-color: #f5c6cb !important;
+}
+
+/* Estilização específica para o botão de envio */
+input.wpcf7-form-control.wpcf7-submit {
+    position: relative !important;
+    display: inline-block !important;
+    text-align: center !important;
+    background-color: var(--base-color) !important;
+    border: none !important;
+    color: white !important;
+    padding: 14px 26px !important;
+    cursor: pointer !important;
+    transform: none !important;
+    height: auto !important;
+    line-height: normal !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    width: auto !important;
+    min-width: 150px !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    vertical-align: middle !important;
+}
+
+/* Alinhamento do container do botão */
+.col-md-5.text-start.text-md-end {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+}
+
+/* Espaçamento do spinner */
+.wpcf7 .ajax-loader {
+    position: absolute !important;
+    right: -30px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    margin: 0 !important;
+}
+
+
+/* ----------------------------------------------------------------------
+  /* Estilos para o painel de personalização de cookies 
+-------------------------------------------------------------------------*/
+
+
+.cookie-preferences {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cookie-preference-item {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cookie-preference-item:last-child {
+    border-bottom: none;
+}
+
+.cookie-preference-item label {
+    display: block;
+    font-weight: 600;
+    color: white;
+    font-size: 14px;
+    line-height: 22px;
+    margin-bottom: 4px;
+    cursor: pointer;
+}
+
+.cookie-preference-item p {
+    font-size: 12px;
+    line-height: 18px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 5px;
+}
+
+.cookie-preference-item input[type="checkbox"] {
+    margin-right: 8px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.cookie-preference-title {
+    font-size: 14px;
+    color: white;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+/* Botões na personalização */
+.save_preferences_btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 15px;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+}
+
+/* Ajustes para garantir a consistência com o estilo superior */
+#cookie-preferences .cookie-description {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 18px;
+}
+
+/* Melhorias nos checkboxes para destacar melhor */
+.cookie-preference-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #fff;
+}
+
+
+
+
+
+@media (max-width: 991px) {
+    header .header-push-button.icon{
+        display: flex !important;
+        padding: 0 25px !important;
+    }
+}
+
+
+.text-outline {
+    -webkit-text-stroke-color: var(--base-color) !important;
+}
+
+
+
+
+/* Estilos para ajustar iframe para vertical */
+/* Proporção padrão 16:9 */
+
+.mfp-iframe-scaler {
+    padding-bottom: 56.25% !important; /* 16:9 */
+}
+
+/* Proporção para vídeo vertical 9:16 */
+.mfp-iframe-scaler.vertical {
+    padding-bottom: 177.78% !important; /* 9:16 */
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* Ajustes mobile para vídeo vertical */
+@media (max-width: 768px) {
+    .mfp-ready .mfp-iframe-scaler.vertical {
+        max-width: 100%;
+        padding-bottom: 177.78% !important;
+    }
+}
+
+
+/* Modal maior mas não fullscreen */
+.mfp-iframe-holder .mfp-content {
+    max-width: 85vw;  
+    max-height: 80vh; 
+ }
+ 
+
+
+
+
+
+
+.box-layout {
+    padding: 0 175px;
+}
+
+/* media query responsive */
+@media (max-width: 1799px) {
+    .box-layout {
+        padding: 0 100px;
+    }
+}
+@media (max-width: 1600px) {
+    .box-layout {
+        padding: 0 80px;
+    }
+}
+@media (max-width: 1199px) {
+    .box-layout {
+        padding: 0 30px;
+    }
+}
+@media (max-width: 767px) {
+    .box-layout {
+        padding: 0 15px;
+    }
+}
+
+
+.opacity-case-destaque{
+    opacity: 0.2 !important;
+}
+
+
+
+
+/* ==============================================
+   BREADCRUMB CUSTOMIZADO - TRENDPRO
+   ============================================== */
+
+/* Container do breadcrumb */
+.breadcrumb-custom {
+    margin-bottom: 0;
+    padding: 15px 0;
+    position: absolute;
+    top: 40px; /* Subir o breadcrumb */
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.breadcrumb-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Estilização do breadcrumb do Yoast */
+.breadcrumb-nav,
+.breadcrumbs {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+/* Links do breadcrumb */
+.breadcrumb-nav a,
+.breadcrumbs a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 5px 8px;
+    border-radius: 3px;
+    position: relative;
+}
+
+.breadcrumb-nav a:hover,
+.breadcrumbs a:hover {
+    color:  #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+}
+
+/* Separadores */
+.breadcrumb-nav span:not(:last-child)::after,
+.breadcrumbs span:not(:last-child)::after {
+    content: "›";
+    margin: 0 8px;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 300;
+}
+
+/* Remover último item (página atual) usando classe específica do Yoast */
+.breadcrumb_last {
+    display: none !important;
+}
+
+/* Remover separador antes do último item */
+.breadcrumb_last::before {
+    display: none !important;
+}
+
+/* Se quiser manter o último item visível mas sem link (opcional) */
+.breadcrumb_last.keep-visible {
+    display: inline !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    font-weight: 300;
+    font-style: italic;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .breadcrumb-custom {
+        top: 20px;
+        padding: 10px 0;
+    }
+    
+    .breadcrumb-nav,
+    .breadcrumbs {
+        font-size: 12px;
+        justify-content: center;
+    }
+    
+    .breadcrumb-nav span:not(:last-child)::after,
+    .breadcrumbs span:not(:last-child)::after {
+        margin: 0 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    .breadcrumb-custom {
+        top: 15px;
+    }
+    
+    .breadcrumb-nav,
+    .breadcrumbs {
+        font-size: 11px;
+    }
+    
+    /* Quebrar em múltiplas linhas se necessário */
+    .breadcrumb-nav a,
+    .breadcrumbs a {
+        padding: 3px 5px;
+    }
+}
+
+/* Efeito adicional para destaque */
+.breadcrumb-nav a::before,
+.breadcrumbs a::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background-color: var(--base-color, #fff);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.breadcrumb-nav a:hover::before,
+.breadcrumbs a:hover::before {
+    width: 80%;
+}
+
+
+
+/* ==============================================
+   FILTROS PORTFOLIO - MOBILE HORIZONTAL SCROLL
+   ============================================== */
+
+/* Container dos filtros */
+.portfolio-filter {
+    display: flex;
+    flex-wrap: nowrap; /* Não quebra linha */
+    overflow-x: auto; /* Scroll horizontal */
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch; /* Smooth scroll iOS */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    padding-bottom: 20px !important;
+    margin-bottom: 0;
+    gap: 15px; /* Volta ao gap original para desktop */
+}
+
+/* Esconder scrollbar */
+.portfolio-filter::-webkit-scrollbar {
+    display: none;
+}
+
+/* Itens da lista */
+.portfolio-filter li.nav {
+    flex: 0 0 auto; /* Não encolhe, não cresce, tamanho automático */
+    white-space: nowrap; /* Não quebra texto */
+    margin-right: 0; /* Remove margin padrão */
+    margin-bottom: 0; /* Remove margin padrão */
+    padding: 0 !important;
+}
+
+/* Ajustes específicos para mobile */
+@media (max-width: 767px) {
+    .portfolio-filter {
+        gap: 8px; /* Gap menor apenas no mobile */
+        justify-content: flex-start;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .portfolio-filter li.nav {
+        flex: none; /* Remove flex para controle total */
+        display: inline-block; /* Comportamento inline */
+        margin: 0; /* Remove todas as margens */
+        width: auto !important; /* Override do responsive.css que tem width: 100% */
+        margin-bottom: 0 !important; /* Override do margin-bottom: 5px */
+    }
+    
+    .portfolio-filter li.nav:last-child {
+        margin-right: 10px; /* Espaço mínimo no final */
+    }
+}
+
+/* Links dos filtros */
+.portfolio-filter li.nav a {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    min-width: max-content;
+}
+
+/* Estado ativo */
+.portfolio-filter li.nav.active a,
+.portfolio-filter li.nav a:hover {
+    background-color: var(--base-color, #007cba);
+    border-color: var(--base-color, #007cba);
+    color: #fff !important;
+    transform: translateY(-2px);
+}
+
+/* Indicador visual de scroll */
+.portfolio-filter-wrapper {
+    position: relative;
+}
+
+.portfolio-filter-wrapper::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 20px;
+    width: 20px;
+    background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.3));
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Mostrar indicador quando há scroll */
+.portfolio-filter-wrapper.has-scroll::after {
+    opacity: 1;
+}
+
+/* Responsividade */
+@media (min-width: 768px) {
+    /* Desktop: layout normal em linha */
+    .portfolio-filter {
+        flex-wrap: wrap;
+        justify-content: left; /* Mantém alinhamento à esquerda */
+        overflow-x: visible;
+        gap: 15px;
+    }
+    
+    .portfolio-filter li.nav a {
+        padding: 10px 20px;
+        font-size: 15px;
+    }
+    
+    .portfolio-filter-wrapper::after {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) {
+    /* Mobile: garantir scroll horizontal */
+    .portfolio-filter {
+        justify-content: flex-start;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    
+    .portfolio-filter li.nav:first-child {
+        margin-left: 0;
+    }
+    
+    .portfolio-filter li.nav:last-child {
+        margin-right: 15px; /* Espaço no final para melhor UX */
+    }
+}
+
+/* Animação suave para o scroll */
+.portfolio-filter {
+    scroll-behavior: smooth;
+}
+
+/* Estilo adicional para melhor UX mobile */
+@media (max-width: 480px) {
+    .portfolio-filter li.nav a {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+}
+
+
+/* ==============================================
+   CATEGORIAS BLOG - ESTILO FILTROS PORTFOLIO
+   ============================================== */
+
+/* Container das categorias do blog */
+.btn-dual {
+    display: flex !important;
+    flex-wrap: wrap; /* Permite quebrar linha */
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 0 15px;
+}
+
+/* Título "Categorias" */
+.btn-dual span {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    margin-right: 10px !important;
+    font-weight: 600 !important;
+    margin-bottom: 0 !important;
+}
+
+/* Links das categorias - estilo igual aos filtros */
+.btn-dual .btn {
+    flex: 0 0 auto !important;
+    display: inline-block !important;
+    white-space: nowrap;
+    margin: 0 !important;
+    padding: 8px 16px !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 25px !important;
+    color: #fff !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+    min-width: max-content;
+    margin-bottom: 8px !important; /* Espaçamento vertical quando empilha */
+}
+
+/* Estados hover e ativo */
+.btn-dual .btn:hover {
+    background-color: var(--base-color, #007cba) !important;
+    border-color: var(--base-color, #007cba) !important;
+    color: #fff !important;
+    transform: translateY(-2px) !important;
+    text-decoration: none !important;
+}
+
+/* Remover estilos conflitantes */
+.btn-dual .btn.underline-on-hover {
+    text-decoration: none !important;
+}
+
+.btn-dual .btn.underline-on-hover:hover {
+    text-decoration: none !important;
+}
+
+/* Responsividade para desktop */
+@media (min-width: 768px) {
+    .btn-dual {
+        justify-content: left; /* Alinhado à esquerda no desktop */
+        gap: 15px;
+    }
+    
+    .btn-dual .btn {
+        padding: 10px 20px !important;
+        font-size: 15px !important;
+        margin-bottom: 0 !important; /* Remove margin-bottom no desktop */
+    }
+    
+    .btn-dual span {
+        margin-right: 20px !important;
+    }
+}
+
+/* Mobile específico */
+@media (max-width: 767px) {
+    .btn-dual {
+        gap: 8px;
+        justify-content: center; /* Centralizado no mobile */
+    }
+    
+    .btn-dual span {
+        flex: 1 0 100%; /* Título ocupa linha inteira */
+        text-align: center;
+        margin-right: 0 !important;
+        margin-bottom: 15px !important;
+        font-size: 18px !important;
+    }
+    
+    .btn-dual .btn {
+        padding: 8px 14px !important;
+        font-size: 14px !important;
+        margin-bottom: 10px !important;
+    }
+}
+
+.depoimento-section p {
+    text-align: justify !important;
+}
+
+/* Text gradient color */
+.text-gradient-trendpro{
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-trendpro {
+    background-image: linear-gradient(90deg,rgba(255, 42, 159, 1) 0%, rgba(219, 136, 210, 1) 100%);
+  }
+
+  .banners-icon{
+    background-color: var(--base-color);
+    padding: 50px 10px 10px 10px;
+  }
+
+  /* ==============================================
+   GUTENBERG - CSS COMPLETO - inicio
+   ============================================== */
+
+/* --- RESET E BASE FUNDAMENTAL --- */
+.wp-block-group,
+.wp-block-columns,
+.wp-block-column,
+.wp-block-media-text,
+.wp-block-cover {
+    margin-bottom: 2rem;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+/* --- CORES E TIPOGRAFIA --- */
+/* Forçar texto branco em todos os contextos */
+.wp-block-heading,
+.wp-block-paragraph,
+.wp-block-list,
+.wp-block-quote,
+.wp-block-media-text__content,
+.wp-block-media-text__content p,
+.wp-block-media-text__content h1,
+.wp-block-media-text__content h2,
+.wp-block-media-text__content h3,
+.wp-block-media-text__content h4,
+.wp-block-media-text__content h5,
+.wp-block-media-text__content h6,
+.section-blog .wp-block-heading,
+.section-blog p {
+    color: white !important;
+}
+
+/* Estilos para parágrafos com privacy-policy-tutorial */
+.heading-text.heading-section p {
+    color: white !important;
+    margin-bottom: 1rem;
+}
+
+.heading-text.heading-section p strong.privacy-policy-tutorial {
+    font-weight: bold;
+}
+
+
+.wp-block-heading {
+    font-weight: 300;
+    letter-spacing: -2px;
+    margin-bottom: 25px;
+}
+
+/* --- SISTEMA DE ESPAÇAMENTOS INTELIGENTES --- */
+/* Colunas - espaçamento entre elementos */
+.wp-block-columns {
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.wp-block-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Grupos - espaçamento interno */
+.wp-block-group {
+    padding: 1.5rem 0;
+}
+
+.wp-block-group .wp-block-group__inner-container > * {
+    margin-bottom: 1.5rem;
+}
+
+.wp-block-group .wp-block-group__inner-container > *:last-child {
+    margin-bottom: 0;
+}
+
+/* Containers com background */
+.wp-block-group.has-background {
+    padding: 3rem 2rem;
+    margin-bottom: 3rem;
+}
+
+/* --- IMAGENS COMPLETAS --- */
+/* Imagens em colunas - sempre com margem */
+.wp-block-column .wp-block-image,
+.wp-block-columns .wp-block-image {
+    margin-bottom: 1.5rem !important;
+}
+
+.wp-block-column .wp-block-image:last-child,
+.wp-block-columns .wp-block-image:last-child {
+    margin-bottom: 0 !important;
+}
+
+/* Imagens responsivas */
+.wp-block-image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Alinhamentos de imagens */
+.wp-block-image.aligncenter {
+    display: block !important;
+    margin: 1.5rem auto !important;
+    text-align: center;
+}
+
+.wp-block-image.alignleft {
+    display: block !important;
+    float: left !important;
+    margin: 0 2rem 1.5rem 0 !important;
+    max-width: 50%;
+}
+
+.wp-block-image.alignright {
+    display: block !important;
+    float: right !important;
+    margin: 0 0 1.5rem 2rem !important;
+    max-width: 50%;
+}
+
+/* Para casos onde a classe está no elemento filho */
+.wp-block-image .aligncenter {
+    display: block !important;
+    margin: 0 auto !important;
+    text-align: center;
+}
+
+/* Garantir que a imagem dentro também seja centralizada */
+.wp-block-image.aligncenter img,
+.wp-block-image .aligncenter img {
+    display: block;
+    margin: 0 auto;
+}
+
+/* Para o conteúdo geral do post */
+.post-content .aligncenter,
+.entry-content .aligncenter,
+.servico-content .aligncenter {
+    display: block !important;
+    margin: 0 auto !important;
+    text-align: center;
+}
+
+/* --- BOTÕES GUTENBERG COMPLETOS --- */
+/* Container de botões */
+.wp-block-buttons {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.wp-block-buttons.is-content-justification-left,
+.wp-block-buttons.has-text-align-left {
+    justify-content: flex-start !important;
+}
+
+.wp-block-buttons.is-content-justification-center,
+.wp-block-buttons.has-text-align-center {
+    justify-content: center !important;
+}
+
+.wp-block-buttons.is-content-justification-right,
+.wp-block-buttons.has-text-align-right {
+    justify-content: flex-end !important;
+}
+
+/* Botões individuais */
+.wp-block-button {
+    margin: 0 !important;
+}
+
+.wp-block-button .wp-block-button__link {
+    font-family: var(--primary-font);
+    transition: all 0.3s ease;
+    border-radius: 25px;
+    padding: 12px 24px;
+    text-decoration: none !important;
+    display: inline-block;
+}
+
+/* --- LINKS ROBUSTOS COM ESPECIFICIDADE MÁXIMA --- */
+.entry-content a,
+.post-content a,
+.content a,
+.wp-block-paragraph a,
+.wp-block-media-text a,
+.wp-block-media-text__content a,
+.wp-block-list a,
+.wp-block-list li a,
+p a,
+.wp-block-media-text .wp-block-media-text__content .wp-block-list li a,
+.wp-block-media-text__content .wp-block-list li a[href] {
+    color: var(--base-color) !important;
+    text-decoration: underline;
+    transition: all 0.3s ease;
+}
+
+/* Estados hover dos links */
+.entry-content a:hover,
+.post-content a:hover,
+.content a:hover,
+.wp-block-paragraph a:hover,
+.wp-block-media-text a:hover,
+.wp-block-media-text__content a:hover,
+.wp-block-list a:hover,
+.wp-block-list li a:hover,
+p a:hover {
+    color: var(--base-color) !important;
+    text-decoration: none;
+    opacity: 0.8;
+}
+
+/* Links dentro de strong/bold */
+strong a,
+b a,
+.wp-block-list li strong a {
+    color: var(--base-color) !important;
+}
+
+/* --- LISTAS COMPLETAS E ROBUSTAS --- */
+/* Listas não ordenadas (UL) - com especificidade máxima */
+.wp-block-list ul,
+ul.wp-block-list,
+.entry-content .wp-block-list ul,
+.wp-block-post-content .wp-block-list ul,
+.entry-content ul:not([class]):not(.no-bullets),
+.wp-block-post-content ul:not([class]):not(.no-bullets),
+.wp-block-group ul:not([class]):not(.no-bullets),
+.wp-block-column ul:not([class]):not(.no-bullets) {
+    list-style: disc !important;
+    list-style-type: disc !important;
+    margin-left: 20px;
+    padding-left: 0;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.wp-block-list ul li,
+ul.wp-block-list li,
+.entry-content .wp-block-list ul li,
+.wp-block-post-content .wp-block-list ul li,
+.entry-content ul:not([class]):not(.no-bullets) li,
+.wp-block-post-content ul:not([class]):not(.no-bullets) li,
+.wp-block-group ul:not([class]):not(.no-bullets) li,
+.wp-block-column ul:not([class]):not(.no-bullets) li {
+    list-style: disc !important;
+    list-style-type: disc !important;
+    color: white !important;
+    margin-bottom: 0.75rem;
+}
+
+/* Listas ordenadas (OL) - com especificidade máxima */
+.wp-block-list ol,
+ol.wp-block-list,
+.entry-content .wp-block-list ol,
+.wp-block-post-content .wp-block-list ol,
+.entry-content ol:not([class]),
+.wp-block-post-content ol:not([class]),
+.wp-block-group ol:not([class]),
+.wp-block-column ol:not([class]) {
+    list-style: decimal !important;
+    list-style-type: decimal !important;
+    margin-left: 20px;
+    padding-left: 0;
+    margin-bottom: 1.5rem;
+}
+
+.wp-block-list ol li,
+ol.wp-block-list li,
+.entry-content .wp-block-list ol li,
+.wp-block-post-content .wp-block-list ol li,
+.entry-content ol:not([class]) li,
+.wp-block-post-content ol:not([class]) li,
+.wp-block-group ol:not([class]) li,
+.wp-block-column ol:not([class]) li {
+    list-style: decimal !important;
+    list-style-type: decimal !important;
+    color: white !important;
+    margin-bottom: 0.75rem;
+}
+
+/* Marcadores coloridos */
+.wp-block-list li::marker {
+    color: var(--base-color);
+}
+
+/* Listas aninhadas - níveis diferentes */
+.wp-block-list ul ul,
+.wp-block-list ol ul {
+    list-style-type: circle;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.wp-block-list ul ul ul,
+.wp-block-list ol ul ul {
+    list-style-type: square;
+}
+
+.wp-block-list ol ol {
+    list-style-type: lower-alpha;
+}
+
+.wp-block-list ol ol ol {
+    list-style-type: lower-roman;
+}
+
+/* Espaçamento para listas dentro de outros blocos */
+.wp-block-group .wp-block-list,
+.wp-block-column .wp-block-list,
+.wp-block-cover .wp-block-list,
+.container .wp-block-list,
+.row .wp-block-list {
+    margin-bottom: 1.5rem;
+    max-width: 100%;
+}
+
+/* --- CUSTOM BULLETS AVANÇADOS --- */
+.wp-block-list.custom-bullets ul {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.wp-block-list.custom-bullets ul li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 0.8rem;
+}
+
+.wp-block-list.custom-bullets ul li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--base-color, #007cba);
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+/* Variações de ícones personalizados */
+.wp-block-list.arrow-bullets ul li::before {
+    content: "→";
+    color: var(--base-color, #007cba);
+}
+
+.wp-block-list.star-bullets ul li::before {
+    content: "★";
+    color: var(--base-color, #007cba);
+}
+
+.wp-block-list.circle-bullets ul li::before {
+    content: "●";
+    color: var(--base-color, #007cba);
+}
+
+/* Cores customizadas baseadas no tema */
+.wp-block-list.text-base-color li {
+    color: var(--base-color, #007cba);
+}
+
+.wp-block-list.text-dark-gray li {
+    color: var(--dark-gray, #333);
+}
+
+/* --- MEDIA TEXT BLOCK COMPLETO --- */
+.wp-block-media-text {
+    margin-bottom: 3rem;
+}
+
+.wp-block-media-text__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem !important;
+}
+
+/* --- IFRAMES RESPONSIVOS (GOOGLE DRIVE/VÍDEOS) --- */
+.servico-content iframe,
+.post-content iframe,
+.entry-content iframe {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 400px;
+    aspect-ratio: 16/9;
+}
+
+/* --- QUOTE BLOCKS --- */
+.wp-block-quote {
+    border-left: 4px solid var(--base-color);
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+}
+
+.wp-block-quote p {
+    color: white !important;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.wp-block-quote cite {
+    color: var(--base-color) !important;
+    font-size: 0.9em;
+    font-style: normal;
+    opacity: 0.8;
+}
+
+/* --- SEPARATORS --- */
+.wp-block-separator {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 3rem auto;
+    max-width: 100px;
+}
+
+.wp-block-separator.is-style-wide {
+    max-width: 100%;
+}
+
+/* --- SPACER BLOCKS --- */
+.wp-block-spacer {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+/* --- RESPONSIVIDADE COMPLETA --- */
+
+/* Tablets */
+@media (max-width: 991px) {
+    .wp-block-media-text__content {
+        margin-top: 35px !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    /* Colunas */
+    .wp-block-columns {
+        gap: 1.5rem;
+    }
+    
+    .wp-block-column {
+        gap: 1rem;
+    }
+    
+    /* Media text */
+    .wp-block-media-text__content {
+        padding: 0 !important;
+        margin-top: 1.5rem !important;
+    }
+    
+    /* Botões - empilhamento vertical */
+    .wp-block-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .wp-block-button {
+        width: 100%;
+        max-width: 280px;
+    }
+    
+    .wp-block-button .wp-block-button__link {
+        display: block;
+        text-align: center;
+        width: 100%;
+    }
+    
+    /* Imagens - remove float em mobile */
+    .wp-block-image.alignleft,
+    .wp-block-image.alignright {
+        float: none !important;
+        margin: 1rem 0 !important;
+        max-width: 100% !important;
+        text-align: center;
+    }
+    
+    /* Listas */
+    .wp-block-list ul,
+    .wp-block-list ol {
+        margin-left: 15px;
+    }
+    
+    .wp-block-list.custom-bullets ul li {
+        padding-left: 20px;
+    }
+    
+    /* Grupos com background */
+    .wp-block-group.has-background {
+        padding: 2rem 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    /* iframes */
+    .servico-content iframe,
+    .post-content iframe,
+    .entry-content iframe {
+        min-height: 250px;
+    }
+}
+
+/* Mobile muito pequeno */
+@media screen and (max-width: 600px) {
+    .wp-block-media-text > .wp-block-media-text__content {
+        padding: 0 !important;
+        margin-top: 20px;
+    }
+}
+
+/* --- UTILITIES FINAIS --- */
+.word-break-normal {
+    word-break: normal;
+}
+
+/* Fix para elementos que podem quebrar o layout */
+.wp-block-group,
+.wp-block-columns,
+.wp-block-column {
+    max-width: 100%;
+    overflow-wrap: break-word;
+}
+
+  /* ==============================================
+   GUTENBERG - CSS COMPLETO - fim
+   ============================================== */
+
+/* ==============================================
+   BACKGROUND UTILITIES - TRENDPRO
+   ============================================== */
+
+/* Background cover utility class */
+.bg-cover {
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* Background blur effect for single post hero section */
+.hero-bg-blur {
+  position: relative;
+  background-image: none !important;
+}
+
+.hero-bg-blur .hero-bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(5px);
+}
+
+.hero-bg-blur .hero-content {
+  position: relative;
+}

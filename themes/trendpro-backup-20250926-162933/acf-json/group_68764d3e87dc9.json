@@ -1,0 +1,109 @@
+{
+    "key": "group_68764d3e87dc9",
+    "title": "(Home) Seção 4 - Seção serviços",
+    "fields": [
+        {
+            "key": "field_687665ddcd168",
+            "label": "Ativar seção?",
+            "name": "ativo_home_secao_4",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui_on_text": "Ativado",
+            "ui_off_text": "Desativado",
+            "ui": 1
+        },
+        {
+            "key": "field_68764d3e8aa02",
+            "label": "Mini Título",
+            "name": "servicos_mini_titulo",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Insira o mini título da seção de serviços",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Confira Nossos Últimos Trabalhos",
+            "maxlength": "",
+            "allow_in_bindings": 1,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_68764d3e8aa0a",
+            "label": "Título",
+            "name": "servicos_titulo",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Insira o título principal",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 1,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_68764d3e8aa12",
+            "label": "Descrição",
+            "name": "servicos_descricao",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Breve descrição sobre os serviços (opcional)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 1,
+            "rows": 3,
+            "placeholder": "",
+            "new_lines": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page",
+                "operator": "==",
+                "value": "7"
+            }
+        ]
+    ],
+    "menu_order": 3,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1752775791
+}

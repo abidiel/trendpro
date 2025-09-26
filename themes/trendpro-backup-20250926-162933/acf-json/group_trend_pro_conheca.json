@@ -1,0 +1,214 @@
+{
+    "key": "group_trend_pro_conheca",
+    "title": "(Home) Seção 2 - Sobre",
+    "fields": [
+        {
+            "key": "field_68764fd8be8ae",
+            "label": "Ativar seção?",
+            "name": "ativo_home_secao_2",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui_on_text": "Ativado",
+            "ui_off_text": "Desativado",
+            "ui": 1
+        },
+        {
+            "key": "field_conheca_titulo_secao",
+            "label": "Título da Seção",
+            "name": "conheca_titulo_secao",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Ex: CONHEÇA A TREND PRO",
+            "required": 1,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "CONHEÇA A TREND PRO",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_conheca_titulo_principal",
+            "label": "Título Principal",
+            "name": "conheca_titulo_principal",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Ex: Quem Somos?",
+            "required": 1,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Quem Somos?",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_conheca_descricao_1",
+            "label": "Descrição",
+            "name": "conheca_descricao_1",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Primeiro parágrafo da descrição",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 1,
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_conheca_link_texto",
+            "label": "Texto CTA",
+            "name": "conheca_texto_cta",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Ex: Conheça Nosso Processo",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Conheça Nosso Processo",
+            "maxlength": "",
+            "allow_in_bindings": 1,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_conheca_etapas",
+            "label": "Etapas do Processo",
+            "name": "conheca_etapas",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Adicione as 4 etapas do processo",
+            "required": 1,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "min": 4,
+            "max": 4,
+            "layout": "block",
+            "button_label": "Adicionar Etapa",
+            "rows_per_page": 20,
+            "collapsed": "",
+            "sub_fields": [
+                {
+                    "key": "field_etapa_numero",
+                    "label": "Número da Etapa",
+                    "name": "etapa_numero",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Ex: 01",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_conheca_etapas"
+                },
+                {
+                    "key": "field_etapa_titulo",
+                    "label": "Título da Etapa",
+                    "name": "etapa_titulo",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Ex: Atendimento Consultivo",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "40",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_conheca_etapas"
+                },
+                {
+                    "key": "field_etapa_descricao",
+                    "label": "Descrição da Etapa",
+                    "name": "etapa_descricao",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "Descrição breve da etapa",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "40",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 3,
+                    "default_value": "",
+                    "new_lines": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "parent_repeater": "field_conheca_etapas"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page",
+                "operator": "==",
+                "value": "7"
+            }
+        ]
+    ],
+    "menu_order": 1,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Seção Conheça a Trend Pro da página inicial",
+    "show_in_rest": 0,
+    "modified": 1752584520
+}

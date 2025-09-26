@@ -1,0 +1,129 @@
+{
+    "key": "group_eventcover_home",
+    "title": "(Home) Seção 3 - Especialidade",
+    "fields": [
+        {
+            "key": "field_687665ce8a227",
+            "label": "Ativar seção?",
+            "name": "ativo_home_secao_3",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui_on_text": "Ativado",
+            "ui_off_text": "Desativado",
+            "ui": 1
+        },
+        {
+            "key": "field_eventcover_title",
+            "label": "Título",
+            "name": "eventcover_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Insira o título da seção (ex: Especialistas em)",
+            "required": 1,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_eventcover_subtitle",
+            "label": "Subtítulo",
+            "name": "eventcover_subtitle",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Insira o subtítulo (ex: Cobertura de Eventos)",
+            "required": 1,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_eventcover_video",
+            "label": "Link do Vídeo",
+            "name": "eventcover_video",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "Insira o link completo do vídeo",
+            "required": 1,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_eventcover_image",
+            "label": "Imagem de Fundo",
+            "name": "eventcover_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Faça upload da imagem de fundo",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "url",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 1,
+            "preview_size": "medium"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page",
+                "operator": "==",
+                "value": "7"
+            }
+        ]
+    ],
+    "menu_order": 2,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Campos para a seção de Cobertura de Eventos na Home",
+    "show_in_rest": 0,
+    "modified": 1752589809
+}
