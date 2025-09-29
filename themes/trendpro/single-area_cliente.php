@@ -114,83 +114,117 @@ get_header();
         </div>
     </section>
 
-    <!-- Seção 2: Cards de Entregas -->
+    <!-- Seção 2: Stack Cards de Entregas -->
     <?php if ($entregas): ?>
-    <section class="entregas-section">
-        <div class="container">
-            <div class="row row-cols-1 row-cols-xl-3 row-cols-lg-3 row-cols-md-2 row-cols-sm-1 justify-content-center transition-inner-all" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay":0, "staggervalue": 300, "easing": "easeOutQuad" }'>
-                <?php foreach ($entregas as $entrega): ?>
-                <!-- start interactive banner item -->
-                <div class="col interactive-banner-style-02 md-mb-30px">
-                    <div class="h-100 text-center position-relative border-radius-6px box-shadow-quadruple-large overflow-hidden">
-                        <figure class="m-0">
-                            <?php if ($entrega['banner']): ?>
-                            <a href="#" class="position-relative d-block">
-                                <?php echo wp_get_attachment_image($entrega['banner']['ID'], 'imagem-area-cliente', false, array(
-                                    'alt' => esc_attr($entrega['titulo'])
-                                )); ?>
-                                <?php if ($entrega['servico']): ?>
-                                <div class="label position-absolute right-20px top-20px bg-base-color fw-700 text-white text-uppercase border-radius-30px ps-15px pe-15px fs-11 ls-05px">
-                                    <?php 
-                                    // Converter chave em texto amigável
-                                    $servico_texto = $entrega['servico'];
-                                    
-                                    // Mapear chaves para textos mais amigáveis
-                                    $servicos_map = array(
-                                        'design' => 'Design Gráfico',
-                                        'social_media' => 'Social Media',
-                                        'branding' => 'Branding',
-                                        'web' => 'Web Design',
-                                        'video' => 'Produção de Vídeo',
-                                        'edicao_vfx' => 'Edição VFX',
-                                        'desenvolvimento_sites' => 'Desenvolvimento de Sites',
-                                        'cobertura_eventos' => 'Cobertura de Eventos',
-                                        'producao_conteudo' => 'Produção de Conteúdo',
-                                        'banco_conteudo' => 'Banco de Conteúdo'
-                                    );
-                                    
-                                    // Se for uma chave conhecida, usar o texto mapeado, senão usar o valor direto
-                                    if (isset($servicos_map[$entrega['servico']])) {
-                                        $servico_texto = $servicos_map[$entrega['servico']];
-                                    }
-                                    
-                                    echo esc_html($servico_texto); 
-                                    ?>
-                                </div>
-                                <?php endif; ?>
-                            </a>
-                            <?php endif; ?>
-                            <figcaption class="w-100 position-absolute bottom-0px bg-white">
-                                <div class="position-relative z-index-2 p-40px pt-25px pb-15px border-bottom border-dark-opacity">
-                                    <a href="#" class="fw-600 d-inline-block mb-5px text-dark-gray fs-18">
-                                        <?php echo esc_html($entrega['titulo']); ?>
-                                    </a>
-                                    <?php if ($entrega['descricao']): ?>
-                                    <div class="w-80 lg-w-100 fs-16 mx-auto mb-15px lg-mb-10px text-light-opacity">
-                                        <?php echo wp_kses_post($entrega['descricao']); ?>
+    <section class="ps-13 pe-13 xxl-ps-8 xxl-pe-8 xl-ps-3 xl-pe-3 sm-ps-2 sm-pe-2 bg-dark-gray">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <!-- start stack card -->
+                    <div class="stack-card cards" data-scale="true" data-top-space="35">
+                        <?php foreach ($entregas as $index => $entrega): 
+                            // Verificar se a entrega está ativa (tem links de download)
+                            $entrega_ativa = !empty($entrega['links_download']);
+                            $card_class = $entrega_ativa ? '' : 'entrega-desabilitada';
+                        ?>
+                        <div class="stack-item <?php echo ($index < count($entregas) - 1) ? 'mb-50px' : ''; ?>" data-index="<?php echo $index; ?>">
+                            <div class="stack-card-item p-70px xl-p-50px sm-p-30px cover-background <?php echo $card_class; ?>" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/modern-business-gradient-bg-01.jpg')">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/modern-business-bg-01.png" alt="" class="position-absolute z-index-1 left-0px top-0px h-100 d-none d-lg-block" data-bottom-top="transform:rotate(0deg); filter: blur(0px)" data-top-bottom="transform:rotate(-<?php echo ($index * 20 + 20); ?>deg); filter: blur(<?php echo (100 - $index * 20); ?>px)">
+                                <div class="row z-index-9 position-relative align-items-center">
+                                    <div class="col-xl-7 col-lg-6 md-mb-30px">
+                                        <?php if ($entrega['banner']): ?>
+                                            <?php echo wp_get_attachment_image($entrega['banner']['ID'], 'imagem-area-cliente', false, array(
+                                                'alt' => esc_attr($entrega['titulo'])
+                                            )); ?>
+                                        <?php else: ?>
+                                            <img src="https://placehold.co/674x452" alt="<?php echo esc_attr($entrega['titulo']); ?>" class="w-100">
+                                        <?php endif; ?>
                                     </div>
-                                    <?php endif; ?>
+                                    <div class="col-xl-5 col-lg-6 pt-6 pb-6 xl-py-0">
+                                        <div class="icon-with-text-style-08 mb-20px">
+                                            <div class="feature-box feature-box-left-icon-middle">
+                                                <div class="feature-box-icon feature-box-icon-rounded w-50px h-50px <?php echo $entrega_ativa ? 'bg-white' : 'bg-light-gray'; ?> box-shadow-bottom border-radius-100px me-10px">
+                                                    <?php 
+                                                    // Ícones baseados no tipo de serviço
+                                                    $icon_map = array(
+                                                        'design' => 'bi bi-palette',
+                                                        'social_media' => 'bi bi-megaphone',
+                                                        'branding' => 'bi bi-award',
+                                                        'web' => 'bi bi-laptop',
+                                                        'video' => 'bi bi-camera-video',
+                                                        'edicao_vfx' => 'bi bi-film',
+                                                        'desenvolvimento_sites' => 'bi bi-code-slash',
+                                                        'cobertura_eventos' => 'bi bi-camera',
+                                                        'producao_conteudo' => 'bi bi-pencil-square',
+                                                        'banco_conteudo' => 'bi bi-collection'
+                                                    );
+                                                    
+                                                    $icon_class = isset($icon_map[$entrega['servico']]) ? $icon_map[$entrega['servico']] : 'bi bi-folder';
+                                                    $icon_color = $entrega_ativa ? 'text-base-color' : 'text-medium-gray';
+                                                    ?>
+                                                    <i class="<?php echo esc_attr($icon_class); ?> fs-22 <?php echo $icon_color; ?>"></i>
+                                                </div>
+                                                <div class="feature-box-content">
+                                                    <?php if ($entrega['servico']): ?>
+                                                        <?php 
+                                                        // Mapear chaves para textos mais amigáveis
+                                                        $servicos_map = array(
+                                                            'design' => 'Design Gráfico',
+                                                            'social_media' => 'Social Media',
+                                                            'branding' => 'Branding',
+                                                            'web' => 'Web Design',
+                                                            'video' => 'Produção de Vídeo',
+                                                            'edicao_vfx' => 'Edição VFX',
+                                                            'desenvolvimento_sites' => 'Desenvolvimento de Sites',
+                                                            'cobertura_eventos' => 'Cobertura de Eventos',
+                                                            'producao_conteudo' => 'Produção de Conteúdo',
+                                                            'banco_conteudo' => 'Banco de Conteúdo'
+                                                        );
+                                                        
+                                                        $servico_texto = isset($servicos_map[$entrega['servico']]) ? $servicos_map[$entrega['servico']] : $entrega['servico'];
+                                                        $text_color = $entrega_ativa ? 'text-dark-gray' : 'text-medium-gray';
+                                                        ?>
+                                                        <span class="d-inline-block fs-16 fw-500 <?php echo $text_color; ?>"><?php echo esc_html($servico_texto); ?></span>
+                                                    <?php else: ?>
+                                                        <span class="d-inline-block fs-16 fw-500 <?php echo $entrega_ativa ? 'text-dark-gray' : 'text-medium-gray'; ?>">Entrega</span>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h3 class="ls-minus-1px <?php echo $entrega_ativa ? 'text-dark-gray' : 'text-medium-gray'; ?> fw-700 mb-20px"><?php echo esc_html($entrega['titulo']); ?></h3>
+                                        
+                                        <!-- Indicador de Status - apenas para cards desabilitados -->
+                                        <?php if (!$entrega_ativa): ?>
+                                        <div class="status-indicator mb-20px">
+                                            <span class="badge bg-warning text-dark fs-12">⏳ Pendente</span>
+                                        </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($entrega['descricao']): ?>
+                                        <p class="mb-20px <?php echo $entrega_ativa ? '' : 'text-medium-gray'; ?>"><?php echo wp_kses_post($entrega['descricao']); ?></p>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($entrega['links_download']): ?>
+                                            <?php foreach ($entrega['links_download'] as $link): ?>
+                                            <a href="<?php echo esc_url($link['url']); ?>" 
+                                               target="_blank" 
+                                               rel="noopener noreferrer"
+                                               class="btn btn-large btn-dark-gray btn-switch-text btn-box-shadow btn-rounded text-transform-none left-icon dropbox-link mb-10px">
+                                                <span>
+                                                    <span><i class="feather icon-feather-download"></i></span>
+                                                    <span class="btn-double-text" data-text="<?php echo esc_attr($link['titulo']); ?>"><?php echo esc_html($link['titulo']); ?></span>
+                                                </span>
+                                            </a>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </div>
                                 </div>
-                                
-                                <?php if ($entrega['links_download']): ?>
-                                <div class="links-download p-20px">
-                                    <?php foreach ($entrega['links_download'] as $link): ?>
-                                    <a href="<?php echo esc_url($link['url']); ?>" 
-                                       target="_blank" 
-                                       rel="noopener noreferrer"
-                                       class="btn-download w-100 p-15px bg-base-color text-white border-radius-30px text-decoration-none d-block text-center fw-500 mb-10px dropbox-link">
-                                        <i class="fa-solid fa-download me-2"></i>
-                                        <?php echo esc_html($link['titulo']); ?>
-                                    </a>
-                                    <?php endforeach; ?>
-                                </div>
-                                <?php endif; ?>
-                            </figcaption>
-                        </figure>
+                            </div>
+                        </div>
+                        <?php endforeach; ?>
                     </div>
+                    <!-- end stack card -->
                 </div>
-                <!-- end interactive banner item -->
-                <?php endforeach; ?>
             </div>
         </div>
     </section>
@@ -221,110 +255,7 @@ get_header();
     </div>
 </div>
 
-        <!-- start section -->
-        <section class="ps-13 pe-13 xxl-ps-8 xxl-pe-8 xl-ps-3 xl-pe-3 sm-ps-2 sm-pe-2 bg-dark-gray">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-                        <!-- start stack card -->
-                        <div class="stack-card cards" data-scale="true" data-top-space="35">
-                            <div class="stack-item mb-50px" data-index="0">
-                                <div class="stack-card-item p-70px xl-p-50px sm-p-30px cover-background" style="background-image: url('https://craftohtml.themezaa.com/images/demo-modern-business-gradient-bg-01.jpg')">
-                                    <img src="https://craftohtml.themezaa.com/images/demo-modern-business-bg-01.png" alt="" class="position-absolute z-index-1 left-0px top-0px h-100 d-none d-lg-block" data-bottom-top="transform:rotate(0deg); filter: blur(0px)" data-top-bottom="transform:rotate(-20deg); filter: blur(100px)">
-                                    <div class="row z-index-9 position-relative align-items-center">
-                                        <div class="col-xl-8 col-lg-6 md-mb-30px">
-                                            <img src="https://placehold.co/674x452">
-                                        </div>
-                                        <div class="col-xl-4 col-lg-6 pt-6 pb-6 xl-py-0">
-                                            <div class="icon-with-text-style-08 mb-20px">
-                                                <div class="feature-box feature-box-left-icon-middle">
-                                                    <div class="feature-box-icon feature-box-icon-rounded w-50px h-50px bg-white box-shadow-bottom border-radius-100px me-10px">
-                                                        <i class="bi bi-megaphone fs-22 text-base-color"></i>
-                                                    </div>
-                                                    <div class="feature-box-content">
-                                                        <span class="d-inline-block fs-16 fw-500 text-dark-gray">Outstanding speed</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <h2 class="ls-minus-1px text-dark-gray fw-700 mb-20px">Excellence framework.</h2>
-                                            <p>Our excellence framework is a strategic approach that ensures quality and continuous improvement across all operations.</p>
-                                            <a href="demo-modern-business-services.html" class="btn btn-large btn-dark-gray btn-switch-text btn-box-shadow btn-rounded text-transform-none left-icon">
-                                                <span>
-                                                    <span><i class="feather icon-feather-edit"></i></span>
-                                                    <span class="btn-double-text" data-text="Start exploring">Start exploring</span>
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="stack-item mb-50px" data-index="1">
-                                <div class="stack-card-item p-70px xl-p-50px sm-p-30px cover-background" style="background-image: url('https://craftohtml.themezaa.com/images/demo-modern-business-gradient-bg-01.jpg')">
-                                    <img src="https://craftohtml.themezaa.com/images/demo-modern-business-bg-01.png" alt="" class="position-absolute z-index-1 left-0px top-0px h-100 d-none d-lg-block" data-bottom-top="transform:rotate(0deg); filter: blur(0px)" data-top-bottom="transform:rotate(-60deg); filter: blur(75px)">
-                                    <div class="row z-index-9 position-relative align-items-center">
-                                        <div class="col-xl-8 col-lg-6 md-mb-30px">
-                                            <img src="https://placehold.co/674x452">
-                                        </div>
-                                        <div class="col-xl-4 col-lg-6 pt-6 pb-6 xl-py-0">
-                                            <div class="icon-with-text-style-08 mb-20px">
-                                                <div class="feature-box feature-box-left-icon-middle">
-                                                    <div class="feature-box-icon feature-box-icon-rounded w-50px h-50px bg-white box-shadow-bottom border-radius-100px me-10px">
-                                                        <i class="bi bi-speedometer2 fs-22 text-base-color"></i>
-                                                    </div>
-                                                    <div class="feature-box-content">
-                                                        <span class="d-inline-block fs-16 fw-500 text-dark-gray">Performance playbook</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <h2 class="ls-minus-1px text-dark-gray fw-700 mb-20px">Strategic performance.</h2>
-                                            <p>Our excellence framework is a strategic approach that ensures quality and continuous improvement across all operations.</p>
-                                            <a href="demo-modern-business-services.html" class="btn btn-large btn-dark-gray btn-switch-text btn-box-shadow btn-rounded text-transform-none left-icon">
-                                                <span>
-                                                    <span><i class="feather icon-feather-edit"></i></span>
-                                                    <span class="btn-double-text" data-text="Start exploring">Start exploring</span>
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="stack-item" data-index="2">
-                                <div class="stack-card-item p-70px xl-p-50px sm-p-30px cover-background" style="background-image: url('https://craftohtml.themezaa.com/images/demo-modern-business-gradient-bg-01.jpg')">
-                                    <img src="https://craftohtml.themezaa.com/images/demo-modern-business-bg-01.png" alt="" class="position-absolute z-index-1 left-0px top-0px h-100 d-none d-lg-block" data-bottom-top="transform:rotate(0deg); filter: blur(0px)" data-top-bottom="transform:rotate(-10deg); filter: blur(20px)">
-                                    <div class="row z-index-9 position-relative align-items-center">
-                                        <div class="col-xl-8 col-lg-6 md-mb-30px">
-                                            <img src="https://placehold.co/674x452">
-                                        </div>
-                                        <div class="col-xl-4 col-lg-6 pt-6 pb-6 xl-py-0">
-                                            <div class="icon-with-text-style-08 mb-20px">
-                                                <div class="feature-box feature-box-left-icon-middle">
-                                                    <div class="feature-box-icon feature-box-icon-rounded w-50px h-50px bg-white box-shadow-bottom border-radius-100px me-10px">
-                                                        <i class="bi bi-vector-pen fs-22 text-base-color"></i>
-                                                    </div>
-                                                    <div class="feature-box-content">
-                                                        <span class="d-inline-block fs-16 fw-500 text-dark-gray">Performance power</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <h2 class="ls-minus-1px text-dark-gray fw-700 mb-20px">Outcome accelerator.</h2>
-                                            <p>Our excellence framework is a strategic approach that ensures quality and continuous improvement across all operations.</p>
-                                            <a href="demo-modern-business-services.html" class="btn btn-large btn-dark-gray btn-switch-text btn-box-shadow btn-rounded text-transform-none left-icon">
-                                                <span>
-                                                    <span><i class="feather icon-feather-edit"></i></span>
-                                                    <span class="btn-double-text" data-text="Start exploring">Start exploring</span>
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end stack card -->
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- end section -->
+
 
 <style>
 /* Estilos específicos para área do cliente */
@@ -498,6 +429,36 @@ get_header();
     color: #495057;
 }
 
+
+/* Estilos para cards desabilitados */
+.entrega-desabilitada {
+    filter: grayscale(100%);
+    pointer-events: none;
+}
+
+.entrega-desabilitada .stack-card-item {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+}
+
+.entrega-desabilitada img {
+    filter: grayscale(100%) brightness(0.8);
+}
+
+.entrega-desabilitada .feature-box-icon {
+    background-color: #e9ecef !important;
+    border: 2px solid #dee2e6;
+}
+
+.entrega-desabilitada .status-indicator .badge {
+    font-size: 11px !important;
+    padding: 4px 8px;
+}
+
+/* Hover effect apenas para cards ativos */
+.stack-item:not(.entrega-desabilitada) .stack-card-item:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+}
 
 /* Responsividade para modal Dropbox */
 @media (max-width: 768px) {

@@ -106,11 +106,16 @@
                         "id": ""
                     },
                     "choices": {
-                        "edicao_vfx": "Edição VFX",
-                        "desenvolvimento_sites": "Desenvolvimento de Sites",
+                        "banco_conteudo": "Banco de Conteúdo",
                         "cobertura_eventos": "Cobertura de Eventos",
                         "producao_conteudo": "Produção de Conteúdo",
-                        "banco_conteudo": "Banco de Conteúdo"
+                        "video": "Produção de Vídeo",
+                        "edicao_vfx": "Edição VFX",
+                        "desenvolvimento_sites": "Desenvolvimento de Sites",
+                        "web": "Web Design",
+                        "design": "Design Gráfico",
+                        "social_media": "Social Media",
+                        "branding": "Branding"
                     },
                     "default_value": false,
                     "return_format": "value",
@@ -235,5 +240,5 @@
     "active": true,
     "description": "Campos para configuração da área do cliente",
     "show_in_rest": 0,
-    "modified": 1758283077
+    "modified": 1759172787
 }
