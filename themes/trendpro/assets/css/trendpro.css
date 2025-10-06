@@ -172,9 +172,6 @@ header .navbar-brand .default-logo {
     left: 58.4%;
 }
 /* btn */ 
-.btn.btn-base-color, .btn.btn-box-shadow.btn-base-color:hover {
-    color: var(--dark-gray);  
-}
 .btn.btn-link {
     padding: 0 0 2px;
     font-weight: 600;
@@ -1858,4 +1855,11 @@ ol.wp-block-list li,
 }
 
 
+.stack-card .stack-card-item {
+    background: #17171c !important;
+}
 
+
+.single-area_cliente button.mfp-close:before {
+    color: var(--white) !important;
+}
