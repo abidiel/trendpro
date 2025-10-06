@@ -21,7 +21,7 @@ get_template_part('template-parts/breadcrumbs'); ?>
                 <div class="password-form-wrapper text-center">
                     <div class="row justify-content-center">
                         <div class="col-md-6">
-                            <div class="bg-white p-4 border-radius-10px">
+                            <div class="bg-dark p-4 border-radius-10px">
 
                                 <?php if ($erro_senha): ?>
                                     <div class="bg-red text-white p-3 mb-3 border-radius-5px">
@@ -38,8 +38,8 @@ get_template_part('template-parts/breadcrumbs'); ?>
                                 <?php endif; ?>
 
                                 <form action="<?php echo esc_url(site_url('wp-login.php?action=postpass', 'login_post')); ?>" method="post">
-                                    <h3 class="text-dark-gray mb-3">Área do Cliente</h3>
-                                    <p class="text-medium-gray mb-4">Digite a senha para acessar seus materiais:</p>
+                                    <h3 class="text-white mb-3">Área do Cliente</h3>
+                                    <p class="text-light-gray mb-4">Digite a senha para acessar seus materiais:</p>
 
                                     <!-- Campo oculto com ID do post -->
                                     <input type="hidden" name="post_id" value="<?php echo get_the_ID(); ?>">
