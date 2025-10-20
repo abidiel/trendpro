@@ -163,12 +163,13 @@ get_template_part('template-parts/breadcrumbs'); ?>
                                                             $icon_class_badge = isset($entrega['servico'], $icon_map_badge[$entrega['servico']]) ? $icon_map_badge[$entrega['servico']] : 'bi bi-folder';
                                                             $servico_texto_badge = isset($entrega['servico'], $servicos_map_badge[$entrega['servico']]) ? $servicos_map_badge[$entrega['servico']] : (isset($entrega['servico']) ? $entrega['servico'] : '');
                                                             ?>
-                                                            <span class="btn btn-small btn-rounded btn-white text-dark-gray btn-box-shadow ps-15px pe-15px pt-5px pb-5px lh-16 ls-0px fw-700 position-absolute right-25px top-25px pe-none">
+                                                            <span class="btn btn-small btn-rounded btn-white text-dark-gray btn-box-shadow ps-15px pe-15px pt-5px pb-5px lh-16 ls-0px fw-700 position-absolute right-25px pe-none">
                                                                 <i class="<?php echo esc_attr($icon_class_badge); ?> me-5px align-middle"></i>
                                                                 <?php echo esc_html($servico_texto_badge); ?>
                                                             </span>
                                                             <?php echo wp_get_attachment_image($entrega['banner']['ID'], 'imagem-area-cliente', false, array(
-                                                                'alt' => esc_attr($entrega['titulo'])
+                                                                'alt' => esc_attr($entrega['titulo']),
+                                                                'class' => 'border-radius-15px'
                                                             )); ?>
 
                                                         <?php else: ?>
@@ -177,7 +178,7 @@ get_template_part('template-parts/breadcrumbs'); ?>
                                                     </div>
                                                     <div class="col-xl-5 col-lg-6 pt-6 pb-6 xl-py-0">
 
-                                                        <h3 class="ls-minus-1px <?php echo $entrega_ativa ? 'text-white' : 'text-medium-gray'; ?> fw-700 mb-20px"><?php echo esc_html($entrega['titulo']); ?></h3>
+                                                        <h5 class="ls-minus-1px <?php echo $entrega_ativa ? 'text-white' : 'text-medium-gray'; ?> fw-700 mb-20px"><?php echo esc_html($entrega['titulo']); ?></h5>
 
                                                         <!-- Indicador de Status - apenas para cards desabilitados -->
                                                         <?php if (!$entrega_ativa): ?>
@@ -195,7 +196,7 @@ get_template_part('template-parts/breadcrumbs'); ?>
                                                                 <a href="<?php echo esc_url($link['url']); ?>"
                                                                     target="_blank"
                                                                     rel="noopener noreferrer"
-                                                                    class="btn btn-extra-large btn-base-color btn-switch-text btn-box-shadow btn-rounded text-transform-none left-icon dropbox-link mb-10px">
+                                                                    class="btn btn-large btn-base-color btn-switch-text btn-box-shadow btn-rounded text-transform-none left-icon dropbox-link mb-20px me-20px">
                                                                     <span>
                                                                         <span><i class="feather icon-feather-download"></i></span>
                                                                         <span class="btn-double-text fw-600" data-text="<?php echo esc_attr($link['titulo']); ?>"><?php echo esc_html($link['titulo']); ?></span>
