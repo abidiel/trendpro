@@ -192,13 +192,17 @@ get_template_part('template-parts/breadcrumbs'); ?>
                                                         <?php endif; ?>
 
                                                         <?php if ($entrega['links_download']): ?>
-                                                            <?php foreach ($entrega['links_download'] as $link): ?>
+                                                            <?php foreach ($entrega['links_download'] as $link): 
+                                                                $is_dropbox = (strpos($link['url'], 'dropbox.com') !== false);
+                                                                $link_class = $is_dropbox ? 'dropbox-link' : 'external-link';
+                                                                $link_icon = $is_dropbox ? 'icon-feather-download' : 'icon-feather-external-link';
+                                                            ?>
                                                                 <a href="<?php echo esc_url($link['url']); ?>"
                                                                     target="_blank"
                                                                     rel="noopener noreferrer"
-                                                                    class="btn btn-large btn-base-color btn-switch-text btn-box-shadow btn-rounded text-transform-none left-icon dropbox-link mb-20px me-20px">
+                                                                    class="btn btn-large btn-base-color btn-switch-text btn-box-shadow btn-rounded text-transform-none left-icon <?php echo $link_class; ?> mb-20px me-20px">
                                                                     <span>
-                                                                        <span><i class="feather icon-feather-download"></i></span>
+                                                                        <span><i class="feather <?php echo $link_icon; ?>"></i></span>
                                                                         <span class="btn-double-text fw-600" data-text="<?php echo esc_attr($link['titulo']); ?>"><?php echo esc_html($link['titulo']); ?></span>
                                                                     </span>
                                                                 </a>
